@@ -32,9 +32,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vcpkg.json" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\GlfwInitializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>

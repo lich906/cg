@@ -170,9 +170,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="vcpkg.json" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\Color.h" />
     <ClInclude Include="include\BaseGlfwWindow.h" />
     <ClInclude Include="include\GlfwInitializer.h" />
