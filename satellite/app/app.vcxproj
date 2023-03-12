@@ -161,11 +161,16 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\stb_image\stb_image.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\VertexArrayObjectWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Color.h" />
-    <ClInclude Include="include\Position.h" />
+    <ClInclude Include="include\stb_image\stb_image.h" />
+    <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\TextureCoords.h" />
+    <ClInclude Include="include\Vector.h" />
     <ClInclude Include="include\Shader.h" />
     <ClInclude Include="include\Vertex.h" />
     <ClInclude Include="include\VertexArrayObjectWrapper.h" />

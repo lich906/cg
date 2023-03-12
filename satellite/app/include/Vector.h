@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-struct Position
+struct Vector
 {
 	static constexpr GLint Size = 2;
 

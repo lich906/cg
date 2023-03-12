@@ -9,6 +9,7 @@
 
 #include "VertexArrayObjectWrapper.h"
 #include "Shader.h"
+#include "Texture.h"
 
 static void glfw_error_callback(int error, const char* description);
 
@@ -48,42 +49,51 @@ int main()
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-	bool showDemoWindow = true;
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	Vertex vertices[] = {
-		{ { -0.5f, -0.5f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
-		{ { 0.5f, -0.5f }, { 0.0f, 1.0f, 0.0f, 1.0f } },
-		{ { 0.0f, 0.5f }, { 0.0f, 0.0f, 1.0f, 1.0f } },
-	};
-
-	VertexArrayObjectWrapper triangle(sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
-
-	// Main loop
-	while (!glfwWindowShouldClose(window))
 	{
-		glfwPollEvents();
+		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+		bool showDemoWindow = true;
 
-		// Start the Dear ImGui frame
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
+		Vertex vertices[] = {
+			// Position         Color                       Texture coords
+			{ { -0.5f, 0.5f }, { 1.0f, 1.0f, 0.0f, 0.8f }, { 0.0f, 1.0f } },
+			{ { -0.5f, -0.5f }, { 1.0f, 0.0f, 0.0f, 0.8f }, { 0.0f, 0.0f } },
+			{ { 0.5f, 0.5f }, { 0.0f, 1.0f, 0.0f, 0.8f }, { 1.0f, 1.0f } },
+			{ { 0.5f, -0.5f }, { 0.0f, 0.0f, 1.0f, 0.8f }, { 1.0f, 0.0f } },
+		};
 
-		ImGui::ShowDemoWindow(&showDemoWindow);
+		VertexArrayObjectWrapper triangle(sizeof(vertices), vertices, GL_STATIC_DRAW);
+		Texture texture("res/textures/world_order.png");
+		Shader shader("shaders/vertex.glsl", "shaders/fragment_texture_color_mesh.glsl");
 
-		// Rendering
-		ImGui::Render();
-		glViewport(0, 0, width, height);
-		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-		glClear(GL_COLOR_BUFFER_BIT);
+		// Main loop
+		while (!glfwWindowShouldClose(window))
+		{
+			glfwPollEvents();
 
-		shader.Use();
-		triangle.Draw(GL_TRIANGLES);
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			// Start the Dear ImGui frame
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
 
-		glfwSwapBuffers(window);
+			// ImGui::ShowDemoWindow(&showDemoWindow);
+
+			// Rendering
+			ImGui::Render();
+			glViewport(0, 0, width, height);
+			glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			shader.Use();
+			shader.SetUniform1i("u_texture", 0);
+			texture.Bind(0);
+			triangle.Draw(GL_TRIANGLE_STRIP);
+
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+			glfwSwapBuffers(window);
+		}
 	}
 
 	// Cleanup

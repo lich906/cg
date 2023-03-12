@@ -13,13 +13,17 @@ VertexArrayObjectWrapper::VertexArrayObjectWrapper(size_t bufferSize, Vertex ver
 	glBufferData(GL_ARRAY_BUFFER, m_bufferSize, vertexArrayBuffer, usage);
 
 	// Position attribute
-	GLsizei stride = (Position::Size + Color::Size) * sizeof(GLfloat);
-	glVertexAttribPointer(0, Position::Size, GL_FLOAT, GL_FALSE, stride, (GLvoid*)0);
+	GLsizei stride = (Vector::Size + Color::Size + TextureCoords::Size) * sizeof(GLfloat);
+	glVertexAttribPointer(0, Vector::Size, GL_FLOAT, GL_FALSE, stride, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
 	// Color attribute
-	glVertexAttribPointer(1, Color::Size, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(Position::Size * sizeof(GLfloat)));
+	glVertexAttribPointer(1, Color::Size, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(Vector::Size * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+
+	// Texture attribute
+	glVertexAttribPointer(2, TextureCoords::Size, GL_FLOAT, GL_FALSE, stride, (GLvoid*)((Vector::Size + Color::Size) * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(NULL); // Unbind VAO
 }

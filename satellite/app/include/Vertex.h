@@ -1,10 +1,12 @@
 #pragma once
 
-#include "Position.h"
+#include "Vector.h"
 #include "Color.h"
+#include "TextureCoords.h"
 
 struct Vertex
 {
-	Position position;
+	Vector position;
 	Color color;
+	TextureCoords texCoords;
 };

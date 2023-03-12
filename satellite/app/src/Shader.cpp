@@ -82,6 +82,13 @@ void Shader::Use()
 	glUseProgram(m_program);
 }
 
+void Shader::SetUniform1i(const std::string& name, GLint value)
+{
+	auto location = GetUniformLocation(name);
+	glUseProgram(m_program);
+	glUniform1i(location, value);
+}
+
 GLuint Shader::CompileShader(GLenum shaderType, const std::string& source)
 {
 	GLuint shaderId = glCreateShader(shaderType);
@@ -103,4 +110,15 @@ void Shader::CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType)
 	{
 		throw std::runtime_error("ERROR::SHADER-COMPILATION-ERROR Shader type: " + std::to_string(shaderType));
 	}
+}
+
+GLuint Shader::GetUniformLocation(const std::string& name)
+{
+	GLuint location = glGetUniformLocation(m_program, name.c_str());
+	if (location >= 0)
+	{
+		return location;
+	}
+
+	throw std::runtime_error("Uniform with name '" + name + "' not found in shader program.");
 }
