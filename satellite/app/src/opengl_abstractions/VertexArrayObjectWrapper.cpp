@@ -1,7 +1,7 @@
-#include "VertexArrayObjectWrapper.h"
+#include "opengl_abstractions/VertexArrayObjectWrapper.h"
 
-VertexArrayObjectWrapper::VertexArrayObjectWrapper(size_t bufferSize, Vertex vertexArrayBuffer[], GLenum usage)
-	: m_bufferSize(bufferSize)
+VertexArrayObjectWrapper::VertexArrayObjectWrapper(const std::vector<Vertex>& vertices, GLenum usage)
+	: m_bufferSize(vertices.size() * sizeof(Vertex))
 {
 	glGenVertexArrays(1, &m_vao);
 	glGenBuffers(1, &m_vbo);
@@ -10,7 +10,7 @@ VertexArrayObjectWrapper::VertexArrayObjectWrapper(size_t bufferSize, Vertex ver
 	glBindVertexArray(m_vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, m_bufferSize, vertexArrayBuffer, usage);
+	glBufferData(GL_ARRAY_BUFFER, m_bufferSize, vertices.data(), usage);
 
 	// Position attribute
 	GLsizei stride = (Vector::Size + Color::Size + TextureCoords::Size) * sizeof(GLfloat);
@@ -25,7 +25,9 @@ VertexArrayObjectWrapper::VertexArrayObjectWrapper(size_t bufferSize, Vertex ver
 	glVertexAttribPointer(2, TextureCoords::Size, GL_FLOAT, GL_FALSE, stride, (GLvoid*)((Vector::Size + Color::Size) * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 
-	glBindVertexArray(NULL); // Unbind VAO
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(0); // Unbind VAO
 }
 
 void VertexArrayObjectWrapper::Draw(GLenum mode)
@@ -35,6 +37,18 @@ void VertexArrayObjectWrapper::Draw(GLenum mode)
 	glBindVertexArray(m_vao);
 	glDrawArrays(mode, 0, count);
 	glBindVertexArray(NULL);
+}
+
+void VertexArrayObjectWrapper::UpdateVerticesData(const std::vector<Vertex>& vertices)
+{
+	if (vertices.size() * sizeof(Vertex) != m_bufferSize)
+	{
+		throw std::logic_error("Vertices count is different.");
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, m_bufferSize, vertices.data());
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 VertexArrayObjectWrapper::~VertexArrayObjectWrapper()

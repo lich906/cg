@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "opengl_abstractions/Shader.h"
 
 Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath)
 {

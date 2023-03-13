@@ -4,7 +4,7 @@
 #include <vector>
 #include <stdexcept>
 
-#include "Vertex.h"
+#include "types/Vertex.h"
 
 class VertexArrayObjectWrapper
 {
@@ -17,9 +17,11 @@ public:
 			* GL_DYNAMIC_DRAW
 			* GL_STREAM_DRAW
 	*/
-	VertexArrayObjectWrapper(size_t bufferSize, Vertex vertexArrayBuffer[], GLenum usage);
+	VertexArrayObjectWrapper(const std::vector<Vertex>& vertices, GLenum usage);
 
 	void Draw(GLenum mode);
+
+	void UpdateVerticesData(const std::vector<Vertex>& vertices);
 
 	~VertexArrayObjectWrapper() noexcept;
 
