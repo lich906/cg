@@ -78,6 +78,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,7 +109,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)vcpkg_installed\x86-windows\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;imguid.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glad.lib;glfw3dll.lib;imgui.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)vcpkg_installed\x86-windows\bin\glfw3.dll $(OutDir)glfw3.dll</Command>
@@ -122,6 +124,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,7 +155,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)vcpkg_installed\x86-windows\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;imguid.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glad.lib;glfw3dll.lib;imgui.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)vcpkg_installed\x86-windows\bin\glfw3.dll $(OutDir)glfw3.dll</Command>
@@ -160,13 +164,34 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\controller\SetupController.cpp" />
+    <ClCompile Include="src\model\GravityProcessor.cpp" />
+    <ClCompile Include="src\model\normalize_vector.cpp" />
+    <ClCompile Include="src\model\ObservableSpaceObject.cpp" />
+    <ClCompile Include="src\model\SpaceObject.cpp" />
+    <ClCompile Include="src\model\UniverseModel.cpp" />
     <ClCompile Include="src\opengl_abstractions\Shader.cpp" />
     <ClCompile Include="src\vendor\stb_image\stb_image.cpp" />
     <ClCompile Include="src\opengl_abstractions\Texture.cpp" />
     <ClCompile Include="src\opengl_abstractions\VertexArrayObjectWrapper.cpp" />
     <ClCompile Include="src\view\BaseGlfwWindow.cpp" />
+    <ClCompile Include="src\view\Window.cpp" />
+    <ClCompile Include="src\view_model\SpaceObjectView.cpp" />
+    <ClCompile Include="src\view_model\UniverseViewModel.cpp" />
+    <ClCompile Include="src\controller\WindowController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\controller\GlfwCallbacks.h" />
+    <ClInclude Include="include\controller\SetupController.h" />
+    <ClInclude Include="include\controller\WindowController.h" />
+    <ClInclude Include="include\model\Config.h" />
+    <ClInclude Include="include\model\GravityProcessor.h" />
+    <ClInclude Include="include\model\IObservableSpaceObject.h" />
+    <ClInclude Include="include\model\ISpaceObjectObserver.h" />
+    <ClInclude Include="include\model\normalize_vector.h" />
+    <ClInclude Include="include\model\ObservableSpaceObject.h" />
+    <ClInclude Include="include\model\SpaceObject.h" />
+    <ClInclude Include="include\model\UniverseModel.h" />
     <ClInclude Include="include\types\Color.h" />
     <ClInclude Include="include\vendor\stb_image\stb_image.h" />
     <ClInclude Include="include\opengl_abstractions\Texture.h" />
@@ -176,6 +201,11 @@
     <ClInclude Include="include\types\Vertex.h" />
     <ClInclude Include="include\opengl_abstractions\VertexArrayObjectWrapper.h" />
     <ClInclude Include="include\view\BaseGlfwWindow.h" />
+    <ClInclude Include="include\view\Window.h" />
+    <ClInclude Include="include\view_model\SpaceObjectView.h" />
+    <ClInclude Include="include\view_model\UniverseViewModel.h" />
+    <ClInclude Include="include\controller\IControllableWindow.h" />
+    <ClInclude Include="include\glad_glfw.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

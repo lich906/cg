@@ -2,9 +2,10 @@
 
 #include "vendor/stb_image/stb_image.h"
 
+#include <iostream>
+
 Texture::Texture(const std::string& filePath)
-	: m_rendererId(nextRendererId++)
-	, m_filePath(filePath)
+	: m_filePath(filePath)
 	, m_localBuffer(nullptr)
 	, m_width(0)
 	, m_height(0)
@@ -33,6 +34,36 @@ Texture::Texture(const std::string& filePath)
 Texture::~Texture()
 {
 	glDeleteTextures(1, &m_rendererId);
+}
+
+Texture::Texture(Texture&& other) noexcept
+	: m_rendererId(0)
+	, m_localBuffer(nullptr)
+	, m_width(0)
+	, m_height(0)
+	, m_bpp(0)
+{
+	if (this != &other)
+	{
+		std::swap(m_rendererId, other.m_rendererId);
+		std::swap(m_localBuffer, other.m_localBuffer);
+		std::swap(m_width, other.m_width);
+		std::swap(m_height, other.m_height);
+		std::swap(m_bpp, other.m_bpp);
+	}
+}
+
+Texture& Texture::operator=(Texture&& other) noexcept
+{
+	if (this != &other)
+	{
+		std::swap(m_localBuffer, other.m_localBuffer);
+		std::swap(m_width, other.m_width);
+		std::swap(m_height, other.m_height);
+		std::swap(m_bpp, other.m_bpp);
+	}
+
+	return *this;
 }
 
 void Texture::Bind(unsigned int slot) const

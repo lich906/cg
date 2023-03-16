@@ -1,17 +1,16 @@
 #pragma once
 
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include "glad_glfw.h"
 
 #include <functional>
 #include <stdexcept>
 
+#include "controller/GlfwCallbacks.h"
+#include "opengl_abstractions/Shader.h"
+
 class BaseGlfwWindow
 {
 public:
-	using KeyCallback = std::function<void(GLFWwindow* window, int key, int scancode, int action, int mods)>;
-	using CursorPosCallback = std::function<void(GLFWwindow* window, double xpos, double ypos)>;
-	using MouseButtonCallback = std::function<void(GLFWwindow* window, int button, int action, int mods)>;
 
 	BaseGlfwWindow(int width, int height, const char* title);
 	~BaseGlfwWindow();
@@ -20,23 +19,26 @@ public:
 
 protected:
 
-	void SetKeyCallback(KeyCallback callback);
-	void SetCursorPosCallback(CursorPosCallback callback);
-	void SetMouseButtonCallback(MouseButtonCallback callback);
+	void SetKeyCallback(GlfwKeyCallback callback);
+	void SetCursorPosCallback(GlfwCursorPosCallback callback);
+	void SetMouseButtonCallback(GlfwMouseButtonCallback callback);
 
 private:
 
 	virtual void Draw(int width, int height) = 0;
 
+	void SetupProjectionMatrix(int width, int height);
+
+	void InitGraphics();
+	Shader InitShader();
+
 	GLFWwindow* CreateGlfwWindow(int width, int height, const char* title);
 
 	GLFWwindow* m_window;
 
-	BaseGlfwWindow* m_myWindowPointer;
-
-	KeyCallback m_keyCallback;
-	CursorPosCallback m_cursorPosCallback;
-	MouseButtonCallback m_mouseButtonCallback;
+	GlfwKeyCallback m_keyCallback;
+	GlfwCursorPosCallback m_cursorPosCallback;
+	GlfwMouseButtonCallback m_mouseButtonCallback;
 
 	static void InvokeKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void InvokeCursorPosCallback(GLFWwindow* window, double xpos, double ypos);

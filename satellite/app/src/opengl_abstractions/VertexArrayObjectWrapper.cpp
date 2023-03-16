@@ -1,5 +1,7 @@
 #include "opengl_abstractions/VertexArrayObjectWrapper.h"
 
+#include <iostream>
+
 VertexArrayObjectWrapper::VertexArrayObjectWrapper(const std::vector<Vertex>& vertices, GLenum usage)
 	: m_bufferSize(vertices.size() * sizeof(Vertex))
 {
@@ -8,7 +10,6 @@ VertexArrayObjectWrapper::VertexArrayObjectWrapper(const std::vector<Vertex>& ve
 
 	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
 	glBindVertexArray(m_vao);
-
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferData(GL_ARRAY_BUFFER, m_bufferSize, vertices.data(), usage);
 
@@ -30,13 +31,38 @@ VertexArrayObjectWrapper::VertexArrayObjectWrapper(const std::vector<Vertex>& ve
 	glBindVertexArray(0); // Unbind VAO
 }
 
+VertexArrayObjectWrapper::VertexArrayObjectWrapper(VertexArrayObjectWrapper&& other) noexcept
+	: m_bufferSize(0)
+	, m_vao(0)
+	, m_vbo(0)
+{
+	if (this != &other)
+	{
+		std::swap(m_bufferSize, other.m_bufferSize);
+		std::swap(m_vao, other.m_vao);
+		std::swap(m_vbo, other.m_vbo);
+	}
+}
+
+VertexArrayObjectWrapper& VertexArrayObjectWrapper::operator=(VertexArrayObjectWrapper&& other) noexcept
+{
+	if (this != &other)
+	{
+		std::swap(m_bufferSize, other.m_bufferSize);
+		std::swap(m_vao, other.m_vao);
+		std::swap(m_vbo, other.m_vbo);
+	}
+
+	return *this;
+}
+
 void VertexArrayObjectWrapper::Draw(GLenum mode)
 {
-	static const int count = m_bufferSize / sizeof(Vertex);
+	const int count = m_bufferSize / sizeof(Vertex);
 
 	glBindVertexArray(m_vao);
 	glDrawArrays(mode, 0, count);
-	glBindVertexArray(NULL);
+	glBindVertexArray(0);
 }
 
 void VertexArrayObjectWrapper::UpdateVerticesData(const std::vector<Vertex>& vertices)

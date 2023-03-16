@@ -1,6 +1,7 @@
 #pragma once
 
-#include <glad/glad.h>
+#include "glad_glfw.h"
+
 #include <vector>
 #include <stdexcept>
 
@@ -18,6 +19,11 @@ public:
 			* GL_STREAM_DRAW
 	*/
 	VertexArrayObjectWrapper(const std::vector<Vertex>& vertices, GLenum usage);
+
+	VertexArrayObjectWrapper(const VertexArrayObjectWrapper&) = delete;
+	VertexArrayObjectWrapper& operator=(const VertexArrayObjectWrapper&) = delete;
+	VertexArrayObjectWrapper(VertexArrayObjectWrapper&& other) noexcept;
+	VertexArrayObjectWrapper& operator=(VertexArrayObjectWrapper&& other) noexcept;
 
 	void Draw(GLenum mode);
 
