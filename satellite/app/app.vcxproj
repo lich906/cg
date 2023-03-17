@@ -171,6 +171,7 @@
     <ClCompile Include="src\model\SpaceObject.cpp" />
     <ClCompile Include="src\model\UniverseModel.cpp" />
     <ClCompile Include="src\opengl_abstractions\Shader.cpp" />
+    <ClCompile Include="src\types\Vector.cpp" />
     <ClCompile Include="src\vendor\stb_image\stb_image.cpp" />
     <ClCompile Include="src\opengl_abstractions\Texture.cpp" />
     <ClCompile Include="src\opengl_abstractions\VertexArrayObjectWrapper.cpp" />

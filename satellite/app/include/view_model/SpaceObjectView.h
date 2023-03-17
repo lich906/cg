@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <memory>
 #include <vector>
 
 #include "types/Vertex.h"
@@ -20,10 +20,17 @@ public:
 
 	bool ExistsAtPos(const Vector& normalizedPos) const;
 
+	void Move(const Vector& deltaPos);
+
 private:
 
 	// Inherited via ISpaceObjectObserver
 	virtual void OnSpaceObjectMove(const Vector& deltaPos) override;
+
+	/*
+		Update view position according accumulated m_deltaPos.
+	*/
+	void UpdatePosition(int width, int height);
 
 	Vector m_deltaPos;
 
@@ -35,3 +42,5 @@ private:
 
 	VertexArrayObjectWrapper m_vaoWrapper;
 };
+
+using SpaceObjectViewPtr = std::unique_ptr<SpaceObjectView>;

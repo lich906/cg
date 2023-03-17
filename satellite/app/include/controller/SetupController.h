@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 
 #include "WindowController.h"
 
@@ -20,6 +21,6 @@ private:
 	void InitSpaceObjects(int width, int height);
 
 	bool m_setupInitialSpeed, m_dragging;
-	Vector m_mouseDownPos, m_dragOffset;
+	Vector m_mouseDownPos, m_dragOffset, m_prevCursorPos;
 	size_t m_draggedObjectId;
 };

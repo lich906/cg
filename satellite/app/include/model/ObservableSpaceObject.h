@@ -13,7 +13,7 @@ public:
 
 protected:
 
-	void Moved(Vector deltaPos);
+	void Moved(const Vector& deltaPos);
 
 private:
 	std::set<ISpaceObjectObserver*> m_observers;

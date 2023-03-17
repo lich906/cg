@@ -26,7 +26,7 @@ int main()
 	// Enable multisampling
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
-	//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 	int width = 600, height = 600;
 	UniverseModel model;

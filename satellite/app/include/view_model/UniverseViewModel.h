@@ -8,7 +8,7 @@
 class UniverseViewModel
 {
 public:
-	void AddNewObjectView(size_t uid, SpaceObjectView&& objectView);
+	void AddNewObjectView(size_t uid, SpaceObjectViewPtr&& objectView);
 
 	void RemoveAllObjectViews();
 
@@ -16,7 +16,9 @@ public:
 
 	std::optional<size_t> FindObjectAtPos(const Vector& normalizedPos) const;
 
+	void MoveObjectView(size_t uid, const Vector& deltaPos);
+
 private:
 
-	std::unordered_map<size_t, SpaceObjectView> m_objectViews;
+	std::unordered_map<size_t, SpaceObjectViewPtr> m_objectViews;
 };

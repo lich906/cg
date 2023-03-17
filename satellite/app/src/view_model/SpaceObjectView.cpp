@@ -18,22 +18,7 @@ SpaceObjectView::SpaceObjectView(const Vector& normalizedPos, float scale, Textu
 
 void SpaceObjectView::Draw(int width, int height)
 {
-	if (m_deltaPos.x != 0.0f || m_deltaPos.y != 0.0f)
-	{
-		Vector normDelta(
-			std::min(std::max(-1.0f, m_deltaPos.x / width), 1.0f),
-			std::min(std::max(-1.0f, -(m_deltaPos.y / height)), 1.0f));
-
-		for (auto& vertex : m_vertices)
-		{
-			vertex.position.x += normDelta.x;
-			vertex.position.y += normDelta.y;
-		}
-
-		m_vaoWrapper.UpdateVerticesData(m_vertices);
-
-		m_deltaPos.x = m_deltaPos.y = 0.0f;
-	}
+	UpdatePosition(width, height);
 
 	m_texture.Bind();
 	m_vaoWrapper.Draw(GL_TRIANGLE_STRIP);
@@ -50,8 +35,32 @@ bool SpaceObjectView::ExistsAtPos(const Vector& normalizedPos) const
 	// clang-format on
 }
 
+void SpaceObjectView::Move(const Vector& deltaPos)
+{
+	m_deltaPos += deltaPos;
+}
+
 void SpaceObjectView::OnSpaceObjectMove(const Vector& deltaPos)
 {
-	m_deltaPos.x += deltaPos.x;
-	m_deltaPos.y += deltaPos.y;
+	Move(deltaPos);
+}
+
+void SpaceObjectView::UpdatePosition(int width, int height)
+{
+	if (m_deltaPos)
+	{
+		Vector normDelta(
+			std::min(std::max(-1.0f, 2 * m_deltaPos.x / width), 1.0f),
+			std::min(std::max(-1.0f, -(2 * m_deltaPos.y / height)), 1.0f));
+
+		for (auto& vertex : m_vertices)
+		{
+			vertex.position.x += normDelta.x;
+			vertex.position.y += normDelta.y;
+		}
+
+		m_vaoWrapper.UpdateVerticesData(m_vertices);
+
+		m_deltaPos.x = m_deltaPos.y = 0.0f;
+	}
 }

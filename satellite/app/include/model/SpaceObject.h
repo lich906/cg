@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "glad_glfw.h"
 
 #include "types/Vector.h"
@@ -19,8 +21,12 @@ private:
 class SpaceObject : public ObservableSpaceObject
 {
 public:
-	SpaceObject(float mass, Vector initialPos, Vector initialVelocity);
+	SpaceObject(float mass, Vector initialPos, Vector initialVelocity = Vector());
 
+	/*
+		Sets Space Object's position after time 'dt'
+		and invoke Moved() method to trigger corresponding Space Object View notification
+	*/
 	void NextPosition(float dt);
 
 	// Inherited via IObservableSpaceObject
@@ -30,7 +36,11 @@ public:
 	float GetMass() const;
 	Vector GetCurrentVelocity() const;
 
+	/*
+		Set Space Object position silently (without Moved() call)
+	*/
 	void SetCurrentPosition(Vector p);
+
 	void SetCurrentVelocity(Vector v);
 
 private:
@@ -40,3 +50,5 @@ private:
 	Vector m_currentVelocity;
 	Vector m_currentPosition;
 };
+
+using SpaceObjectPtr = std::unique_ptr<SpaceObject>;

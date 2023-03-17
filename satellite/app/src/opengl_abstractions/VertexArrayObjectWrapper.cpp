@@ -1,7 +1,5 @@
 #include "opengl_abstractions/VertexArrayObjectWrapper.h"
 
-#include <iostream>
-
 VertexArrayObjectWrapper::VertexArrayObjectWrapper(const std::vector<Vertex>& vertices, GLenum usage)
 	: m_bufferSize(vertices.size() * sizeof(Vertex))
 {

@@ -9,8 +9,9 @@ SpaceObject::SpaceObject(float mass, Vector initialPos, Vector initialVel)
 
 void SpaceObject::NextPosition(float dt)
 {
-	m_currentPosition.x += m_currentVelocity.x * dt;
-	m_currentPosition.y += m_currentVelocity.y * dt;
+	Vector deltaPos = m_currentPosition * dt;
+	m_currentPosition += deltaPos;
+	Moved(deltaPos);
 }
 
 Vector SpaceObject::GetCurrentPosition() const
@@ -40,5 +41,6 @@ void SpaceObject::SetCurrentVelocity(Vector v)
 
 void SpaceObject::SetCurrentPosition(Vector p)
 {
+	Vector deltaPos = p - m_currentPosition;
 	m_currentPosition = std::move(p);
 }

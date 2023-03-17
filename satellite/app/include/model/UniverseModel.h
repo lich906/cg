@@ -7,11 +7,11 @@ class UniverseModel
 {
 public:
 
-	void AddNewObject(SpaceObject&& obj);
+	void AddNewObject(SpaceObjectPtr&& obj);
 
 	void RemoveAllObjects();
 
-	void ChangeObjectPosition(size_t id, const Vector& pos);
+	void MoveObject(size_t id, const Vector& deltaPos);
 
 	void ChangeObjectVelocity(size_t id, const Vector& vel);
 
@@ -19,7 +19,7 @@ public:
 
 private:
 
-	std::unordered_map<size_t, SpaceObject> m_spaceObjects;
+	std::unordered_map<size_t, SpaceObjectPtr> m_spaceObjects;
 
 	GravityProcessor m_gravityProcessor;
 };
