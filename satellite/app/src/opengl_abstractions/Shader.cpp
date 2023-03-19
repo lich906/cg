@@ -108,7 +108,7 @@ GLuint Shader::CompileShader(GLenum shaderType, const std::string& source)
 	return shaderId;
 }
 
-void Shader::CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType)
+void Shader::CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType) const
 {
 	GLint success;
 

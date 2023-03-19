@@ -35,7 +35,7 @@ int main()
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
-	// ImGui::StyleColorsLight();
+	 // ImGui::StyleColorsLight();
 
 	int width = 1280, height = 720;
 	UniverseModel model;

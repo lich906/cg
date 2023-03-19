@@ -72,6 +72,9 @@
     <ClCompile Include="src\opengl_abstractions\VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\opengl_abstractions\CurrentShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\opengl_abstractions\Shader.h">
@@ -153,6 +156,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\opengl_abstractions\VertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opengl_abstractions\CurrentShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

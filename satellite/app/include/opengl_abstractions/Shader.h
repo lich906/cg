@@ -31,7 +31,7 @@ public:
 private:
 	GLuint CompileShader(GLenum shaderType, const std::string& source);
 
-	void CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType);
+	void CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType) const;
 
 	/*
 		@throw std::runtime_error: If uniform with specified name wasn't found

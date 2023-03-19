@@ -1,8 +1,8 @@
 #include "view/BaseGlfwWindow.h"
+#include "opengl_abstractions/CurrentShader.h"
 
 BaseGlfwWindow::BaseGlfwWindow(int width, int height, const char* title)
 	: m_window(CreateGlfwWindow(width, height, title))
-	, m_shader(InitGraphics())
 {
 	if (!m_window)
 	{
@@ -14,16 +14,22 @@ BaseGlfwWindow::BaseGlfwWindow(int width, int height, const char* title)
 	glfwSetKeyCallback(m_window, InvokeKeyCallback);
 	glfwSetCursorPosCallback(m_window, InvokeCursorPosCallback);
 	glfwSetMouseButtonCallback(m_window, InvokeMouseButtonCallback);
+
+	InitGraphics();
 }
 
 BaseGlfwWindow::~BaseGlfwWindow()
 {
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
 	glfwDestroyWindow(m_window);
 }
 
 void BaseGlfwWindow::Run()
 {
-	m_shader.Use();
+
 
 	while (!glfwWindowShouldClose(m_window))
 	{
@@ -57,11 +63,6 @@ void BaseGlfwWindow::SetMouseButtonCallback(GlfwMouseButtonCallback&& callback)
 	m_mouseButtonCallback = std::move(callback);
 }
 
-Shader& BaseGlfwWindow::GetShaderRef()
-{
-	return m_shader;
-}
-
 void BaseGlfwWindow::SetupProjectionMatrix(int width, int height)
 {
 	// ¬ычисл€ет матрицу ортографического преобразовани€ такую, чтобы вписать квадратную область
@@ -82,7 +83,7 @@ void BaseGlfwWindow::SetupProjectionMatrix(int width, int height)
 	glOrtho(-viewWidth * 0.5, viewWidth * 0.5, -viewHeight * 0.5, viewHeight * 0.5, -1.0, 1.0);
 }
 
-Shader BaseGlfwWindow::InitGraphics()
+void BaseGlfwWindow::InitGraphics()
 {
 	glfwMakeContextCurrent(m_window);
 	gladLoadGL();
@@ -97,9 +98,9 @@ Shader BaseGlfwWindow::InitGraphics()
 	if constexpr (_DEBUG)
 		printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-	Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
-	shader.SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
-	return shader;
+	CurrentShader::Set(Shader("shaders/vertex.glsl", "shaders/fragment.glsl"));
+	CurrentShader::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
+	CurrentShader::Get().Use();
 }
 
 GLFWwindow* BaseGlfwWindow::CreateGlfwWindow(int width, int height, const char* title)

@@ -11,7 +11,6 @@
 
 #include "Config.h"
 #include "controller/GlfwCallbacks.h"
-#include "opengl_abstractions/Shader.h"
 
 class BaseGlfwWindow
 {
@@ -28,15 +27,13 @@ protected:
 	void SetCursorPosCallback(GlfwCursorPosCallback&& callback);
 	void SetMouseButtonCallback(GlfwMouseButtonCallback&& callback);
 
-	Shader& GetShaderRef();
-
 private:
 
 	virtual void Draw(int width, int height) = 0;
 
 	void SetupProjectionMatrix(int width, int height);
 
-	Shader InitGraphics();
+	void InitGraphics();
 
 	GLFWwindow* CreateGlfwWindow(int width, int height, const char* title);
 
@@ -45,8 +42,6 @@ private:
 	GlfwKeyCallback m_keyCallback;
 	GlfwCursorPosCallback m_cursorPosCallback;
 	GlfwMouseButtonCallback m_mouseButtonCallback;
-
-	Shader m_shader;
 
 	static void InvokeKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void InvokeCursorPosCallback(GLFWwindow* window, double xpos, double ypos);
