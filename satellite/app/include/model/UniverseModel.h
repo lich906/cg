@@ -1,5 +1,8 @@
 #pragma once
 
+#include <functional>
+#include <stdexcept>
+
 #include "SpaceObject.h"
 #include "GravityProcessor.h"
 
@@ -7,15 +10,20 @@ class UniverseModel
 {
 public:
 
+	using ForEachCallback = std::function<void(SpaceObjectPtr& object)>;
+
 	void AddNewObject(SpaceObjectPtr&& obj);
 
 	void RemoveAllObjects();
 
-	void MoveObject(size_t id, const Vector& deltaPos);
-
-	void ChangeObjectVelocity(size_t id, const Vector& vel);
+	/*
+		@throw std::out_of_range : Object not found.
+	*/
+	SpaceObjectPtr& GetObject(size_t uid);
 
 	void NextState(float dt);
+
+	void ForEach(const ForEachCallback& callback);
 
 private:
 

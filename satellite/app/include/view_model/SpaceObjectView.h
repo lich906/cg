@@ -7,14 +7,16 @@
 #include "types/Vector.h"
 
 #include "opengl_abstractions/Texture.h"
-#include "opengl_abstractions/VertexArrayObjectWrapper.h"
+#include "opengl_abstractions/VertexArrayObject.h"
 
 #include "model/ISpaceObjectObserver.h"
+
+using SpaceObjectViewPtr = std::unique_ptr<class SpaceObjectView>;
 
 class SpaceObjectView : public ISpaceObjectObserver
 {
 public:
-	SpaceObjectView(const Vector& normalizedPos, float scale, Texture texture);
+	static SpaceObjectViewPtr Create(const Vector& normalizedPos, const Vector& scale, Texture&& texture);
 
 	void Draw(int width, int height);
 
@@ -23,6 +25,8 @@ public:
 	void Move(const Vector& deltaPos);
 
 private:
+
+	SpaceObjectView(const Vector& normalizedPos, const Vector& scale, Texture&& texture);
 
 	// Inherited via ISpaceObjectObserver
 	virtual void OnSpaceObjectMove(const Vector& deltaPos) override;
@@ -34,13 +38,9 @@ private:
 
 	Vector m_deltaPos;
 
-	float m_scale;
-
 	Texture m_texture;
 
 	std::vector<Vertex> m_vertices;
 
-	VertexArrayObjectWrapper m_vaoWrapper;
+	VertexArrayObject m_vaoWrapper;
 };
-
-using SpaceObjectViewPtr = std::unique_ptr<SpaceObjectView>;

@@ -1,26 +1,22 @@
 #include "model/GravityProcessor.h"
 
-Vector GravityProcessor::FindBodyAcceleration(const std::vector<SpaceObject>& objects, size_t index)
+Vector GravityProcessor::FindObjectAcceleration(const std::unordered_map<size_t, SpaceObjectPtr>& objects, size_t uid)
 {
-	auto targetObjPos = objects[index].GetCurrentPosition();
+	auto targetObjPos = objects.at(uid)->GetCurrentPosition();
 
-	Vector accelerationVec;
+	Vector aVec;
 
-	for (size_t i = 0; i < objects.size(); ++i)
+	for (auto& [id, object] : objects)
 	{
-		if (i != index)
+		if (id != uid)
 		{
-			auto pos = objects[i].GetCurrentPosition();
-			auto m = objects[i].GetMass();
-			accelerationVec.x += m / powf(pos.x - targetObjPos.x, 2);
-			accelerationVec.y += m / powf(pos.y - targetObjPos.y, 2);
+			auto objPos = object->GetCurrentPosition();
+			auto m = object->GetMass();
+			Vector r(objPos.x - targetObjPos.x, objPos.y - targetObjPos.y);
+			float aMod = m / r.SquareMod();
+			aVec += r.Unit() * aMod;
 		}
 	}
 
-	return { accelerationVec.x * config::GravitationCoeff, accelerationVec.y * config::GravitationCoeff };
-}
-
-void GravityProcessor::ResetCachedDistances()
-{
-	m_distances.clear();
+	return aVec * config::GravitationCoeff;
 }

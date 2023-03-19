@@ -4,8 +4,8 @@
 
 #include "glad_glfw.h"
 
+#include "Config.h"
 #include "opengl_abstractions/Shader.h"
-
 #include "view/Window.h"
 #include "controller/SetupController.h"
 
@@ -17,24 +17,33 @@ int main()
 	if (!glfwInit())
 		return 1;
 
-	// GL 3.3 + GLSL 330
-	const char* glsl_version = "#version 330";
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	// GL 3.3
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config::graphics::GlfwContextVersionMajor);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config::graphics::GlfwContextVersionMinor);
 	// Setup OpenGL core profile
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	// Enable multisampling
-	glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwWindowHint(GLFW_SAMPLES, config::graphics::GlfwSamples);
 
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-	int width = 600, height = 600;
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	(void)io;
+
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+	// ImGui::StyleColorsLight();
+
+	int width = 1280, height = 720;
 	UniverseModel model;
 	UniverseViewModel viewModel;
 	Window window(width, height, "Satellite");
 	window.SetController(std::make_unique<SetupController>(model, viewModel, &window, width, height));
 	window.Run();
-	
+
 	glfwTerminate();
 }
 

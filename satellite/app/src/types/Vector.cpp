@@ -1,3 +1,4 @@
+#include <math.h>
 #include "types/Vector.h"
 
 constexpr Vector::Vector(float x_, float y_)
@@ -9,6 +10,21 @@ constexpr Vector::Vector(float x_, float y_)
 Vector::operator bool() const
 {
 	return x != 0.0f || y != 0.0f;
+}
+
+float Vector::Mod() const
+{
+	return sqrtf(SquareMod());
+}
+
+float Vector::SquareMod() const
+{
+	return x * x + y * y;
+}
+
+Vector Vector::Unit() const
+{
+	return *this / Mod();
 }
 
 Vector& Vector::operator+=(const Vector& rhs)
@@ -80,4 +96,9 @@ Vector operator-(const Vector& lhs, const Vector& rhs)
 Vector operator*(const Vector& v, float scalar)
 {
 	return { v.x * scalar, v.y * scalar };
+}
+
+Vector operator/(const Vector& v, float scalar)
+{
+	return { v.x / scalar, v.y / scalar };
 }

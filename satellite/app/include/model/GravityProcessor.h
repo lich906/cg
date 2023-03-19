@@ -10,12 +10,5 @@
 class GravityProcessor
 {
 public:
-
-	Vector FindBodyAcceleration(const std::vector<SpaceObject>& objects, size_t index);
-
-	void ResetCachedDistances();
-
-private:
-
-	std::unordered_map<size_t, std::unordered_map<size_t, float>> m_distances;
+	Vector FindObjectAcceleration(const std::unordered_map<size_t, SpaceObjectPtr>& objects, size_t uid);
 };

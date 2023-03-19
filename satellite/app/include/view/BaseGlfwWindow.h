@@ -1,10 +1,15 @@
 #pragma once
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 #include "glad_glfw.h"
 
 #include <functional>
 #include <stdexcept>
 
+#include "Config.h"
 #include "controller/GlfwCallbacks.h"
 #include "opengl_abstractions/Shader.h"
 
@@ -19,9 +24,11 @@ public:
 
 protected:
 
-	void SetKeyCallback(GlfwKeyCallback callback);
-	void SetCursorPosCallback(GlfwCursorPosCallback callback);
-	void SetMouseButtonCallback(GlfwMouseButtonCallback callback);
+	void SetKeyCallback(GlfwKeyCallback&& callback);
+	void SetCursorPosCallback(GlfwCursorPosCallback&& callback);
+	void SetMouseButtonCallback(GlfwMouseButtonCallback&& callback);
+
+	Shader& GetShaderRef();
 
 private:
 
@@ -29,8 +36,7 @@ private:
 
 	void SetupProjectionMatrix(int width, int height);
 
-	void InitGraphics();
-	Shader InitShader();
+	Shader InitGraphics();
 
 	GLFWwindow* CreateGlfwWindow(int width, int height, const char* title);
 
@@ -39,6 +45,8 @@ private:
 	GlfwKeyCallback m_keyCallback;
 	GlfwCursorPosCallback m_cursorPosCallback;
 	GlfwMouseButtonCallback m_mouseButtonCallback;
+
+	Shader m_shader;
 
 	static void InvokeKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void InvokeCursorPosCallback(GLFWwindow* window, double xpos, double ypos);

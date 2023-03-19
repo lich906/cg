@@ -1,19 +1,22 @@
 #include "view_model/SpaceObjectView.h"
 
-#include <iostream>
-
-SpaceObjectView::SpaceObjectView(const Vector& normalizedPos, float scale, Texture texture)
-	: m_scale(scale)
-	, m_texture(std::move(texture))
+SpaceObjectView::SpaceObjectView(const Vector& normalizedPos, const Vector& scale, Texture&& texture)
+	: m_texture(std::move(texture))
 // clang-format off
 	, m_vertices({
-		{ { normalizedPos.x - m_scale, normalizedPos.y + m_scale }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f } },
-		{ { normalizedPos.x - m_scale, normalizedPos.y - m_scale }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f } },
-		{ { normalizedPos.x + m_scale, normalizedPos.y + m_scale }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f } },
-		{ { normalizedPos.x + m_scale, normalizedPos.y - m_scale }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f } }})
+		{ { normalizedPos.x - scale.x, normalizedPos.y + scale.y }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f } },
+		{ { normalizedPos.x - scale.x, normalizedPos.y - scale.y }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f } },
+		{ { normalizedPos.x + scale.x, normalizedPos.y + scale.y }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f } },
+		{ { normalizedPos.x + scale.x, normalizedPos.y - scale.y }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f } }})
 // clang-format on
 	, m_vaoWrapper(m_vertices, GL_DYNAMIC_DRAW)
 {
+}
+
+SpaceObjectViewPtr SpaceObjectView::Create(const Vector& normalizedPos, const Vector& scale, Texture&& texture)
+{
+	auto instance = new SpaceObjectView(normalizedPos, scale, std::move(texture));
+	return std::unique_ptr<SpaceObjectView>(instance);
 }
 
 void SpaceObjectView::Draw(int width, int height)

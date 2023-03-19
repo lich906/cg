@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include "glad_glfw.h"
 
@@ -18,10 +19,16 @@ private:
 	size_t m_id;
 };
 
+using SpaceObjectPtr = std::unique_ptr<class SpaceObject>;
+
 class SpaceObject : public ObservableSpaceObject
 {
 public:
-	SpaceObject(float mass, Vector initialPos, Vector initialVelocity = Vector());
+	/*
+		Create unique SpaceObject instance.
+	*/
+	static SpaceObjectPtr Create(std::string name,
+		float mass, Vector initialPos, Vector initialVelocity = Vector());
 
 	/*
 		Sets Space Object's position after time 'dt'
@@ -35,6 +42,7 @@ public:
 	size_t GetId() const;
 	float GetMass() const;
 	Vector GetCurrentVelocity() const;
+	std::string GetName() const;
 
 	/*
 		Set Space Object position silently (without Moved() call)
@@ -44,11 +52,12 @@ public:
 	void SetCurrentVelocity(Vector v);
 
 private:
+	SpaceObject(std::string name, float mass, Vector initialPos, Vector initialVelocity = Vector());
+
 	UniqueId m_id;
 
+	std::string m_name;
 	float m_mass;
 	Vector m_currentVelocity;
 	Vector m_currentPosition;
 };
-
-using SpaceObjectPtr = std::unique_ptr<SpaceObject>;
