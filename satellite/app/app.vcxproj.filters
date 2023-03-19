@@ -69,9 +69,6 @@
     <ClCompile Include="src\controller\SimulationController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\view_model\ArrowView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\opengl_abstractions\VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -153,9 +150,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\controller\SimulationController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\view_model\ArrowView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\opengl_abstractions\VertexBuffer.h">

@@ -179,7 +179,6 @@
     <ClCompile Include="src\opengl_abstractions\VertexArrayObject.cpp" />
     <ClCompile Include="src\view\BaseGlfwWindow.cpp" />
     <ClCompile Include="src\view\Window.cpp" />
-    <ClCompile Include="src\view_model\ArrowView.cpp" />
     <ClCompile Include="src\view_model\SpaceObjectView.cpp" />
     <ClCompile Include="src\view_model\UniverseViewModel.cpp" />
     <ClCompile Include="src\controller\WindowController.cpp" />
@@ -208,7 +207,6 @@
     <ClInclude Include="include\opengl_abstractions\VertexArrayObject.h" />
     <ClInclude Include="include\view\BaseGlfwWindow.h" />
     <ClInclude Include="include\view\Window.h" />
-    <ClInclude Include="include\view_model\ArrowView.h" />
     <ClInclude Include="include\view_model\SpaceObjectView.h" />
     <ClInclude Include="include\view_model\UniverseViewModel.h" />
     <ClInclude Include="include\controller\IControllableWindow.h" />
