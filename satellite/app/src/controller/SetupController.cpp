@@ -1,6 +1,5 @@
 #include "controller/SetupController.h"
 #include "controller/SimulationController.h"
-#include "model/normalize_vector.h"
 #include "Config.h"
 
 SetupController::SetupController(UniverseModel& model, UniverseViewModel& viewModel, IControllableWindow* window, int width, int height)
@@ -34,11 +33,8 @@ GlfwMouseButtonCallback SetupController::GetMouseButtonCallback()
 	return [this](GLFWwindow* window, int button, int action, int mods) {
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
-		int w, h;
-		glfwGetFramebufferSize(window, &w, &h);
 		Vector mousePos = { static_cast<float>(x), static_cast<float>(y) };
-		auto norm = NormalizeVector(mousePos, w, h);
-		auto objectId = m_viewModel.FindObjectAtPos(NormalizeVector(mousePos, w, h));
+		auto objectId = m_viewModel.FindObjectAtPos(mousePos);
 
 		if (!(m_draggingObject || m_setupInitialSpeed) && action == GLFW_PRESS && objectId)
 		{
@@ -118,18 +114,10 @@ GlfwKeyCallback SetupController::GetKeyCallback()
 
 void SetupController::InitSpaceObjects(int width, int height)
 {
-	static const auto adaptScaleToAspectRatio = [](float aspectRatio, float scale) -> Vector {
-		return aspectRatio > 1.0f 
-			? Vector(scale / (float)aspectRatio, scale)
-			: Vector(scale, scale * (float)aspectRatio);
-	};
-
-	const float aspectRatio = float(width) / float(height);
-
 	SpaceObjectPtr moon = SpaceObject::Create("Moon", config::MoonMass, config::MoonInitialPosition);
 	SpaceObjectViewPtr moonView = SpaceObjectView::Create(
-		NormalizeVector(config::MoonInitialPosition, width, height),
-		adaptScaleToAspectRatio(aspectRatio, config::MoonScale),
+		config::MoonInitialPosition,
+		config::MoonScale,
 		Texture("res/textures/moon.png"));
 	auto moonId = moon->GetId();
 	moon->Subsribe(moonView.get());
@@ -139,8 +127,8 @@ void SetupController::InitSpaceObjects(int width, int height)
 
 	SpaceObjectPtr earth = SpaceObject::Create("Earth", config::EarthMass, config::EarthInitialPosition);
 	SpaceObjectViewPtr earthView = SpaceObjectView::Create(
-		NormalizeVector(config::EarthInitialPosition, width, height),
-		adaptScaleToAspectRatio(aspectRatio, config::EarthScale),
+		config::EarthInitialPosition,
+		config::EarthScale,
 		Texture("res/textures/earth.png"));
 	auto earthId = earth->GetId();
 	earth->Subsribe(earthView.get());

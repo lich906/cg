@@ -25,7 +25,7 @@ int main()
 	// Enable multisampling
 	glfwWindowHint(GLFW_SAMPLES, config::graphics::GlfwSamples);
 
-	//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
@@ -37,7 +37,7 @@ int main()
 	ImGui::StyleColorsDark();
 	 // ImGui::StyleColorsLight();
 
-	int width = 1280, height = 720;
+	int width = config::graphics::WindowWidth, height = config::graphics::WindowWidth;
 	UniverseModel model;
 	UniverseViewModel viewModel;
 	Window window(width, height, "Satellite");

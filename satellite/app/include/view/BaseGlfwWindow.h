@@ -31,8 +31,6 @@ private:
 
 	virtual void Draw(int width, int height) = 0;
 
-	void SetupProjectionMatrix(int width, int height);
-
 	void InitGraphics();
 
 	GLFWwindow* m_window;

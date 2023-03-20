@@ -35,8 +35,6 @@ BaseGlfwWindow::~BaseGlfwWindow()
 
 void BaseGlfwWindow::Run()
 {
-
-
 	while (!glfwWindowShouldClose(m_window))
 	{
 		glfwPollEvents();
@@ -44,7 +42,6 @@ void BaseGlfwWindow::Run()
 		int width, height;
 		glfwGetFramebufferSize(m_window, &width, &height);
 		glViewport(0, 0, width, height);
-		SetupProjectionMatrix(width, height);
 		glClearColor(0.0f, 0.05f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -69,26 +66,6 @@ void BaseGlfwWindow::SetMouseButtonCallback(GlfwMouseButtonCallback&& callback)
 	m_mouseButtonCallback = std::move(callback);
 }
 
-void BaseGlfwWindow::SetupProjectionMatrix(int width, int height)
-{
-	// Вычисляет матрицу ортографического преобразования такую, чтобы вписать квадратную область
-	// [-1;+1] по обеим осям внутрь видового порта размером width*height пикселей
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	const double aspectRatio = double(width) / double(height);
-	double viewWidth = 2.0;
-	double viewHeight = viewWidth;
-	if (aspectRatio > 1.0)
-	{
-		viewWidth = viewHeight * aspectRatio;
-	}
-	else
-	{
-		viewHeight = viewWidth / aspectRatio;
-	}
-	glOrtho(-viewWidth * 0.5, viewWidth * 0.5, -viewHeight * 0.5, viewHeight * 0.5, -1.0, 1.0);
-}
-
 void BaseGlfwWindow::InitGraphics()
 {
 	glfwMakeContextCurrent(m_window);
@@ -96,7 +73,7 @@ void BaseGlfwWindow::InitGraphics()
 	glfwSwapInterval(1); // Enable vsync
 
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Setup blending algorithm
 
 	ImGui_ImplGlfw_InitForOpenGL(m_window, true);
 	ImGui_ImplOpenGL3_Init(config::graphics::GlslVersion);
@@ -105,6 +82,15 @@ void BaseGlfwWindow::InitGraphics()
 		printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 	CurrentShader::Set(Shader("shaders/vertex.glsl", "shaders/fragment.glsl"));
+
 	CurrentShader::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
+	CurrentShader::Get().SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
+	CurrentShader::Get().SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
+	CurrentShader::Get().SetUniformMatrix4fv("m_projection",
+		glm::ortho(
+			0.0f, float(config::graphics::WindowWidth),
+			float(config::graphics::WindowHeight), 0.0f,
+			-1.0f, 100.0f));
+
 	CurrentShader::Get().Use();
 }

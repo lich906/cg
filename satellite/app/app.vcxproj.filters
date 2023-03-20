@@ -60,9 +60,6 @@
     <ClCompile Include="src\controller\SetupController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\model\normalize_vector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\types\Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -144,9 +141,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\controller\SetupController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\model\normalize_vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\glad_glfw.h">

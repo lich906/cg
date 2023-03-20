@@ -18,11 +18,11 @@ void UniverseViewModel::Draw(int width, int height)
 	}
 }
 
-std::optional<size_t> UniverseViewModel::FindObjectAtPos(const Vector& normalizedPos) const
+std::optional<size_t> UniverseViewModel::FindObjectAtPos(const Vector& pos) const
 {
 	for (auto& [id, objectView] : m_objectViews)
 	{
-		if (objectView->ExistsAtPos(normalizedPos))
+		if (objectView->ExistsAtPos(pos))
 			return id;
 	}
 
