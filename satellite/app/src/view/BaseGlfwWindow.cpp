@@ -2,7 +2,7 @@
 #include "opengl_abstractions/CurrentShader.h"
 
 BaseGlfwWindow::BaseGlfwWindow(int width, int height, const char* title)
-	: m_window(CreateGlfwWindow(width, height, title))
+	: m_window(glfwCreateWindow(width, height, title, nullptr, nullptr))
 {
 	if (!m_window)
 	{
@@ -11,9 +11,15 @@ BaseGlfwWindow::BaseGlfwWindow(int width, int height, const char* title)
 
 	glfwSetWindowUserPointer(m_window, this);
 
-	glfwSetKeyCallback(m_window, InvokeKeyCallback);
-	glfwSetCursorPosCallback(m_window, InvokeCursorPosCallback);
-	glfwSetMouseButtonCallback(m_window, InvokeMouseButtonCallback);
+	glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
+		static_cast<BaseGlfwWindow*>(glfwGetWindowUserPointer(window))->m_keyCallback(window, key, scancode, action, mods);
+	});
+	glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xpos, double ypos) -> void {
+		static_cast<BaseGlfwWindow*>(glfwGetWindowUserPointer(window))->m_cursorPosCallback(window, xpos, ypos);
+	});
+	glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods) -> void {
+		static_cast<BaseGlfwWindow*>(glfwGetWindowUserPointer(window))->m_mouseButtonCallback(window, button, action, mods);
+	});
 
 	InitGraphics();
 }
@@ -101,24 +107,4 @@ void BaseGlfwWindow::InitGraphics()
 	CurrentShader::Set(Shader("shaders/vertex.glsl", "shaders/fragment.glsl"));
 	CurrentShader::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
 	CurrentShader::Get().Use();
-}
-
-GLFWwindow* BaseGlfwWindow::CreateGlfwWindow(int width, int height, const char* title)
-{
-	return glfwCreateWindow(width, height, title, nullptr, nullptr);
-}
-
-void BaseGlfwWindow::InvokeKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	static_cast<BaseGlfwWindow*>(glfwGetWindowUserPointer(window))->m_keyCallback(window, key, scancode, action, mods);
-}
-
-void BaseGlfwWindow::InvokeCursorPosCallback(GLFWwindow* window, double xpos, double ypos)
-{
-	static_cast<BaseGlfwWindow*>(glfwGetWindowUserPointer(window))->m_cursorPosCallback(window, xpos, ypos);
-}
-
-void BaseGlfwWindow::InvokeMouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
-{
-	static_cast<BaseGlfwWindow*>(glfwGetWindowUserPointer(window))->m_mouseButtonCallback(window, button, action, mods);
 }

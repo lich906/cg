@@ -35,15 +35,9 @@ private:
 
 	void InitGraphics();
 
-	GLFWwindow* CreateGlfwWindow(int width, int height, const char* title);
-
 	GLFWwindow* m_window;
 
 	GlfwKeyCallback m_keyCallback;
 	GlfwCursorPosCallback m_cursorPosCallback;
 	GlfwMouseButtonCallback m_mouseButtonCallback;
-
-	static void InvokeKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-	static void InvokeCursorPosCallback(GLFWwindow* window, double xpos, double ypos);
-	static void InvokeMouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 };
