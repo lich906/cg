@@ -5,11 +5,14 @@ Window::Window(const std::shared_ptr<IMouseInputController>& mouseInputControlle
 	: m_clearColor{ 0.45f, 0.55f, 0.60f, 1.00f }
 	, m_window(nullptr)
 	, m_mainMenu(menuController)
+	, m_mouseInputController(mouseInputController)
 {
 	if (!InitGraphics())
 	{
 		throw std::runtime_error("Failed to initialize graphics.");
 	}
+
+	SetupInputCallbacks();
 }
 
 Window::~Window()
@@ -111,4 +114,50 @@ bool Window::InitGraphics()
 	CurrentShader::Get().Use();
 
 	return true;
+}
+
+void Window::SetupInputCallbacks()
+{
+	glfwSetWindowUserPointer(m_window, this);
+
+	
+	glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods) -> void {
+		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		double x, y;
+		glfwGetCursorPos(window, &x, &y);
+		Vector cursorPos{ static_cast<float>(x), static_cast<float>(y) };
+
+		if ((button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_RIGHT))
+		{
+			if (action == GLFW_PRESS)
+			{
+				thisWindow->m_mouseInputController->OnMouseDown(cursorPos);
+			}
+			if (action == GLFW_RELEASE)
+			{
+				thisWindow->m_mouseInputController->OnMouseUp(cursorPos);
+			}
+		}
+	});
+
+	glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xpos, double ypos) -> void {
+		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		Vector cursorPos{ static_cast<float>(xpos), static_cast<float>(ypos) };
+
+		thisWindow->m_mouseInputController->OnMouseMove(cursorPos - thisWindow->m_lastCursorPos);
+		thisWindow->m_lastCursorPos = cursorPos;
+	});
+
+	glfwSetScrollCallback(m_window, [](GLFWwindow* window, double xoffset, double yoffset) -> void {
+		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+
+		if (yoffset > 0)
+		{
+			thisWindow->m_mouseInputController->OnScrollUp(yoffset);
+		}
+		else
+		{
+			thisWindow->m_mouseInputController->OnScrollDown(yoffset);
+		}
+	});
 }

@@ -22,8 +22,8 @@ public:
 
 private:
 	void Render();
-
 	bool InitGraphics();
+	void SetupInputCallbacks();
 
 	struct Color
 	{
@@ -33,4 +33,7 @@ private:
 	GLFWwindow* m_window;
 
 	MainMenu m_mainMenu;
+
+	std::shared_ptr<IMouseInputController> m_mouseInputController;
+	Vector m_lastCursorPos;
 };

@@ -9,7 +9,7 @@
 
 #include "Window.h"
 
-struct MenuControllerMock : public IMenuController
+struct FakeMenuController : public IMenuController
 {
 	// Inherited via IMenuController
 	virtual void OnFileOpen(const std::string& filePath) override
@@ -22,8 +22,33 @@ struct MenuControllerMock : public IMenuController
 	}
 };
 
+struct FakeMouseInputController : public IMouseInputController
+{
+	// Inherited via IMouseInputController
+	virtual void OnMouseDown(const Vector& pos) override
+	{
+		printf("Mouse down: %.2f\t%.2f\n", pos.x, pos.y);
+	}
+	virtual void OnMouseUp(const Vector& pos) override
+	{
+		printf("Mouse up: %.2f\t%.2f\n", pos.x, pos.y);
+	}
+	virtual void OnMouseMove(const Vector& delta) override
+	{
+		printf("Mouse move: %.2f\t%.2f\n", delta.x, delta.y);
+	}
+	virtual void OnScrollUp(float offset) override
+	{
+		printf("Scroll up: %.2f\n", offset);
+	}
+	virtual void OnScrollDown(float offset) override
+	{
+		printf("Scroll down: %.2f\n", offset);
+	}
+};
+
 int main()
 {
-	Window window(nullptr, std::make_shared<MenuControllerMock>());
+	Window window(std::make_shared<FakeMouseInputController>(), std::make_shared<FakeMenuController>());
 	window.Run();
 }
