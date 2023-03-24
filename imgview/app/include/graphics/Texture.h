@@ -7,7 +7,7 @@
 class Texture
 {
 public:
-	Texture(const std::string& filePath);
+	Texture(const std::string& filePath, GLint wrappingMode = GL_CLAMP_TO_EDGE);
 	~Texture();
 
 	Texture(const Texture&) = delete;

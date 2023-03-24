@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{35e7ad4a-d056-41d4-9d33-93ebd1ae1fce}</ProjectGuid>
-    <RootNamespace>app</RootNamespace>
+    <ProjectGuid>{2085e0b4-6c63-48f2-93c7-d8f5e9a4ee3f}</ProjectGuid>
+    <RootNamespace>uniqueptrtest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -76,21 +76,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)vcpkg_installed\x86-windows\debug\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;imguid.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>copy $(SolutionDir)vcpkg_installed\x86-windows\debug\bin\glfw3.dll $(TargetDir)glfw3.dll</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copy glfw3.dll binary to target dir</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -100,16 +90,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)vcpkg_installed\x86-windows\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,21 +104,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)vcpkg_installed\x86-windows\debug\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;imguid.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>copy $(SolutionDir)vcpkg_installed\x86-windows\debug\bin\glfw3.dll $(TargetDir)glfw3.dll</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copy glfw3.dll binary to target dir</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -142,68 +118,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)vcpkg_installed\x86-windows\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\controller\MenuController.cpp" />
-    <ClCompile Include="src\model\Document.cpp" />
-    <ClCompile Include="src\model\ImageObject.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\graphics\CurrentShader.cpp" />
-    <ClCompile Include="src\graphics\IndexBuffer.cpp" />
-    <ClCompile Include="src\graphics\Mesh.cpp" />
-    <ClCompile Include="src\graphics\Shader.cpp" />
-    <ClCompile Include="src\graphics\Texture.cpp" />
-    <ClCompile Include="src\graphics\Vector.cpp" />
-    <ClCompile Include="src\graphics\VertexBuffer.cpp" />
-    <ClCompile Include="src\view\ImageObjectView.cpp" />
-    <ClCompile Include="src\view\MainMenu.cpp" />
-    <ClCompile Include="src\model\ObservableImageObject.cpp" />
-    <ClCompile Include="src\view\Scene.cpp" />
-    <ClCompile Include="vendor\ImGuiFileDialog\ImGuiFileDialog.cpp" />
-    <ClCompile Include="vendor\stb_image\stb_image.cpp" />
-    <ClCompile Include="src\view\Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\glcall.h" />
-    <ClInclude Include="include\controller\MenuController.h" />
-    <ClInclude Include="include\model\Document.h" />
-    <ClInclude Include="include\model\ImageObject.h" />
-    <ClInclude Include="include\model\IImageObjectObserver.h" />
-    <ClInclude Include="include\view\ImageObjectView.h" />
-    <ClInclude Include="include\view\IMenuController.h" />
-    <ClInclude Include="include\glad_glfw.h" />
-    <ClInclude Include="include\graphics\CurrentShader.h" />
-    <ClInclude Include="include\graphics\IndexBuffer.h" />
-    <ClInclude Include="include\graphics\Mesh.h" />
-    <ClInclude Include="include\graphics\Shader.h" />
-    <ClInclude Include="include\graphics\TexCoords.h" />
-    <ClInclude Include="include\graphics\Texture.h" />
-    <ClInclude Include="include\graphics\Vector.h" />
-    <ClInclude Include="include\graphics\VertexBuffer.h" />
-    <ClInclude Include="include\view\IMouseInputController.h" />
-    <ClInclude Include="include\model\IObservableImageObject.h" />
-    <ClInclude Include="include\view\MainMenu.h" />
-    <ClInclude Include="include\model\ObservableImageObject.h" />
-    <ClInclude Include="include\view\Scene.h" />
-    <ClInclude Include="vendor\ImGuiFileDialog\ImGuiFileDialog.h" />
-    <ClInclude Include="vendor\stb_image\stb_image.h" />
-    <ClInclude Include="include\graphics\Vertex.h" />
-    <ClInclude Include="include\view\Window.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\fragment.glsl" />
-    <None Include="shaders\vertex.glsl" />
+    <ClCompile Include="unique_ptr_test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

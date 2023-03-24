@@ -1,11 +1,11 @@
-#include "MainMenu.h"
+#include "view/MainMenu.h"
 
 MainMenu::MainMenu(const std::shared_ptr<IMenuController>& menuController)
 	: m_controller(menuController)
 {
 }
 
-void MainMenu::Render()
+void MainMenu::Draw()
 {
 	ImGui::BeginMainMenuBar();
 

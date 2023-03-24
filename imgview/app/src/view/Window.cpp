@@ -1,18 +1,18 @@
-#include "Window.h"
+#include "view/Window.h"
 
-Window::Window(const std::shared_ptr<IMouseInputController>& mouseInputController,
+Window::Window(const std::shared_ptr<Scene>& scene,
+	const std::shared_ptr<IMouseInputController>& mouseInputController,
 	const std::shared_ptr<IMenuController>& menuController)
 	: m_clearColor{ 0.45f, 0.55f, 0.60f, 1.00f }
 	, m_window(nullptr)
 	, m_mainMenu(menuController)
 	, m_mouseInputController(mouseInputController)
+	, m_scene(scene)
 {
 	if (!InitGraphics())
 	{
 		throw std::runtime_error("Failed to initialize graphics.");
 	}
-
-	SetupInputCallbacks();
 }
 
 Window::~Window()
@@ -34,7 +34,8 @@ void Window::Run()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		m_mainMenu.Render();
+		m_mainMenu.Draw();
+		m_scene->Draw();
 		Render();
 
 		glfwSwapBuffers(m_window);
@@ -49,10 +50,10 @@ void Window::Render()
 	CurrentShader::Get().SetUniformMatrix4fv("m_projection",
 		glm::ortho(0.0f, float(w), float(h), 0.0f, -1.0f, 100.0f));
 
-	glViewport(0, 0, w, h);
+	GlCall(glViewport(0, 0, w, h));
 
-	glClearColor(m_clearColor.r * m_clearColor.a, m_clearColor.g * m_clearColor.a, m_clearColor.b * m_clearColor.a, m_clearColor.a);
-	glClear(GL_COLOR_BUFFER_BIT);
+	GlCall(glClearColor(m_clearColor.r * m_clearColor.a, m_clearColor.g * m_clearColor.a, m_clearColor.b * m_clearColor.a, m_clearColor.a));
+	GlCall(glClear(GL_COLOR_BUFFER_BIT));
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -87,8 +88,8 @@ bool Window::InitGraphics()
 	gladLoadGL();
 	glfwSwapInterval(1); // Enable vsync
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Setup blending algorithm
+	GlCall(glEnable(GL_BLEND));
+	GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)); // Setup blending algorithm
 
 	if constexpr (_DEBUG)
 		printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
@@ -98,6 +99,8 @@ bool Window::InitGraphics()
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	(void)io;
+
+	SetupInputCallbacks();
 
 	ImGui_ImplGlfw_InitForOpenGL(m_window, true);
 	ImGui_ImplOpenGL3_Init("#version 330 core");
@@ -153,11 +156,11 @@ void Window::SetupInputCallbacks()
 
 		if (yoffset > 0)
 		{
-			thisWindow->m_mouseInputController->OnScrollUp(yoffset);
+			thisWindow->m_mouseInputController->OnScrollUp(static_cast<float>(yoffset));
 		}
 		else
 		{
-			thisWindow->m_mouseInputController->OnScrollDown(yoffset);
+			thisWindow->m_mouseInputController->OnScrollDown(static_cast<float>(yoffset));
 		}
 	});
 }

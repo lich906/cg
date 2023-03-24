@@ -3,7 +3,7 @@
 #include "Vector.h"
 #include "TexCoords.h"
 
-class Vertex
+struct Vertex
 {
 	Vector position;
 	TexCoords texCoords;

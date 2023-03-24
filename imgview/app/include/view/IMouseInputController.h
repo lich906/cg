@@ -4,7 +4,7 @@
 
 struct IMouseInputController
 {
-	~IMouseInputController() = default;
+	virtual ~IMouseInputController() = default;
 
 	virtual void OnMouseDown(const Vector& pos) = 0;
 	virtual void OnMouseUp(const Vector& pos) = 0;

@@ -14,7 +14,7 @@ class MainMenu
 public:
 	MainMenu(const std::shared_ptr<IMenuController>& menuController);
 
-	void Render();
+	void Draw();
 
 private:
 	std::shared_ptr<IMenuController> m_controller;

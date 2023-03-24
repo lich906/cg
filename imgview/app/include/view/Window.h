@@ -10,11 +10,13 @@
 
 #include "MainMenu.h"
 #include "IMouseInputController.h"
+#include "Scene.h"
 
 class Window
 {
 public:
-	Window(const std::shared_ptr<IMouseInputController>& mouseInputController,
+	Window(const std::shared_ptr<Scene>& scene,
+		const std::shared_ptr<IMouseInputController>& mouseInputController,
 		const std::shared_ptr<IMenuController>& menuController);
 	~Window();
 
@@ -34,6 +36,7 @@ private:
 
 	MainMenu m_mainMenu;
 
+	std::shared_ptr<Scene> m_scene;
 	std::shared_ptr<IMouseInputController> m_mouseInputController;
 	Vector m_lastCursorPos;
 };

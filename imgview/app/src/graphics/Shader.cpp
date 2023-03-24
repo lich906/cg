@@ -54,54 +54,58 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
 		geometry = CompileShader(GL_GEOMETRY_SHADER, geometryCode);
 	}
 	// Shader Program
-	m_program = glCreateProgram();
-	glAttachShader(m_program, vertex);
-	glAttachShader(m_program, fragment);
+	GlCall(m_program = glCreateProgram());
+	GlCall(glAttachShader(m_program, vertex));
+	GlCall(glAttachShader(m_program, fragment));
 	if (geometryPath != nullptr)
-		glAttachShader(m_program, geometry);
-	glLinkProgram(m_program);
+	{
+		GlCall(glAttachShader(m_program, geometry));
+	}
+	GlCall(glLinkProgram(m_program));
 	GLint success;
 	GLchar infoLog[1024];
-	glGetProgramiv(m_program, GL_LINK_STATUS, &success);
+	GlCall(glGetProgramiv(m_program, GL_LINK_STATUS, &success));
 	if (!success)
 	{
-		glGetProgramInfoLog(m_program, 1024, NULL, infoLog);
+		GlCall(glGetProgramInfoLog(m_program, 1024, NULL, infoLog));
 		throw std::runtime_error(
 			"| ERROR::PROGRAM-LINKING-ERROR |\n" + std::string(infoLog) + 
 			"\n| -- --------------------------------------------------- -- |");
 	}
 	// Delete the shaders as they're linked into our program now and no longer necessery
-	glDeleteShader(vertex);
-	glDeleteShader(fragment);
+	GlCall(glDeleteShader(vertex));
+	GlCall(glDeleteShader(fragment));
 	if (geometryPath != nullptr)
-		glDeleteShader(geometry);
+	{
+		GlCall(glDeleteShader(geometry));
+	}
 }
 
 void Shader::Use()
 {
-	glUseProgram(m_program);
+	GlCall(glUseProgram(m_program));
 }
 
 void Shader::SetUniform1i(const std::string& name, GLint value)
 {
 	auto location = GetUniformLocation(name);
-	glUseProgram(m_program);
-	glUniform1i(location, value);
+	GlCall(glUseProgram(m_program));
+	GlCall(glUniform1i(location, value));
 }
 
 void Shader::SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat)
 {
 	auto location = GetUniformLocation(name);
-	glUseProgram(m_program);
-	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
+	GlCall(glUseProgram(m_program));
+	GlCall(glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat)));
 }
 
 GLuint Shader::CompileShader(GLenum shaderType, const std::string& source)
 {
-	GLuint shaderId = glCreateShader(shaderType);
+	GlCall(GLuint shaderId = glCreateShader(shaderType));
 	const GLchar* sourceData = source.c_str();
-	glShaderSource(shaderId, 1, &sourceData, nullptr);
-	glCompileShader(shaderId);
+	GlCall(glShaderSource(shaderId, 1, &sourceData, nullptr));
+	GlCall(glCompileShader(shaderId));
 
 	CheckShaderCompileErrors(shaderId, shaderType);
 
@@ -112,7 +116,7 @@ void Shader::CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType) const
 {
 	GLint success;
 
-	glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
+	GlCall(glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success));
 	if (!success)
 	{
 		throw std::runtime_error("ERROR::SHADER-COMPILATION-ERROR Shader type: " + std::to_string(shaderType));
@@ -121,7 +125,8 @@ void Shader::CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType) const
 
 GLuint Shader::GetUniformLocation(const std::string& name)
 {
-	GLuint location = glGetUniformLocation(m_program, name.c_str());
+	GlCall(GLuint location = glGetUniformLocation(m_program, name.c_str()));
+
 	if (location >= 0)
 	{
 		return location;

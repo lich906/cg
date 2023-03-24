@@ -3,5 +3,6 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "glcall.h"
 
 #endif // !GLAD_GLFW_H

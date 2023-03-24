@@ -6,8 +6,8 @@
 
 #include "vendor/ImGuiFileDialog/ImGuiFileDialog.h"
 #include "graphics/CurrentShader.h"
-
-#include "Window.h"
+#include "view/Window.h"
+#include "controller/MenuController.h"
 
 struct FakeMenuController : public IMenuController
 {
@@ -49,6 +49,10 @@ struct FakeMouseInputController : public IMouseInputController
 
 int main()
 {
-	Window window(std::make_shared<FakeMouseInputController>(), std::make_shared<FakeMenuController>());
+	auto doc = std::make_shared<Document>();
+	auto scene = std::make_shared<Scene>();
+	auto menuController = std::make_shared<MenuController>(doc, scene);
+
+	Window window(scene, std::make_shared<FakeMouseInputController>(), menuController);
 	window.Run();
 }

@@ -15,9 +15,10 @@ public:
 	Mesh(const std::vector<Vertex>& vertices,
 		const std::vector<GLuint>& indices,
 		GLenum usage = GL_STATIC_DRAW);
+
 	~Mesh();
 
-	void Render(GLenum mode = GL_TRIANGLES);
+	void Draw(GLenum mode = GL_TRIANGLES);
 
 private:
 	GLuint m_vertexArrayId;
