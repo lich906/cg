@@ -17,5 +17,11 @@ public:
 	void Draw();
 
 private:
+	void DrawMainMenuBar();
+	void DrawModals();
+
 	std::shared_ptr<IMenuController> m_controller;
+
+	bool m_helpModalOpen, m_errorModalOpen;
+	std::string m_errorMsg;
 };
