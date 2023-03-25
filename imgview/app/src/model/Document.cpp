@@ -17,6 +17,5 @@ std::unique_ptr<ImageObject>& Document::FindObjectAtPos(const Vector& pos)
 		return m_imageObject;
 	}
 
-	std::unique_ptr<ImageObject> null;
-	return null;
+	return m_nullptr;
 }

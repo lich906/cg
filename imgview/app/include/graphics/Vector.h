@@ -4,7 +4,8 @@ struct Vector
 {
 	static constexpr unsigned Size = 2;
 
-	constexpr Vector(float x_ = 0.0f, float y_ = 0.0f);
+	Vector();
+	constexpr Vector(float x_, float y_);
 
 	/*
 		Check that vector is non zero vector.

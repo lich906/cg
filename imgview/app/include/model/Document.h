@@ -15,4 +15,5 @@ public:
 
 private:
 	std::unique_ptr<ImageObject> m_imageObject;
+	std::unique_ptr<ImageObject> m_nullptr;
 };
