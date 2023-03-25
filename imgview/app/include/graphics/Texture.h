@@ -3,7 +3,7 @@
 #include <string>
 
 #include "glad_glfw.h"
-#include "GL/GC.h"
+#include "graphics/GL/GC.h"
 
 class Texture
 {
@@ -21,7 +21,7 @@ public:
 	int GetHeight() const;
 
 private:
-	inline static GL::GC gc;
+	static GL::GC gc;
 
 	GLuint m_rendererId;
 	std::string m_filePath;

@@ -4,10 +4,11 @@
 
 #include <vector>
 
-#include "Texture.h"
-#include "Vertex.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
+#include "graphics/Texture.h"
+#include "graphics/Vertex.h"
+#include "graphics/VertexArray.h"
+#include "graphics/VertexBuffer.h"
+#include "graphics/IndexBuffer.h"
 
 class Mesh
 {
@@ -16,12 +17,10 @@ public:
 		const std::vector<GLuint>& indices,
 		GLenum usage = GL_STATIC_DRAW);
 
-	~Mesh();
-
 	void Draw(GLenum mode = GL_TRIANGLES);
 
 private:
-	GLuint m_vertexArrayId;
+	VertexArray m_vertexArray;
 	VertexBuffer m_vertexBuffer;
 	IndexBuffer m_indexBuffer;
 };

@@ -1,21 +1,32 @@
 #pragma once
 
 #include "glad_glfw.h"
+#include "graphics/GL/GC.h"
 
 class IndexBuffer
 {
 public:
-	IndexBuffer(const GLuint* data, size_t size, GLenum usage);
+	IndexBuffer();
+	IndexBuffer(const IndexBuffer& other);
+	IndexBuffer(const void* data, size_t size, GLenum usage);
+
 	~IndexBuffer();
+
+	operator GLuint() const;
+	const IndexBuffer& operator=(const IndexBuffer& other);
 
 	void Bind() const;
 	void Unbind() const;
 
 	size_t GetSize() const;
 
-	void UpdateBufferData(const void* data, size_t size) const;
+	void SetData(const void* data, size_t size, GLenum usage);
+	void SetSubData(const void* data, size_t offset, size_t size);
+
+	void GetSubData(void* data, size_t offset, size_t size);
 
 private:
-	GLuint m_bufferId;
+	static GL::GC gc;
+	GLuint m_obj;
 	size_t m_size;
 };

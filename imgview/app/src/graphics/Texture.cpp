@@ -89,3 +89,5 @@ int Texture::GetHeight() const
 {
 	return m_height;
 }
+
+GL::GC Texture::gc;

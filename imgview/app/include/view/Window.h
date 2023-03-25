@@ -23,7 +23,7 @@ public:
 	void Run();
 
 private:
-	void Render();
+	void Draw();
 	bool InitGraphics();
 	void SetupInputCallbacks();
 	void UpdateProjectionMatrixAndViewport();

@@ -2,8 +2,6 @@
 
 struct Vector
 {
-	static constexpr unsigned Size = 2;
-
 	Vector();
 	constexpr Vector(float x_, float y_);
 

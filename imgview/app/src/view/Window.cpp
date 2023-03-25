@@ -36,21 +36,20 @@ void Window::Run()
 
 		UpdateProjectionMatrixAndViewport();
 
-		m_mainMenu.Draw();
-		m_scene->Draw();
-		Render();
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwSwapBuffers(m_window);
 	}
 }
 
-void Window::Render()
+void Window::Draw()
 {
 	GlCall(glClearColor(m_clearColor.r * m_clearColor.a, m_clearColor.g * m_clearColor.a, m_clearColor.b * m_clearColor.a, m_clearColor.a));
 	GlCall(glClear(GL_COLOR_BUFFER_BIT));
 
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	m_mainMenu.Draw();
+	m_scene->Draw();
 }
 
 bool Window::InitGraphics()

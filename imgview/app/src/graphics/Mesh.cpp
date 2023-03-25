@@ -1,38 +1,39 @@
 #include "graphics/Mesh.h"
 
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices, GLenum usage)
-	: m_vertexBuffer(vertices.data(), vertices.size() * sizeof(Vertex), usage)
-	, m_indexBuffer(indices.data(), indices.size(), usage)
 {
-	GlCall(glGenVertexArrays(1, &m_vertexArrayId));
+	// Bind the Vertex Array Object first, then bind and set vertex and index buffer(s) and attribute pointer(s).
+	m_vertexArray.Bind();
 
-	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-	GlCall(glBindVertexArray(m_vertexArrayId));
 	m_vertexBuffer.Bind();
+	m_vertexBuffer.SetData(vertices.data(), vertices.size() * sizeof(Vertex), usage);
+
 	m_indexBuffer.Bind();
+	m_indexBuffer.SetData(indices.data(), indices.size() * sizeof(GLuint), usage);
+
+	/*
+	vertex #1    > vertex #2    > ...
+	[x, y][s, t] > [x, y][s, t] > ...
+	 |<============>| stride
+	 |<======>| vertex size = (vector size + tex coords size)
+	*/
+	GLsizei stride = sizeof(Vector) + sizeof(TexCoords);
 
 	// Position attribute
-	GLsizei stride = (Vector::Size + TexCoords::Size) * sizeof(GLfloat);
-	GlCall(glVertexAttribPointer(0, Vector::Size, GL_FLOAT, GL_FALSE, stride, (GLvoid*)0));
-	GlCall(glEnableVertexAttribArray(0));
+	m_vertexArray.BindAttribute(0, GL_FLOAT, sizeof(Vector) / sizeof(float), stride, 0);
 
 	// Texture attribute
-	GlCall(glVertexAttribPointer(1, TexCoords::Size, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(Vector::Size * sizeof(GLfloat))));
-	GlCall(glEnableVertexAttribArray(1));
+	m_vertexArray.BindAttribute(1, GL_FLOAT, sizeof(TexCoords) / sizeof(float), stride, sizeof(Vector));
 
-	m_vertexBuffer.Unbind();
+	//m_vertexBuffer.Unbind();
 
-	GlCall(glBindVertexArray(0)); // Unbind VAO		!Do not unbind EBO!
-}
+	// ! Do not unbind m_indexBuffer !
 
-Mesh::~Mesh()
-{
-	GlCall(glDeleteVertexArrays(1, &m_vertexArrayId));
+	m_vertexArray.Unbind();
 }
 
 void Mesh::Draw(GLenum mode)
 {
-	GlCall(glBindVertexArray(m_vertexArrayId));
+	m_vertexArray.Bind();
 	GlCall(glDrawElements(mode, m_indexBuffer.GetSize(), GL_UNSIGNED_INT, 0));
-	GlCall(glBindVertexArray(0));
 }
