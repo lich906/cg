@@ -6,6 +6,6 @@ namespace config
 {
 
 constexpr GLint TextureFilteringMode = GL_NEAREST;
-constexpr float ZoomingCoeff = 0.05f;
+constexpr float ZoomingCoeff = 0.1f;
 
 } // namespace config

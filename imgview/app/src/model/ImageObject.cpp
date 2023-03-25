@@ -47,9 +47,8 @@ void ImageObject::RefreshTransformMatrix()
 
 void ImageObject::Zoom(float coeff)
 {
-	m_width *= 1.0f + coeff * 2;
-	m_height *= 1.0f + coeff * 2;
-	Vector center(m_anchor + m_width / 2, m_anchor + m_height / 2);
-	m_anchor = (m_anchor - center) * (1.0f + coeff) + center;
+	m_anchor -= Vector(coeff * m_width / 2, coeff * m_height / 2);
+	m_width *= 1.0f + coeff;
+	m_height *= 1.0f + coeff;
 	RefreshTransformMatrix();
 }

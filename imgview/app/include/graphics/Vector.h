@@ -26,6 +26,7 @@ struct Vector
 	Vector Unit() const;
 
 	Vector& operator+=(const Vector& rhs);
+	Vector& operator-=(const Vector& rhs);
 	Vector& operator*=(float scalar);
 	Vector& operator+=(float scalar);
 
