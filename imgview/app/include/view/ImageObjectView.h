@@ -8,7 +8,7 @@
 class ImageObjectView : public IImageObjectObserver
 {
 public:
-	ImageObjectView(Texture&& texture);
+	ImageObjectView(const Texture& texture);
 
 	void Draw();
 

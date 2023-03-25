@@ -1,9 +1,9 @@
 #include "view/ImageObjectView.h"
 
-ImageObjectView::ImageObjectView(Texture&& texture)
+ImageObjectView::ImageObjectView(const Texture& texture)
 	: m_transform(glm::mat4(1.0f))
 	, m_backgroundTexture("res/textures/bg.png", GL_MIRRORED_REPEAT)
-	, m_imageTexture(std::move(texture))
+	, m_imageTexture(texture)
 	// clang-format off
 	, m_mesh(
 		{{ { -1.0f,  1.0f },  { 0.0f, 1.0f } },

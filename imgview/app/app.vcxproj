@@ -177,6 +177,7 @@
   <ItemGroup>
     <ClInclude Include="include\glcall.h" />
     <ClInclude Include="include\controller\MenuController.h" />
+    <ClInclude Include="include\graphics\GL\GC.h" />
     <ClInclude Include="include\model\Document.h" />
     <ClInclude Include="include\model\ImageObject.h" />
     <ClInclude Include="include\model\IImageObjectObserver.h" />

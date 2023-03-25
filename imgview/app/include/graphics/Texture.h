@@ -1,8 +1,9 @@
 #pragma once
 
-#include "glad_glfw.h"
-
 #include <string>
+
+#include "glad_glfw.h"
+#include "GL/GC.h"
 
 class Texture
 {
@@ -10,10 +11,8 @@ public:
 	Texture(const std::string& filePath, GLint wrappingMode = GL_CLAMP_TO_EDGE);
 	~Texture();
 
-	Texture(const Texture&) = delete;
-	Texture& operator=(const Texture&) = delete;
-	Texture(Texture&& other) = default;
-	Texture& operator=(Texture&& other) = default;
+	Texture(const Texture& other);
+	Texture& operator=(const Texture& other);
 
 	void Bind(unsigned int slot = 0) const;
 	void Unbind() const;
@@ -22,6 +21,8 @@ public:
 	int GetHeight() const;
 
 private:
+	inline static GL::GC gc;
+
 	GLuint m_rendererId;
 	std::string m_filePath;
 	unsigned char* m_localBuffer;

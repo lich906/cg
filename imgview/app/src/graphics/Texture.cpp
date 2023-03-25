@@ -18,7 +18,7 @@ Texture::Texture(const std::string& filePath, GLint wrappingMode)
 		throw std::runtime_error("Failed to open image.");
 	}
 
-	GlCall(glGenTextures(1, &m_rendererId));
+	GlCall(gc.Create(m_rendererId, glGenTextures, glDeleteTextures));
 	GlCall(glBindTexture(GL_TEXTURE_2D, m_rendererId));
 
 	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
@@ -37,7 +37,36 @@ Texture::Texture(const std::string& filePath, GLint wrappingMode)
 
 Texture::~Texture()
 {
-	glDeleteTextures(1, &m_rendererId);
+	GlCall(gc.Destroy(m_rendererId));
+}
+
+#pragma warning(suppress: 26495)
+Texture::Texture(const Texture& other)
+{
+	if (this != std::addressof(other))
+	{
+		m_localBuffer = other.m_localBuffer;
+		m_filePath = other.m_filePath;
+		m_width = other.m_width;
+		m_height = other.m_height;
+		m_bpp = other.m_bpp;
+		gc.Copy(other.m_rendererId, m_rendererId);
+	}
+}
+
+Texture& Texture::operator=(const Texture& other)
+{
+	if (this != std::addressof(other))
+	{
+		m_localBuffer = other.m_localBuffer;
+		m_filePath = other.m_filePath;
+		m_width = other.m_width;
+		m_height = other.m_height;
+		m_bpp = other.m_bpp;
+		gc.Copy(other.m_rendererId, m_rendererId);
+	}
+
+	return *this;
 }
 
 void Texture::Bind(unsigned int slot) const
