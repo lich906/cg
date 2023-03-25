@@ -35,6 +35,7 @@ void Window::Run()
 		ImGui::NewFrame();
 
 		UpdateProjectionMatrixAndViewport();
+		Draw();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
