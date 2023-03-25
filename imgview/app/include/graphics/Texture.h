@@ -3,6 +3,7 @@
 #include <string>
 
 #include "glad_glfw.h"
+#include "config.h"
 #include "graphics/GL/GC.h"
 
 class Texture

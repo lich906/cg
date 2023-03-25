@@ -17,6 +17,7 @@ private:
 	void UpdateTransformMatrix(const glm::mat4&) override;
 
 	Texture m_backgroundTexture, m_imageTexture;
+	Mesh m_backgroundMesh;
 	Mesh m_mesh;
 
 	glm::mat4 m_transform;

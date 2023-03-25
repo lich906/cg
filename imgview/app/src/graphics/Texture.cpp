@@ -21,8 +21,8 @@ Texture::Texture(const std::string& filePath, GLint wrappingMode)
 	GlCall(gc.Create(m_rendererId, glGenTextures, glDeleteTextures));
 	GlCall(glBindTexture(GL_TEXTURE_2D, m_rendererId));
 
-	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config::TextureFilteringMode));
+	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config::TextureFilteringMode));
 	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrappingMode));
 	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrappingMode));
 

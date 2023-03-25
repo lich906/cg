@@ -25,12 +25,12 @@ void ImageObject::Drag(const Vector& delta)
 
 void ImageObject::ZoomIn()
 {
-	Zoom(0.1f);
+	Zoom(config::ZoomingCoeff);
 }
 
 void ImageObject::ZoomOut()
 {
-	Zoom(-0.1f);
+	Zoom(-config::ZoomingCoeff);
 }
 
 glm::mat4 ImageObject::GetTransformMatrix()

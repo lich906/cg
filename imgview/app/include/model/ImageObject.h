@@ -1,5 +1,6 @@
 #pragma once
 
+#include "config.h"
 #include "glm/glm.hpp"
 #include "glm/ext/matrix_transform.hpp" // scale, translate
 #include "graphics/Texture.h"
