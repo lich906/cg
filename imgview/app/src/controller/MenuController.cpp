@@ -10,11 +10,11 @@ void MenuController::OnFileOpen(const std::string& filePath)
 {
 	Texture texture(filePath);
 
-	auto imageObject = std::make_unique<ImageObject>(texture.GetWidth(), texture.GetHeight());
+	ImageObject imageObject(texture.GetWidth(), texture.GetHeight());
 	auto imageObjectView = std::make_unique<ImageObjectView>(texture);
-	imageObject->SubscribeOnTransform(imageObjectView.get(), true);
+	imageObject.SubscribeOnTransform(imageObjectView.get(), true);
 
-	m_document->AddImageObject(std::move(imageObject));
+	m_document->AddImageObject(imageObject);
 	m_scene->AddImageObjectView(std::move(imageObjectView));
 }
 

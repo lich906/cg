@@ -142,20 +142,23 @@ void Window::SetupInputCallbacks()
 		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		Vector cursorPos{ static_cast<float>(xpos), static_cast<float>(ypos) };
 
-		thisWindow->m_mouseInputController->OnMouseMove(cursorPos - thisWindow->m_lastCursorPos);
+		thisWindow->m_mouseInputController->OnMouseMove(cursorPos, cursorPos - thisWindow->m_lastCursorPos);
 		thisWindow->m_lastCursorPos = cursorPos;
 	});
 
 	glfwSetScrollCallback(m_window, [](GLFWwindow* window, double xoffset, double yoffset) -> void {
 		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+		double x, y;
+		glfwGetCursorPos(window, &x, &y);
+		Vector cursorPos{ static_cast<float>(x), static_cast<float>(y) };
 
 		if (yoffset > 0)
 		{
-			thisWindow->m_mouseInputController->OnScrollUp(static_cast<float>(yoffset));
+			thisWindow->m_mouseInputController->OnScrollUp(cursorPos);
 		}
 		else
 		{
-			thisWindow->m_mouseInputController->OnScrollDown(static_cast<float>(yoffset));
+			thisWindow->m_mouseInputController->OnScrollDown(cursorPos);
 		}
 	});
 }

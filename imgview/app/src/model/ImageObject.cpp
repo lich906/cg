@@ -1,31 +1,55 @@
 #include "model/ImageObject.h"
 
 ImageObject::ImageObject(int width, int height)
-	: m_topLeft({ 0.0f, 0.0f })
-	, m_bottomRight({ static_cast<float>(width), static_cast<float>(height) })
+	: m_anchor({ 0.0f, 0.0f })
+	, m_width(static_cast<float>(width))
+	, m_height(static_cast<float>(height))
 	, m_transform(1.0f)
 {
-	m_transform = glm::scale(m_transform, glm::vec3(m_bottomRight.x, m_bottomRight.y, 1.0f));
-	//m_transform = glm::translate(m_transform, glm::vec3(m_topRight.x / 2, m_bottomLeft.y / 2, 0.0f));
+	m_transform = glm::scale(glm::mat4(1.0f), glm::vec3(m_width, m_height, 1.0f));
 }
 
 bool ImageObject::ExistsAtPos(const Vector& pos)
 {
-	return m_topLeft <= pos && pos <= m_bottomRight;
+	return m_anchor <= pos && pos <= m_anchor + Vector(m_width, m_height);
 }
 
 void ImageObject::Drag(const Vector& delta)
 {
-	m_transform = glm::translate(m_transform, glm::vec3(delta.x, delta.y, 0.0f));
+	if (delta)
+	{
+		m_anchor += delta;
+		RefreshTransformMatrix();
+	}
 }
 
-void ImageObject::Zoom(float value)
+void ImageObject::ZoomIn()
 {
-	value *= 1.1f;
-	m_transform = glm::scale(m_transform, glm::vec3(value, value, 0.0f));
+	Zoom(0.1f);
+}
+
+void ImageObject::ZoomOut()
+{
+	Zoom(-0.1f);
 }
 
 glm::mat4 ImageObject::GetTransformMatrix()
 {
 	return m_transform;
+}
+
+void ImageObject::RefreshTransformMatrix()
+{
+	m_transform = glm::translate(glm::mat4(1.0f), glm::vec3(m_anchor.x, m_anchor.y, 0.0f));
+	m_transform = glm::scale(m_transform, glm::vec3(m_width, m_height, 1.0f));
+	TransformMatrixChanged();
+}
+
+void ImageObject::Zoom(float coeff)
+{
+	m_width *= 1.0f + coeff * 2;
+	m_height *= 1.0f + coeff * 2;
+	Vector center(m_anchor + m_width / 2, m_anchor + m_height / 2);
+	m_anchor = (m_anchor - center) * (1.0f + coeff) + center;
+	RefreshTransformMatrix();
 }

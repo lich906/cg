@@ -1,21 +1,21 @@
 #include "model/Document.h"
 
-void Document::AddImageObject(std::unique_ptr<ImageObject>&& imageObject)
+void Document::AddImageObject(const ImageObject& imageObject)
 {
-	m_imageObject = std::move(imageObject);
+	m_imageObject = imageObject;
 }
 
 void Document::RemoveImageObject()
 {
-	m_imageObject = nullptr;
+	m_imageObject.reset();
 }
 
-std::unique_ptr<ImageObject>& Document::FindObjectAtPos(const Vector& pos)
+ImageObject* Document::FindObjectAtPos(const Vector& pos)
 {
 	if (m_imageObject && m_imageObject->ExistsAtPos(pos))
 	{
-		return m_imageObject;
+		return &*m_imageObject;
 	}
 
-	return m_nullptr;
+	return nullptr;
 }

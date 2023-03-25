@@ -62,7 +62,7 @@ bool Vector::operator>=(const Vector& rhs) const
 
 bool Vector::operator<=(const Vector& rhs) const
 {
-	return rhs.x <= x && rhs.y <= y;
+	return x <= rhs.x && y <= rhs.y;
 }
 
 bool Vector::operator>(const Vector& rhs) const

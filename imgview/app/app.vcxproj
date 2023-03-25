@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\controller\MenuController.cpp" />
+    <ClCompile Include="src\controller\MouseInputController.cpp" />
     <ClCompile Include="src\graphics\VertexArray.cpp" />
     <ClCompile Include="src\model\Document.cpp" />
     <ClCompile Include="src\model\ImageObject.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="src\view\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\controller\MouseInputController.h" />
     <ClInclude Include="include\glcall.h" />
     <ClInclude Include="include\controller\MenuController.h" />
     <ClInclude Include="include\graphics\GL\GC.h" />

@@ -15,12 +15,18 @@ public:
 
 	void Drag(const Vector& delta);
 
-	void Zoom(float value);
+	void ZoomIn();
+	void ZoomOut();
 
 private:
 	// Inherited via ObservableImageObject
 	virtual glm::mat4 GetTransformMatrix() override;
 
-	Vector m_topLeft, m_bottomRight;
+	void RefreshTransformMatrix();
+
+	void Zoom(float coeff);
+
+	Vector m_anchor;
+	float m_width, m_height;
 	glm::mat4 m_transform = glm::mat4(1.0f);
 };
