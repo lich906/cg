@@ -35,7 +35,7 @@ struct FakeMouseInputController : public IMouseInputController
 	}
 	virtual void OnMouseMove(const Vector& delta) override
 	{
-		printf("Mouse move: %.2f\t%.2f\n", delta.x, delta.y);
+		//printf("Mouse move: %.2f\t%.2f\n", delta.x, delta.y);
 	}
 	virtual void OnScrollUp(float offset) override
 	{

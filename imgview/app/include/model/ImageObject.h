@@ -21,6 +21,6 @@ private:
 	// Inherited via ObservableImageObject
 	virtual glm::mat4 GetTransformMatrix() override;
 
-	Vector m_bottomLeft, m_topRight;
+	Vector m_topLeft, m_bottomRight;
 	glm::mat4 m_transform = glm::mat4(1.0f);
 };

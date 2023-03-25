@@ -26,6 +26,7 @@ private:
 	void Render();
 	bool InitGraphics();
 	void SetupInputCallbacks();
+	void UpdateProjectionMatrixAndViewport();
 
 	struct Color
 	{

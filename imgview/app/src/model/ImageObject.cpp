@@ -1,18 +1,17 @@
 #include "model/ImageObject.h"
 
 ImageObject::ImageObject(int width, int height)
-	: m_bottomLeft({ 0.0f, static_cast<float>(height) })
-	, m_topRight({ static_cast<float>(width), 0.0f })
-	, m_transform(glm::mat4(1.0f))
-// clang-format on
+	: m_topLeft({ 0.0f, 0.0f })
+	, m_bottomRight({ static_cast<float>(width), static_cast<float>(height) })
+	, m_transform(1.0f)
 {
-	m_transform = glm::translate(m_transform, glm::vec3(m_topRight.x / 2, m_bottomLeft.y / 2, 0.0f));
-	m_transform = glm::scale(m_transform, glm::vec3(m_topRight.x, m_topRight.y, 0.0f));
+	m_transform = glm::scale(m_transform, glm::vec3(m_bottomRight.x, m_bottomRight.y, 1.0f));
+	//m_transform = glm::translate(m_transform, glm::vec3(m_topRight.x / 2, m_bottomLeft.y / 2, 0.0f));
 }
 
 bool ImageObject::ExistsAtPos(const Vector& pos)
 {
-	return m_bottomLeft <= pos && pos <= m_topRight;
+	return m_topLeft <= pos && pos <= m_bottomRight;
 }
 
 void ImageObject::Drag(const Vector& delta)
