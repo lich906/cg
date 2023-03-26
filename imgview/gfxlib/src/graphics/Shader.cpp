@@ -34,6 +34,11 @@ Shader::Shader(const Shader& other)
 	gc.Copy(other.m_obj, m_obj);
 }
 
+Shader::~Shader()
+{
+	GlCall(gc.Destroy(m_obj));
+}
+
 Shader::operator GLuint() const
 {
 	return m_obj;

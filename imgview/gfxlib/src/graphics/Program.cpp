@@ -7,7 +7,6 @@ Program::Program()
 	GlCall(m_obj = gc.Create(glCreateProgram(), glDeleteProgram));
 }
 
-#pragma warning(suppress : 26495)
 Program::Program(const Program& other)
 {
 	gc.Copy(other.m_obj, m_obj);

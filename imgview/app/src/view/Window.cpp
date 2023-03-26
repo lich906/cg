@@ -17,11 +17,15 @@ Window::Window(const std::shared_ptr<Scene>& scene,
 
 Window::~Window()
 {
+	m_scene->RemoveImageObjectView();
+	CurrentProgram::Unset();
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 
 	glfwDestroyWindow(m_window);
+	glfwTerminate();
 }
 
 void Window::Run()
@@ -102,8 +106,8 @@ bool Window::InitGraphics()
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
 	// ImGui::StyleColorsLight();
-
-	CurrentProgram::Set(Program("shaders/vertex.glsl", "shaders/fragment.glsl"));
+	Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
+	CurrentProgram::Set(program);
 	CurrentProgram::Get().Use();
 	CurrentProgram::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
 	CurrentProgram::Get().SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default

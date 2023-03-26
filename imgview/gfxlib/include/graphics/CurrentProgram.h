@@ -7,11 +7,8 @@
 class CurrentProgram
 {
 public:
-	/*
-		Pass ownership of shader, since we will have global access to it.
-	*/
-	static void Set(const Program& shader);
-
+	static void Set(const Program& program);
+	static void Unset();
 	static Program& Get();
 
 private:

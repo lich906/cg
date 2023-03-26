@@ -7,7 +7,6 @@
 class Program
 {
 public:
-	Program();
 	Program(const Program& other);
 	Program(const Shader& vertex);
 	Program(const Shader& vertex, const Shader& fragment);
@@ -27,6 +26,7 @@ public:
 	void SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat);
 
 private:
+	Program();
 	void Link();
 	std::string GetInfoLog() const;
 

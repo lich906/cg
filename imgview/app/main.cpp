@@ -20,6 +20,8 @@ try
 
 	Window window(scene, mouseInputController, menuController);
 	window.Run();
+
+	return 0;
 }
 catch (std::runtime_error& e)
 {

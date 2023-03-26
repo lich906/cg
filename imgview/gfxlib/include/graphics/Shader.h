@@ -8,6 +8,8 @@ public:
 	// @throw std::runtime_error : On compile error or on file buffer read
 	Shader(GLenum type, const std::string& sourcePath);
 	Shader(const Shader& other);
+	
+	~Shader();
 
 	operator GLuint() const;
 	Shader& operator=(const Shader& other);
