@@ -1,7 +1,7 @@
 #pragma once
 
-#include "glad_glfw.h"
-#include "GL/GC.h"
+#include "pch.h"
+
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 

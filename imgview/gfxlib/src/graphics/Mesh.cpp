@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "graphics/Mesh.h"
 
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices, GLenum usage)

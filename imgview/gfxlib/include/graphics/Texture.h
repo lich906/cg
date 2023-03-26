@@ -1,10 +1,6 @@
 #pragma once
 
-#include <string>
-
-#include "glad_glfw.h"
-#include "config.h"
-#include "GL/GC.h"
+#include "pch.h"
 
 class Texture
 {

@@ -1,7 +1,6 @@
 #pragma once
 
-#include "glad_glfw.h"
-#include "graphics/GL/GC.h"
+#include "pch.h"
 
 class IndexBuffer
 {

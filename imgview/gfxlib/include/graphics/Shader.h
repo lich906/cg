@@ -1,12 +1,6 @@
 #pragma once
 
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
-
-#include "glad_glfw.h"
-#include "GL/GC.h"
+#include "pch.h"
 
 class Shader
 {

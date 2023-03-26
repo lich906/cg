@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "graphics/VertexBuffer.h"
 
 #include <stdexcept>

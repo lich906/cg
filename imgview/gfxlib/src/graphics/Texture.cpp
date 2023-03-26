@@ -1,7 +1,7 @@
-#include <stdexcept>
+#include "pch.h"
 
 #include "graphics/Texture.h"
-#include "../vendor/stb_image/stb_image.h"
+#include "vendor/stb_image/stb_image.h"
 
 Texture::Texture(const std::string& filePath, GLint wrappingMode, GLint filteringMode)
 	: m_filePath(filePath)

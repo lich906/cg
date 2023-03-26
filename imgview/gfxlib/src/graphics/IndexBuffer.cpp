@@ -1,6 +1,6 @@
-#include "graphics/IndexBuffer.h"
+#include "pch.h"
 
-#include <stdexcept>
+#include "graphics/IndexBuffer.h"
 
 IndexBuffer::IndexBuffer()
 	: m_size(0)

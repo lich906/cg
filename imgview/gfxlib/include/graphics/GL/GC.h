@@ -98,8 +98,8 @@ public:
 
 private:
 	std::map<GLuint, unsigned int> refs;
-	deleteFunc d;
-	deleteFunc2 d2;
+	deleteFunc d = 0;
+	deleteFunc2 d2 = 0;
 };
 } // namespace GL
 

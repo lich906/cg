@@ -1,7 +1,6 @@
 #pragma once
 
-#include "glad_glfw.h"
-#include "GL/GC.h"
+#include "pch.h"
 
 class VertexBuffer
 {

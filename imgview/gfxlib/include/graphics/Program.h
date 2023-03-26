@@ -1,10 +1,8 @@
 #pragma once
 
-#include "glad_glfw.h"
+#include "pch.h"
+
 #include "Shader.h"
-#include "GL/GC.h"
-#include "glm/matrix.hpp" // mat4
-#include "glm/gtc/type_ptr.hpp" // value_ptr
 
 class Program
 {

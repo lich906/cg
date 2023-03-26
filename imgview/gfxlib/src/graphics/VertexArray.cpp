@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "graphics/VertexArray.h"
 
 VertexArray::VertexArray()

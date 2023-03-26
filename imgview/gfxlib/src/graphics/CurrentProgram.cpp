@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "graphics/CurrentProgram.h"
 
 void CurrentProgram::Set(const Program& program)

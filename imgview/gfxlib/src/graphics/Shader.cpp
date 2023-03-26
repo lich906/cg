@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "graphics/Shader.h"
 
 Shader::Shader(GLenum type, const std::string& sourcePath)
