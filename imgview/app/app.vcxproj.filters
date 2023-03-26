@@ -42,7 +42,7 @@
     <ClCompile Include="src\view\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\CurrentShader.cpp">
+    <ClCompile Include="src\graphics\CurrentProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\view\MainMenu.cpp">
@@ -73,6 +73,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\controller\MouseInputController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Program.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,7 +116,7 @@
     <ClInclude Include="include\view\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\graphics\CurrentShader.h">
+    <ClInclude Include="include\graphics\CurrentProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\view\MainMenu.h">
@@ -162,6 +165,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\Program.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

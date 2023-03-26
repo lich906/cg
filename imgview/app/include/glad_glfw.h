@@ -2,7 +2,7 @@
 #define GLAD_GLFW_H
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include "glcall.h"
+#include <GLFW/glfw3.h>
 
 #endif // !GLAD_GLFW_H

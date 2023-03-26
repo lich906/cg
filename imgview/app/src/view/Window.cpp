@@ -103,13 +103,12 @@ bool Window::InitGraphics()
 	ImGui::StyleColorsDark();
 	// ImGui::StyleColorsLight();
 
-	CurrentShader::Set(Shader("shaders/vertex.glsl", "shaders/fragment.glsl"));
-	CurrentShader::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
-	CurrentShader::Get().SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
-	CurrentShader::Get().SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
-	CurrentShader::Get().SetUniformMatrix4fv("m_projection", glm::mat4(1.0f));
-
-	CurrentShader::Get().Use();
+	CurrentProgram::Set(Program("shaders/vertex.glsl", "shaders/fragment.glsl"));
+	CurrentProgram::Get().Use();
+	CurrentProgram::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
+	CurrentProgram::Get().SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
+	CurrentProgram::Get().SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
+	CurrentProgram::Get().SetUniformMatrix4fv("m_projection", glm::mat4(1.0f));
 
 	return true;
 }
@@ -168,7 +167,7 @@ void Window::UpdateProjectionMatrixAndViewport()
 	int w, h;
 	glfwGetFramebufferSize(m_window, &w, &h);
 
-	CurrentShader::Get().SetUniformMatrix4fv("m_projection",
+	CurrentProgram::Get().SetUniformMatrix4fv("m_projection",
 		glm::ortho(0.0f, float(w), float(h), 0.0f, -1.0f, 100.0f));
 
 	GlCall(glViewport(0, 0, w, h));

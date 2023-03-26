@@ -3,7 +3,7 @@
 #include "graphics/Texture.h"
 #include "../vendor/stb_image/stb_image.h"
 
-Texture::Texture(const std::string& filePath, GLint wrappingMode)
+Texture::Texture(const std::string& filePath, GLint wrappingMode, GLint filteringMode)
 	: m_filePath(filePath)
 	, m_localBuffer(nullptr)
 	, m_width(0)
@@ -21,8 +21,8 @@ Texture::Texture(const std::string& filePath, GLint wrappingMode)
 	GlCall(gc.Create(m_rendererId, glGenTextures, glDeleteTextures));
 	GlCall(glBindTexture(GL_TEXTURE_2D, m_rendererId));
 
-	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, config::TextureFilteringMode));
-	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, config::TextureFilteringMode));
+	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filteringMode));
+	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filteringMode));
 	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrappingMode));
 	GlCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrappingMode));
 
@@ -89,5 +89,3 @@ int Texture::GetHeight() const
 {
 	return m_height;
 }
-
-GL::GC Texture::gc;

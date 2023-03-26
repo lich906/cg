@@ -1,9 +1,9 @@
 #pragma once
 
 #include "glad_glfw.h"
-#include "graphics/GL/GC.h"
-#include "graphics/VertexBuffer.h"
-#include "graphics/IndexBuffer.h"
+#include "GL/GC.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 class VertexArray
 {
@@ -22,6 +22,6 @@ public:
 	void BindAttribute(GLint location, GLenum type, GLuint count, GLuint stride, intptr_t offset);
 
 private:
-	static GL::GC gc;
+	static inline GL::GC gc;
 	GLuint m_obj;
 };

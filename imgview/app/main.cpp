@@ -5,12 +5,13 @@
 #include "glad_glfw.h"
 
 #include "vendor/ImGuiFileDialog/ImGuiFileDialog.h"
-#include "graphics/CurrentShader.h"
+#include "graphics/CurrentProgram.h"
 #include "view/Window.h"
 #include "controller/MenuController.h"
 #include "controller/MouseInputController.h"
 
 int main()
+try
 {
 	auto doc = std::make_shared<Document>();
 	auto scene = std::make_shared<Scene>();
@@ -19,4 +20,8 @@ int main()
 
 	Window window(scene, mouseInputController, menuController);
 	window.Run();
+}
+catch (std::runtime_error& e)
+{
+	std::cout << "Runtime error : " << e.what() << std::endl;
 }

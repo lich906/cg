@@ -76,5 +76,3 @@ void IndexBuffer::GetSubData(void* data, size_t offset, size_t length)
 	Bind();
 	GlCall(glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, length, data));
 }
-
-GL::GC IndexBuffer::gc;

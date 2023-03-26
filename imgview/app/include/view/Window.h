@@ -5,7 +5,7 @@
 #include "imgui_impl_opengl3.h"
 
 #include "glad_glfw.h"
-#include "graphics/CurrentShader.h"
+#include "graphics/CurrentProgram.h"
 #include "glm/glm.hpp"
 
 #include "MainMenu.h"

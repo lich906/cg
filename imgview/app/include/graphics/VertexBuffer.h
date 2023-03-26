@@ -1,7 +1,7 @@
 #pragma once
 
 #include "glad_glfw.h"
-#include "graphics/GL/GC.h"
+#include "GL/GC.h"
 
 class VertexBuffer
 {
@@ -26,7 +26,7 @@ public:
 	void GetSubData(void* data, size_t offset, size_t size);
 
 private:
-	static GL::GC gc;
+	static inline GL::GC gc;
 	GLuint m_obj;
 	size_t m_size;
 };

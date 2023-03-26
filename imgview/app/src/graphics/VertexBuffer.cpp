@@ -76,5 +76,3 @@ void VertexBuffer::GetSubData(void* data, size_t offset, size_t length)
 	Bind();
 	GlCall(glGetBufferSubData(GL_ARRAY_BUFFER, offset, length, data));
 }
-
-GL::GC VertexBuffer::gc;

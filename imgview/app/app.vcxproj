@@ -157,11 +157,12 @@
   <ItemGroup>
     <ClCompile Include="src\controller\MenuController.cpp" />
     <ClCompile Include="src\controller\MouseInputController.cpp" />
+    <ClCompile Include="src\graphics\Program.cpp" />
     <ClCompile Include="src\graphics\VertexArray.cpp" />
     <ClCompile Include="src\model\Document.cpp" />
     <ClCompile Include="src\model\ImageObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\graphics\CurrentShader.cpp" />
+    <ClCompile Include="src\graphics\CurrentProgram.cpp" />
     <ClCompile Include="src\graphics\IndexBuffer.cpp" />
     <ClCompile Include="src\graphics\Mesh.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="include\glcall.h" />
     <ClInclude Include="include\controller\MenuController.h" />
     <ClInclude Include="include\graphics\GL\GC.h" />
+    <ClInclude Include="include\graphics\Program.h" />
     <ClInclude Include="include\graphics\VertexArray.h" />
     <ClInclude Include="include\model\Document.h" />
     <ClInclude Include="include\model\ImageObject.h" />
@@ -189,7 +191,7 @@
     <ClInclude Include="include\view\ImageObjectView.h" />
     <ClInclude Include="include\view\IMenuController.h" />
     <ClInclude Include="include\glad_glfw.h" />
-    <ClInclude Include="include\graphics\CurrentShader.h" />
+    <ClInclude Include="include\graphics\CurrentProgram.h" />
     <ClInclude Include="include\graphics\IndexBuffer.h" />
     <ClInclude Include="include\graphics\Mesh.h" />
     <ClInclude Include="include\graphics\Shader.h" />

@@ -41,5 +41,3 @@ void VertexArray::BindAttribute(GLint location, GLenum type, GLuint count, GLuin
 	GlCall(glVertexAttribPointer(location, count, type, GL_FALSE, stride, (const GLvoid*)offset));
 	GlCall(glEnableVertexAttribArray(location));
 }
-
-GL::GC VertexArray::gc;

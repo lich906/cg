@@ -23,7 +23,7 @@ ImageObjectView::ImageObjectView(const Texture& texture)
 
 void ImageObjectView::Draw()
 {
-	CurrentShader::Get().SetUniformMatrix4fv("m_model", m_transform);
+	CurrentProgram::Get().SetUniformMatrix4fv("m_model", m_transform);
 	m_backgroundTexture.Bind();
 	m_backgroundMesh.Draw(GL_TRIANGLE_STRIP);
 	m_imageTexture.Bind();

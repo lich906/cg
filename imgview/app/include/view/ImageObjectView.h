@@ -2,7 +2,7 @@
 
 #include "graphics/Texture.h"
 #include "graphics/Mesh.h"
-#include "graphics/CurrentShader.h"
+#include "graphics/CurrentProgram.h"
 #include "model/IImageObjectObserver.h"
 
 class ImageObjectView : public IImageObjectObserver

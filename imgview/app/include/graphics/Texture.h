@@ -4,12 +4,12 @@
 
 #include "glad_glfw.h"
 #include "config.h"
-#include "graphics/GL/GC.h"
+#include "GL/GC.h"
 
 class Texture
 {
 public:
-	Texture(const std::string& filePath, GLint wrappingMode = GL_CLAMP_TO_EDGE);
+	Texture(const std::string& filePath, GLint wrappingMode = GL_CLAMP_TO_EDGE, GLint filteringMode = GL_NEAREST);
 	~Texture();
 
 	Texture(const Texture& other);
@@ -22,7 +22,7 @@ public:
 	int GetHeight() const;
 
 private:
-	static GL::GC gc;
+	static inline GL::GC gc;
 
 	GLuint m_rendererId;
 	std::string m_filePath;

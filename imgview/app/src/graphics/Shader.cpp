@@ -1,136 +1,83 @@
 #include "graphics/Shader.h"
 
-Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath)
+Shader::Shader(GLenum type, const std::string& sourcePath)
+	: m_type(type)
 {
-	std::string vertexCode, fragmentCode, geometryCode;
-	std::ifstream vShaderFile, fShaderFile, gShaderFile;
+	GlCall(m_obj = gc.Create(glCreateShader(type), glDeleteShader));
 
-	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	gShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	std::string source;
+	std::ifstream file;
+	file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
 	try
 	{
-		vShaderFile.open(vertexPath);
-		fShaderFile.open(fragmentPath);
-
-		if (!vShaderFile.is_open() || !fShaderFile.is_open())
-		{
-			throw std::runtime_error("ERROR::SHADER::FAILED_TO_OPEN_FILE");
-		}
-
-		std::stringstream vShaderStream, fShaderStream;
-		vShaderStream << vShaderFile.rdbuf();
-		fShaderStream << fShaderFile.rdbuf();
-
-		vShaderFile.close();
-		fShaderFile.close();
-
-		vertexCode = vShaderStream.str();
-		fragmentCode = fShaderStream.str();
-
-		if (geometryPath != nullptr)
-		{
-			gShaderFile.open(geometryPath);
-			std::stringstream gShaderStream;
-			gShaderStream << gShaderFile.rdbuf();
-			gShaderFile.close();
-			geometryCode = gShaderStream.str();
-		}
+		file.open(sourcePath);
+		std::stringstream ss;
+		ss << file.rdbuf();
+		file.close();
+		source = ss.str();
 	}
-	catch (std::ifstream::failure e)
+	catch (std::ifstream::failure& e)
 	{
-		throw std::runtime_error("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ");
+		throw std::runtime_error(e.what());
 	}
 
-	// 2. Compile shaders
-	GLuint
-		vertex = CompileShader(GL_VERTEX_SHADER, vertexCode),
-		fragment = CompileShader(GL_FRAGMENT_SHADER, fragmentCode);
-	// If geometry shader is given, compile geometry shader
-	GLuint geometry;
-	if (geometryPath != nullptr)
-	{
-		geometry = CompileShader(GL_GEOMETRY_SHADER, geometryCode);
-	}
-	// Shader Program
-	GlCall(m_program = glCreateProgram());
-	GlCall(glAttachShader(m_program, vertex));
-	GlCall(glAttachShader(m_program, fragment));
-	if (geometryPath != nullptr)
-	{
-		GlCall(glAttachShader(m_program, geometry));
-	}
-	GlCall(glLinkProgram(m_program));
-	GLint success;
-	GLchar infoLog[1024];
-	GlCall(glGetProgramiv(m_program, GL_LINK_STATUS, &success));
-	if (!success)
-	{
-		GlCall(glGetProgramInfoLog(m_program, 1024, NULL, infoLog));
-		throw std::runtime_error(
-			"| ERROR::PROGRAM-LINKING-ERROR |\n" + std::string(infoLog) + 
-			"\n| -- --------------------------------------------------- -- |");
-	}
-	// Delete the shaders as they're linked into our program now and no longer necessery
-	GlCall(glDeleteShader(vertex));
-	GlCall(glDeleteShader(fragment));
-	if (geometryPath != nullptr)
-	{
-		GlCall(glDeleteShader(geometry));
-	}
+	SetSource(source);
+	Compile();
 }
 
-void Shader::Use()
+Shader::Shader(const Shader& other)
+	: m_type(other.m_type)
 {
-	GlCall(glUseProgram(m_program));
+	gc.Copy(other.m_obj, m_obj);
 }
 
-void Shader::SetUniform1i(const std::string& name, GLint value)
+Shader::operator GLuint() const
 {
-	auto location = GetUniformLocation(name);
-	GlCall(glUseProgram(m_program));
-	GlCall(glUniform1i(location, value));
+	return m_obj;
 }
 
-void Shader::SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat)
+Shader& Shader::operator=(const Shader& other)
 {
-	auto location = GetUniformLocation(name);
-	GlCall(glUseProgram(m_program));
-	GlCall(glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat)));
+	gc.Copy(other.m_obj, m_obj, true);
+	return *this;
 }
 
-GLuint Shader::CompileShader(GLenum shaderType, const std::string& source)
+GLenum Shader::GetType() const
 {
-	GlCall(GLuint shaderId = glCreateShader(shaderType));
-	const GLchar* sourceData = source.c_str();
-	GlCall(glShaderSource(shaderId, 1, &sourceData, nullptr));
-	GlCall(glCompileShader(shaderId));
-
-	CheckShaderCompileErrors(shaderId, shaderType);
-
-	return shaderId;
+	return m_type;
 }
 
-void Shader::CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType) const
+void Shader::SetSource(const std::string& source) const
 {
-	GLint success;
+	auto c = source.c_str();
+	GlCall(glShaderSource(m_obj, 1, &c, NULL));
+}
 
-	GlCall(glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success));
-	if (!success)
+void Shader::Compile() const
+{
+	GLint res;
+
+	glCompileShader(m_obj);
+	glGetShaderiv(m_obj, GL_COMPILE_STATUS, &res);
+
+	if (res == GL_FALSE)
+		throw std::runtime_error(GetInfoLog());
+}
+
+std::string Shader::GetInfoLog() const
+{
+	GLint res;
+	glGetShaderiv(m_obj, GL_INFO_LOG_LENGTH, &res);
+
+	if (res > 0)
 	{
-		throw std::runtime_error("ERROR::SHADER-COMPILATION-ERROR Shader type: " + std::to_string(shaderType));
+		std::string infoLog(res, 0);
+		glGetShaderInfoLog(m_obj, res, &res, &infoLog[0]);
+		return infoLog;
 	}
-}
-
-GLuint Shader::GetUniformLocation(const std::string& name)
-{
-	GlCall(GLuint location = glGetUniformLocation(m_program, name.c_str()));
-
-	if (location >= 0)
+	else
 	{
-		return location;
+		return "";
 	}
-
-	throw std::runtime_error("Uniform with name '" + name + "' not found in shader program.");
 }

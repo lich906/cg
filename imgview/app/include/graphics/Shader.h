@@ -1,42 +1,31 @@
 #pragma once
 
-#include "glad_glfw.h"
-
-#include "glm/matrix.hpp" // mat4
-#include "glm/gtc/type_ptr.hpp" // value_ptr
-
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <iostream>
 #include <stdexcept>
+
+#include "glad_glfw.h"
+#include "GL/GC.h"
 
 class Shader
 {
 public:
-	Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath = nullptr);
+	// @throw std::runtime_error : On compile error or on file buffer read
+	Shader(GLenum type, const std::string& sourcePath);
+	Shader(const Shader& other);
 
-	Shader(const Shader&) = delete;
-	Shader& operator=(const Shader&) = delete;
+	operator GLuint() const;
+	Shader& operator=(const Shader& other);
 
-	Shader(Shader&&) = default;
-	Shader& operator=(Shader&&) = default;
-
-	void Use();
-
-	void SetUniform1i(const std::string& name, GLint value);
-
-	void SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat);
+	GLenum GetType() const;
 
 private:
-	GLuint CompileShader(GLenum shaderType, const std::string& source);
+	void SetSource(const std::string& source) const;
+	void Compile() const;
+	std::string GetInfoLog() const;
 
-	void CheckShaderCompileErrors(GLuint shaderId, GLenum shaderType) const;
-
-	/*
-		@throw std::runtime_error: If uniform with specified name wasn't found
-	*/
-	GLuint GetUniformLocation(const std::string& name);
-
-	GLuint m_program;
+	static inline GL::GC gc;
+	GLuint m_obj;
+	const GLenum m_type;
 };
