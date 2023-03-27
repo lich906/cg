@@ -2,6 +2,8 @@
 
 #include "graphics/Mesh.h"
 
+using namespace gfx;
+
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices, GLenum usage)
 {
 	// Bind the Vertex Array Object first, then bind and set vertex and index buffer(s) and attribute pointer(s).

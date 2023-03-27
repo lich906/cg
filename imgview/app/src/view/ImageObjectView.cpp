@@ -1,6 +1,6 @@
 #include "view/ImageObjectView.h"
 
-ImageObjectView::ImageObjectView(const Texture& texture)
+ImageObjectView::ImageObjectView(const gfx::Texture& texture)
 	: m_transform(1.0f)
 	, m_backgroundTexture("res/textures/bg.png", GL_REPEAT)
 	, m_imageTexture(texture)
@@ -23,7 +23,7 @@ ImageObjectView::ImageObjectView(const Texture& texture)
 
 void ImageObjectView::Draw()
 {
-	CurrentProgram::Get().SetUniformMatrix4fv("m_model", m_transform);
+	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_model", m_transform);
 	m_backgroundTexture.Bind();
 	m_backgroundMesh.Draw(GL_TRIANGLE_STRIP);
 	m_imageTexture.Bind();

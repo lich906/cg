@@ -4,6 +4,9 @@
 
 #include "Shader.h"
 
+namespace gfx
+{
+
 class Program
 {
 public:
@@ -36,3 +39,5 @@ private:
 	static inline GL::GC gc;
 	GLuint m_obj;
 };
+
+} // namespace gfx

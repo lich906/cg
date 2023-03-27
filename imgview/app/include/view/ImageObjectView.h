@@ -8,7 +8,7 @@
 class ImageObjectView : public IImageObjectObserver
 {
 public:
-	ImageObjectView(const Texture& texture);
+	ImageObjectView(const gfx::Texture& texture);
 
 	void Draw();
 
@@ -16,8 +16,8 @@ private:
 	// Inherited via IImageObjectObserver
 	void UpdateTransformMatrix(const glm::mat4&) override;
 
-	Texture m_backgroundTexture, m_imageTexture;
-	Mesh m_backgroundMesh, m_mesh;
+	gfx::Texture m_backgroundTexture, m_imageTexture;
+	gfx::Mesh m_backgroundMesh, m_mesh;
 
 	glm::mat4 m_transform;
 };

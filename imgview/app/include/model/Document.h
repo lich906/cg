@@ -11,7 +11,7 @@ public:
 
 	void RemoveImageObject();
 
-	ImageObject* FindObjectAtPos(const Vector& pos);
+	ImageObject* FindObjectAtPos(const gfx::Vector& pos);
 
 private:
 	std::optional<ImageObject> m_imageObject;

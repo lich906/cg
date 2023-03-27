@@ -2,6 +2,9 @@
 
 #include "pch.h"
 
+namespace gfx
+{
+
 class VertexBuffer
 {
 public:
@@ -29,3 +32,5 @@ private:
 	GLuint m_obj;
 	size_t m_size;
 };
+
+} // namespace gfx

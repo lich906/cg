@@ -2,6 +2,8 @@
 
 #include "graphics/Program.h"
 
+using namespace gfx;
+
 Program::Program()
 {
 	GlCall(m_obj = gc.Create(glCreateProgram(), glDeleteProgram));

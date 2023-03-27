@@ -6,9 +6,9 @@ struct IMouseInputController
 {
 	virtual ~IMouseInputController() = default;
 
-	virtual void OnMouseDown(const Vector& cursorPos) = 0;
-	virtual void OnMouseUp(const Vector& cursorPos) = 0;
-	virtual void OnMouseMove(const Vector& cursorPos, const Vector& delta) = 0;
-	virtual void OnScrollUp(const Vector& cursorPos) = 0;
-	virtual void OnScrollDown(const Vector& cursorPos) = 0;
+	virtual void OnMouseDown(const gfx::Vector& cursorPos) = 0;
+	virtual void OnMouseUp(const gfx::Vector& cursorPos) = 0;
+	virtual void OnMouseMove(const gfx::Vector& cursorPos, const gfx::Vector& delta) = 0;
+	virtual void OnScrollUp(const gfx::Vector& cursorPos) = 0;
+	virtual void OnScrollDown(const gfx::Vector& cursorPos) = 0;
 };

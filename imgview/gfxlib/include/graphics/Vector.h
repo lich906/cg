@@ -2,6 +2,9 @@
 
 #include "pch.h"
 
+namespace gfx
+{
+
 struct Vector
 {
 	Vector();
@@ -48,3 +51,5 @@ Vector operator-(const Vector& v);
 Vector operator-(const Vector& lhs, const Vector& rhs);
 Vector operator*(const Vector& v, float scalar);
 Vector operator/(const Vector& v, float scalar);
+
+} // namespace gfx

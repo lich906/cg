@@ -2,6 +2,8 @@
 
 #include "graphics/Shader.h"
 
+using namespace gfx;
+
 Shader::Shader(GLenum type, const std::string& sourcePath)
 	: m_type(type)
 {

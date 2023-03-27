@@ -4,6 +4,9 @@
 
 #include "Program.h"
 
+namespace gfx
+{
+
 class CurrentProgram
 {
 public:
@@ -16,3 +19,5 @@ private:
 
 	static inline std::optional<Program> m_program;
 };
+
+} // namespace gfx

@@ -5,6 +5,9 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 
+namespace gfx
+{
+
 class VertexArray
 {
 public:
@@ -25,3 +28,5 @@ private:
 	static inline GL::GC gc;
 	GLuint m_obj;
 };
+
+} // namespace gfx

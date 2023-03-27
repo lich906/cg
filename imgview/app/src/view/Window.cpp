@@ -18,7 +18,7 @@ Window::Window(const std::shared_ptr<Scene>& scene,
 Window::~Window()
 {
 	m_scene->RemoveImageObjectView();
-	CurrentProgram::Unset();
+	gfx::CurrentProgram::Unset();
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
@@ -107,13 +107,13 @@ bool Window::InitGraphics()
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
 	// ImGui::StyleColorsLight();
-	Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
-	CurrentProgram::Set(program);
-	CurrentProgram::Get().Use();
-	CurrentProgram::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
-	CurrentProgram::Get().SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
-	CurrentProgram::Get().SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
-	CurrentProgram::Get().SetUniformMatrix4fv("m_projection", glm::mat4(1.0f));
+	gfx::Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
+	gfx::CurrentProgram::Set(program);
+	gfx::CurrentProgram::Get().Use();
+	gfx::CurrentProgram::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
+	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
+	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
+	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_projection", glm::mat4(1.0f));
 
 	return true;
 }
@@ -127,7 +127,7 @@ void Window::SetupInputCallbacks()
 		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
-		Vector cursorPos{ static_cast<float>(x), static_cast<float>(y) };
+		gfx::Vector cursorPos{ static_cast<float>(x), static_cast<float>(y) };
 
 		if ((button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_RIGHT))
 		{
@@ -144,7 +144,7 @@ void Window::SetupInputCallbacks()
 
 	glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xpos, double ypos) -> void {
 		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
-		Vector cursorPos{ static_cast<float>(xpos), static_cast<float>(ypos) };
+		gfx::Vector cursorPos{ static_cast<float>(xpos), static_cast<float>(ypos) };
 
 		thisWindow->m_mouseInputController->OnMouseMove(cursorPos, cursorPos - thisWindow->m_lastCursorPos);
 		thisWindow->m_lastCursorPos = cursorPos;
@@ -154,7 +154,7 @@ void Window::SetupInputCallbacks()
 		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
-		Vector cursorPos{ static_cast<float>(x), static_cast<float>(y) };
+		gfx::Vector cursorPos{ static_cast<float>(x), static_cast<float>(y) };
 
 		if (yoffset > 0)
 		{
@@ -172,7 +172,7 @@ void Window::UpdateProjectionMatrixAndViewport()
 	int w, h;
 	glfwGetFramebufferSize(m_window, &w, &h);
 
-	CurrentProgram::Get().SetUniformMatrix4fv("m_projection",
+	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_projection",
 		glm::ortho(0.0f, float(w), float(h), 0.0f, -1.0f, 100.0f));
 
 	GlCall(glViewport(0, 0, w, h));

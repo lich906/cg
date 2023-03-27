@@ -2,6 +2,8 @@
 
 #include "graphics/CurrentProgram.h"
 
+using namespace gfx;
+
 void CurrentProgram::Set(const Program& program)
 {
 	m_program = program;

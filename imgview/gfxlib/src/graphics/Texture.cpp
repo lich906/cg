@@ -3,6 +3,8 @@
 #include "graphics/Texture.h"
 #include "vendor/stb_image/stb_image.h"
 
+using namespace gfx;
+
 Texture::Texture(const std::string& filePath, GLint wrappingMode, GLint filteringMode)
 	: m_filePath(filePath)
 	, m_localBuffer(nullptr)

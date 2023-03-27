@@ -2,6 +2,9 @@
 
 #include "pch.h"
 
+namespace gfx
+{
+
 class Texture
 {
 public:
@@ -25,3 +28,5 @@ private:
 	unsigned char* m_localBuffer;
 	int m_width, m_height, m_bpp; // bytes per pixel
 };
+
+} // namespace gfx

@@ -8,6 +8,9 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 
+namespace gfx
+{
+
 class Mesh
 {
 public:
@@ -22,3 +25,5 @@ private:
 	VertexBuffer m_vertexBuffer;
 	IndexBuffer m_indexBuffer;
 };
+
+} // namespace gfx

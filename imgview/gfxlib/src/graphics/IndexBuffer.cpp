@@ -2,6 +2,8 @@
 
 #include "graphics/IndexBuffer.h"
 
+using namespace gfx;
+
 IndexBuffer::IndexBuffer()
 	: m_size(0)
 {

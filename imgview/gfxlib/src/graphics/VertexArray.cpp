@@ -2,6 +2,8 @@
 
 #include "graphics/VertexArray.h"
 
+using namespace gfx;
+
 VertexArray::VertexArray()
 {
 	GlCall(gc.Create(m_obj, glGenVertexArrays, glDeleteVertexArrays));

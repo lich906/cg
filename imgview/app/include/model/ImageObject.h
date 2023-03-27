@@ -12,9 +12,9 @@ class ImageObject : public ObservableImageObject
 public:
 	ImageObject(int width, int height);
 
-	bool ExistsAtPos(const Vector& pos);
+	bool ExistsAtPos(const gfx::Vector& pos);
 
-	void Drag(const Vector& delta);
+	void Drag(const gfx::Vector& delta);
 
 	void ZoomIn();
 	void ZoomOut();
@@ -27,7 +27,7 @@ private:
 
 	void Zoom(float coeff);
 
-	Vector m_anchor;
+	gfx::Vector m_anchor;
 	float m_width, m_height;
 	glm::mat4 m_transform = glm::mat4(1.0f);
 };

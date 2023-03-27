@@ -2,7 +2,7 @@
 
 #include "graphics/VertexBuffer.h"
 
-#include <stdexcept>
+using namespace gfx;
 
 VertexBuffer::VertexBuffer()
 	: m_size(0)

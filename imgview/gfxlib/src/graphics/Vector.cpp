@@ -2,6 +2,9 @@
 
 #include "graphics/Vector.h"
 
+namespace gfx
+{
+
 Vector::Vector()
 	: x(0.0f)
 	, y(0.0f)
@@ -116,3 +119,5 @@ Vector operator/(const Vector& v, float scalar)
 {
 	return { v.x / scalar, v.y / scalar };
 }
+
+} // namespace gfx

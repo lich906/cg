@@ -10,7 +10,7 @@ void Document::RemoveImageObject()
 	m_imageObject.reset();
 }
 
-ImageObject* Document::FindObjectAtPos(const Vector& pos)
+ImageObject* Document::FindObjectAtPos(const gfx::Vector& pos)
 {
 	if (m_imageObject && m_imageObject->ExistsAtPos(pos))
 	{
