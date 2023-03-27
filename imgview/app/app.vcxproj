@@ -171,21 +171,18 @@
   <ItemGroup>
     <ClInclude Include="include\config.h" />
     <ClInclude Include="include\controller\MouseInputController.h" />
-    <ClInclude Include="include\glcall.h" />
     <ClInclude Include="include\controller\MenuController.h" />
     <ClInclude Include="include\model\Document.h" />
     <ClInclude Include="include\model\ImageObject.h" />
     <ClInclude Include="include\model\IImageObjectObserver.h" />
     <ClInclude Include="include\view\ImageObjectView.h" />
     <ClInclude Include="include\view\IMenuController.h" />
-    <ClInclude Include="include\glad_glfw.h" />
     <ClInclude Include="include\view\IMouseInputController.h" />
     <ClInclude Include="include\model\IObservableImageObject.h" />
     <ClInclude Include="include\view\MainMenu.h" />
     <ClInclude Include="include\model\ObservableImageObject.h" />
     <ClInclude Include="include\view\Scene.h" />
     <ClInclude Include="vendor\ImGuiFileDialog\ImGuiFileDialog.h" />
-    <ClInclude Include="vendor\pch.h" />
     <ClInclude Include="vendor\stb_image\stb_image.h" />
     <ClInclude Include="include\view\Window.h" />
   </ItemGroup>

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "glad_glfw.h"
+#include <glad/glad.h>
 
 namespace config
 {
 
-constexpr GLint TextureFilteringMode = GL_NEAREST;
+constexpr GLint TextureFilteringMode = GL_LINEAR;
 constexpr float ZoomingCoeff = 0.1f;
 
 } // namespace config

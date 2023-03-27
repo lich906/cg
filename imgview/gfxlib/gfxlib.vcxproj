@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\glad_glfw.h" />
+    <ClInclude Include="include\common.h" />
     <ClInclude Include="include\glcall.h" />
     <ClInclude Include="include\graphics\CurrentProgram.h" />
     <ClInclude Include="include\graphics\GL\GC.h" />

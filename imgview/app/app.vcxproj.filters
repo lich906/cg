@@ -53,9 +53,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\glad_glfw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,16 +95,10 @@
     <ClInclude Include="include\view\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\glcall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\controller\MouseInputController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

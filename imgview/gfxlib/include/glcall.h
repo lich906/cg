@@ -1,8 +1,11 @@
 #pragma once
 
+#ifndef GLCALL_H
+#define GLCALL_H
+
 #include <iostream>
 
-#include "glad_glfw.h"
+#include "common.h"
 
 #if _DEBUG
 
@@ -55,3 +58,5 @@
 	#define GlCall(x) x
 
 #endif
+
+#endif // !GLCALL_H

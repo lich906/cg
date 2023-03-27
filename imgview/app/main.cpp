@@ -2,8 +2,6 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "glad_glfw.h"
-
 #include "vendor/ImGuiFileDialog/ImGuiFileDialog.h"
 #include "graphics/CurrentProgram.h"
 #include "view/Window.h"

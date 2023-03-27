@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glad_glfw.h"
+#include "common.h"
 #include "glm/matrix.hpp" // mat4
 #include "glm/gtc/type_ptr.hpp" // value_ptr
 #include "graphics/GL/GC.h"

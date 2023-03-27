@@ -8,7 +8,7 @@ MenuController::MenuController(const std::shared_ptr<Document>& doc, const std::
 
 void MenuController::OnFileOpen(const std::string& filePath)
 {
-	Texture texture(filePath);
+	Texture texture(filePath, GL_CLAMP_TO_EDGE, config::TextureFilteringMode);
 
 	ImageObject imageObject(texture.GetWidth(), texture.GetHeight());
 	auto imageObjectView = std::make_unique<ImageObjectView>(texture);

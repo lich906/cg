@@ -4,13 +4,13 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "glad_glfw.h"
 #include "graphics/CurrentProgram.h"
 #include "glm/glm.hpp"
 
 #include "MainMenu.h"
 #include "IMouseInputController.h"
 #include "Scene.h"
+#include <GLFW/glfw3.h>
 
 class Window
 {

@@ -32,7 +32,7 @@
 	#define OOGL_PLATFORM_OSX
 #endif
 
-#include "glad_glfw.h"
+#include "common.h"
 #include <map>
 
 namespace GL
