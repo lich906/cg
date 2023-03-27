@@ -89,8 +89,9 @@ bool Window::InitGraphics()
 	GlCall(glEnable(GL_BLEND));
 	GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)); // Setup blending algorithm
 
-	if constexpr (_DEBUG)
+#ifdef _DEBUG
 		printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
+#endif // _DEBUG
 
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
