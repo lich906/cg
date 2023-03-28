@@ -51,16 +51,14 @@ void SetupController::OnMouseUp(const gfx::Vector& pos)
 		if constexpr (_DEBUG)
 			printf("\nRelease\n");
 
-		auto& object = m_model.GetObject(m_selectedObjectId);
-
 		if (m_dragging)
 		{
-			object->SetCurrentPosition(object->GetCurrentPosition() + m_dragOffset);
+			m_activeObject->SetCurrentPosition(m_activeObject->GetCurrentPosition() + m_dragOffset);
 			m_dragging = false;
 		}
 		else
 		{
-			object->SetCurrentVelocity(object->GetCurrentVelocity() + m_dragOffset);
+			m_activeObject->SetCurrentVelocity(m_activeObject->GetCurrentVelocity() + m_dragOffset);
 			m_setupInitialSpeed = false;
 		}
 
