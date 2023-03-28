@@ -39,7 +39,7 @@ int main()
 
 	int width = config::graphics::WindowWidth, height = config::graphics::WindowWidth;
 	UniverseModel model;
-	UniverseViewModel viewModel;
+	Scene viewModel;
 	Window window(width, height, "Satellite");
 	window.SetController(std::make_unique<SetupController>(model, viewModel, &window, width, height));
 	window.Run();

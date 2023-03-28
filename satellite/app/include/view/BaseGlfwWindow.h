@@ -4,13 +4,14 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "glad_glfw.h"
+#include <GLFW/glfw3.h>
 
 #include <functional>
 #include <stdexcept>
 
 #include "Config.h"
 #include "controller/GlfwCallbacks.h"
+#include "graphics/CurrentProgram.h"
 
 class BaseGlfwWindow
 {

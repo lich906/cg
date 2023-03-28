@@ -1,5 +1,4 @@
 #include "view/BaseGlfwWindow.h"
-#include "opengl_abstractions/CurrentShader.h"
 
 BaseGlfwWindow::BaseGlfwWindow(int width, int height, const char* title)
 	: m_window(glfwCreateWindow(width, height, title, nullptr, nullptr))
@@ -81,16 +80,15 @@ void BaseGlfwWindow::InitGraphics()
 	if constexpr (_DEBUG)
 		printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-	CurrentShader::Set(Shader("shaders/vertex.glsl", "shaders/fragment.glsl"));
-
-	CurrentShader::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
-	CurrentShader::Get().SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
-	CurrentShader::Get().SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
-	CurrentShader::Get().SetUniformMatrix4fv("m_projection",
+	gfx::CurrentProgram::Set(gfx::Program("shaders/vertex.glsl", "shaders/fragment.glsl"));
+	gfx::CurrentProgram::Get().SetUniform1i("u_texture", 0); // Always use texture in 0 slot.
+	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
+	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
+	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_projection",
 		glm::ortho(
 			0.0f, float(config::graphics::WindowWidth),
 			float(config::graphics::WindowHeight), 0.0f,
 			-1.0f, 100.0f));
 
-	CurrentShader::Get().Use();
+	gfx::CurrentProgram::Get().Use();
 }

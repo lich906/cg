@@ -1,18 +1,18 @@
 #include "model/GravityProcessor.h"
 
-Vector GravityProcessor::FindObjectAcceleration(const std::unordered_map<size_t, SpaceObjectPtr>& objects, size_t uid)
+gfx::Vector GravityProcessor::FindObjectAcceleration(const std::vector<std::unique_ptr<SpaceObject>>& objects, size_t index)
 {
-	auto targetObjPos = objects.at(uid)->GetCurrentPosition();
+	auto targetObjPos = objects.at(index)->GetCurrentPosition();
 
-	Vector aVec;
+	gfx::Vector aVec;
 
-	for (auto& [id, object] : objects)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
-		if (id != uid)
+		if (i != index)
 		{
-			auto objPos = object->GetCurrentPosition();
-			auto m = object->GetMass();
-			Vector r(objPos.x - targetObjPos.x, objPos.y - targetObjPos.y);
+			auto objPos = objects[i]->GetCurrentPosition();
+			auto m = objects[i]->GetMass();
+			gfx::Vector r(objPos.x - targetObjPos.x, objPos.y - targetObjPos.y);
 			float aMod = m / r.SquareMod();
 			aVec += r.Unit() * aMod;
 		}

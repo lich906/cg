@@ -1,11 +1,11 @@
 #pragma once
 
-#include "WindowController.h"
+#include "IController.h"
 
-class SimulationController : public WindowController
+class SimulationController : public IController
 {
 public:
-	using WindowController::WindowController;
+	using IController::IController;
 
 private:
 	// Inherited via WindowController

@@ -13,7 +13,8 @@ public:
 
 protected:
 
-	void Moved(const Vector& deltaPos);
+	void Moved(const gfx::Vector& pos);
+	void VelocityChanged(const gfx::Vector& value);
 
 private:
 	std::set<ISpaceObjectObserver*> m_observers;

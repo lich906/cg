@@ -1,34 +1,29 @@
 #include "model/SpaceObject.h"
 
-SpaceObjectPtr SpaceObject::Create(std::string name, float mass, Vector initialPos, Vector initialVel)
+std::unique_ptr<SpaceObject> SpaceObject::Create(const std::string& name, float mass, const gfx::Vector& initialPos, const gfx::Vector& initialVel)
 {
-	auto instance = new SpaceObject(std::move(name), mass, std::move(initialPos), std::move(initialVel));
-	return std::unique_ptr<SpaceObject>(instance);
+	return std::unique_ptr<SpaceObject>(new SpaceObject(name, mass, initialPos, initialVel));
 }
 
-SpaceObject::SpaceObject(std::string name, float mass, Vector initialPos, Vector initialVel)
-	: m_name(std::move(name))
+SpaceObject::SpaceObject(const std::string& name, float mass, const gfx::Vector& initialPos, const gfx::Vector& initialVel)
+	: m_name(name)
 	, m_mass(mass)
-	, m_currentPosition(std::move(initialPos))
-	, m_currentVelocity(std::move(initialVel))
+	, m_currentPosition(initialPos)
+	, m_currentVelocity(initialVel)
 {
 }
 
-void SpaceObject::NextPosition(float dt)
+void SpaceObject::NextPosition(float acceleration, float dt)
 {
-	Vector deltaPos = m_currentVelocity * dt;
-	m_currentPosition += deltaPos;
-	Moved(deltaPos);
+	m_currentVelocity += acceleration * dt;
+	VelocityChanged(m_currentVelocity);
+	m_currentPosition += m_currentVelocity * acceleration;
+	Moved(m_currentPosition);
 }
 
-Vector SpaceObject::GetCurrentPosition() const
+gfx::Vector SpaceObject::GetCurrentPosition() const
 {
 	return m_currentPosition;
-}
-
-size_t SpaceObject::GetId() const
-{
-	return m_id;
 }
 
 float SpaceObject::GetMass() const
@@ -36,20 +31,20 @@ float SpaceObject::GetMass() const
 	return m_mass;
 }
 
-Vector SpaceObject::GetCurrentVelocity() const
+gfx::Vector SpaceObject::GetCurrentVelocity() const
 {
 	return m_currentVelocity;
 }
 
-void SpaceObject::SetCurrentVelocity(Vector v)
+void SpaceObject::SetCurrentVelocity(const gfx::Vector& v)
 {
-	m_currentVelocity = std::move(v);
+	m_currentVelocity = v;
+	VelocityChanged(v);
 }
 
-void SpaceObject::SetCurrentPosition(Vector p)
+void SpaceObject::SetCurrentPosition(const gfx::Vector& p)
 {
-	Vector deltaPos = p - m_currentPosition;
-	m_currentPosition = std::move(p);
+	m_currentPosition = p;
 }
 
 std::string SpaceObject::GetName() const

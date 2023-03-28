@@ -1,64 +1,30 @@
 #include "view_model/SpaceObjectView.h"
 
-SpaceObjectView::SpaceObjectView(const Vector& pos, float scale, Texture&& texture)
-	: m_texture(std::move(texture))
-// clang-format off
-	, m_vertices({
-		{ { pos.x - scale, pos.y - scale }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f } },
-		{ { pos.x - scale, pos.y + scale }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f } },
-		{ { pos.x + scale, pos.y - scale }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f } },
-		{ { pos.x + scale, pos.y + scale }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f } }})
-// clang-format on
-	, m_vaoWrapper(m_vertices, GL_DYNAMIC_DRAW)
+SpaceObjectView::SpaceObjectView(const gfx::Vector& pos, float scale, const gfx::Texture& texture)
+	: m_texture(texture)
+	, m_scale(scale)
 {
 }
 
-SpaceObjectViewPtr SpaceObjectView::Create(const Vector& position, float scale, Texture&& texture)
+std::unique_ptr<SpaceObjectView> SpaceObjectView::Create(const gfx::Vector& position, float scale, const gfx::Texture& texture)
 {
-	auto instance = new SpaceObjectView(position, scale, std::move(texture));
+	auto instance = new SpaceObjectView(position, scale, texture);
 	return std::unique_ptr<SpaceObjectView>(instance);
 }
 
-void SpaceObjectView::Draw(int width, int height)
+void SpaceObjectView::OnSpaceObjectMove(const gfx::Vector& pos)
 {
-	UpdatePosition(width, height);
+	auto trans = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, 0.0f));
+	Transform(glm::scale(trans, glm::vec3(m_scale, m_scale, 1.0f)));
+}
 
+void SpaceObjectView::DoDraw(int width, int height)
+{
 	m_texture.Bind();
-	m_vaoWrapper.Draw(GL_TRIANGLE_STRIP);
+	m_mesh.Draw();
 }
 
-bool SpaceObjectView::ExistsAtPos(const Vector& pos) const
+void SpaceObjectView::OnVelocityChange(const gfx::Vector& value)
 {
-// clang-format off
-	return
-		pos.y <= m_vertices[1].position.y &&
-		pos.y >= m_vertices[0].position.y &&
-		pos.x >= m_vertices[0].position.x &&
-		pos.x <= m_vertices[2].position.x;
-	// clang-format on
-}
-
-void SpaceObjectView::Move(const Vector& deltaPos)
-{
-	m_deltaPos += deltaPos;
-}
-
-void SpaceObjectView::OnSpaceObjectMove(const Vector& deltaPos)
-{
-	Move(deltaPos);
-}
-
-void SpaceObjectView::UpdatePosition(int width, int height)
-{
-	if (m_deltaPos)
-	{
-		for (auto& vertex : m_vertices)
-		{
-			vertex.position += m_deltaPos;
-		}
-
-		m_vaoWrapper.UpdateVerticesData(m_vertices);
-
-		m_deltaPos.x = m_deltaPos.y = 0.0f;
-	}
+	// TODO: handle velocity changes
 }

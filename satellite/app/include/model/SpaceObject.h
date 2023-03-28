@@ -3,23 +3,8 @@
 #include <memory>
 #include <string>
 
-#include "glad_glfw.h"
-
-#include "types/Vector.h"
-#include "ObservableSpaceObject.h"
-
-struct UniqueId
-{
-	UniqueId()
-		: m_id{ std::hash<double>{}(glfwGetTime()) } {}
-
-	operator size_t() const { return m_id; }
-
-private:
-	size_t m_id;
-};
-
-using SpaceObjectPtr = std::unique_ptr<class SpaceObject>;
+#include "graphics/Vector.h"
+#include "model/ObservableSpaceObject.h"
 
 class SpaceObject : public ObservableSpaceObject
 {
@@ -27,37 +12,35 @@ public:
 	/*
 		Create unique SpaceObject instance.
 	*/
-	static SpaceObjectPtr Create(std::string name,
-		float mass, Vector initialPos, Vector initialVelocity = Vector());
+	static std::unique_ptr<SpaceObject> Create(const std::string& name,
+		float mass, const gfx::Vector& initialPos,
+		const gfx::Vector& initialVelocity = gfx::Vector());
 
 	/*
-		Sets Space Object's position after time 'dt'
+		Sets Space Object's position according given acceleration after 'dt' time
+
 		and invoke Moved() method to trigger corresponding Space Object View notification
 	*/
-	void NextPosition(float dt);
+	void NextPosition(float acceleration, float dt);
 
-	// Inherited via IObservableSpaceObject
-	Vector GetCurrentPosition() const override;
-
-	size_t GetId() const;
+	gfx::Vector GetCurrentPosition() const;
 	float GetMass() const;
-	Vector GetCurrentVelocity() const;
+	gfx::Vector GetCurrentVelocity() const;
 	std::string GetName() const;
 
 	/*
 		Set Space Object position silently (without Moved() call)
 	*/
-	void SetCurrentPosition(Vector p);
+	void SetCurrentPosition(const gfx::Vector& p);
 
-	void SetCurrentVelocity(Vector v);
+	void SetCurrentVelocity(const gfx::Vector& v);
 
 private:
-	SpaceObject(std::string name, float mass, Vector initialPos, Vector initialVelocity = Vector());
-
-	UniqueId m_id;
+	SpaceObject(const std::string& name, float mass,
+		const gfx::Vector& initialPos, const gfx::Vector& initialVelocity = gfx::Vector());
 
 	std::string m_name;
 	float m_mass;
-	Vector m_currentVelocity;
-	Vector m_currentPosition;
+	gfx::Vector m_currentVelocity;
+	gfx::Vector m_currentPosition;
 };

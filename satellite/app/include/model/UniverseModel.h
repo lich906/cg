@@ -9,17 +9,14 @@
 class UniverseModel
 {
 public:
+	using FindIfCallback = std::function<bool(std::unique_ptr<SpaceObject>& object)>;
+	using ForEachCallback = std::function<void(std::unique_ptr<SpaceObject>& object)>;
 
-	using ForEachCallback = std::function<void(SpaceObjectPtr& object)>;
-
-	void AddNewObject(SpaceObjectPtr&& obj);
+	void AddNewObject(std::unique_ptr<SpaceObject>&& obj);
 
 	void RemoveAllObjects();
 
-	/*
-		@throw std::out_of_range : Object not found.
-	*/
-	SpaceObjectPtr& GetObject(size_t uid);
+	SpaceObject* FindIf(const FindIfCallback& callback);
 
 	void NextState(float dt);
 
@@ -27,7 +24,7 @@ public:
 
 private:
 
-	std::unordered_map<size_t, SpaceObjectPtr> m_spaceObjects;
+	std::vector<std::unique_ptr<SpaceObject>> m_objects;
 
 	GravityProcessor m_gravityProcessor;
 };

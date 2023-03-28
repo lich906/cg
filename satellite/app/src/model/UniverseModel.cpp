@@ -1,45 +1,39 @@
 #include "model/UniverseModel.h"
 
-void UniverseModel::AddNewObject(SpaceObjectPtr&& obj)
+void UniverseModel::AddNewObject(std::unique_ptr<SpaceObject>&& obj)
 {
-	m_spaceObjects.insert({ obj->GetId(), std::move(obj) });
+	m_objects.emplace_back(std::move(obj));
 }
 
 void UniverseModel::RemoveAllObjects()
 {
-	m_spaceObjects.clear();
+	m_objects.clear();
 }
 
-SpaceObjectPtr& UniverseModel::GetObject(size_t uid)
+SpaceObject* UniverseModel::FindIf(const FindIfCallback& callback)
 {
-	auto obj = m_spaceObjects.find(uid);
+	auto iterator = std::find_if(m_objects.begin(), m_objects.end(), callback);
 
-	if (obj != m_spaceObjects.end())
+	if (iterator != m_objects.end())
 	{
-		return obj->second;
+		return iterator->get();
 	}
 
-	throw std::out_of_range("Object with such id not found.");
+	return nullptr;
 }
 
 void UniverseModel::NextState(float dt)
 {
-	for (auto& [id, object] : m_spaceObjects)
+	for (size_t i = 0; i < m_objects.size(); ++i)
 	{
-		auto acceleration = m_gravityProcessor.FindObjectAcceleration(m_spaceObjects, id);
-		auto velocityDelta = acceleration * dt;
-		object->SetCurrentVelocity(object->GetCurrentVelocity() + velocityDelta);
-	}
-
-	for (auto& [id, object] : m_spaceObjects)
-	{
-		object->NextPosition(dt);
+		auto acceleration = m_gravityProcessor.FindObjectAcceleration(m_objects, i);
+		m_objects[i]->NextPosition(acceleration, dt);
 	}
 }
 
 void UniverseModel::ForEach(const ForEachCallback& callback)
 {
-	for (auto& [id, object] : m_spaceObjects)
+	for (auto& object : m_objects)
 	{
 		callback(object);
 	}

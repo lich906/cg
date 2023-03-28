@@ -2,11 +2,11 @@
 
 #include <memory>
 
-class WindowController;
+class IController;
 
 struct IControllableWindow
 {
 	virtual ~IControllableWindow() = default;
 
-	virtual void SetController(std::unique_ptr<WindowController>&& controller) = 0;
+	virtual void SetController(std::unique_ptr<IController>&& controller) = 0;
 };

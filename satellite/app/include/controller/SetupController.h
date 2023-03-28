@@ -7,25 +7,33 @@
 #include <iostream>
 #include <memory>
 
-#include "WindowController.h"
+#include "controller/IController.h"
+#include "view_model/Scene.h"
+#include "view_model/SpaceObjectView.h"
 
-class SetupController : public WindowController
+class SetupController : public IController
 {
 public:
-	SetupController(UniverseModel& model, UniverseViewModel& viewModel, IControllableWindow* window, int width, int height);
+	SetupController(UniverseModel& model, Scene& viewModel, IControllableWindow* window);
 
 private:
-	// Inherited via WindowController
-	virtual void Draw(int width, int height) override;
-	virtual GlfwMouseButtonCallback GetMouseButtonCallback() override;
-	virtual GlfwCursorPosCallback GetCursorPosCallback() override;
-	virtual GlfwKeyCallback GetKeyCallback() override;
+	// Inherited via IController
+	virtual void OnDraw(int width, int height) override;
+	virtual void OnMouseDown(const gfx::Vector& pos, int mods) override;
+	virtual void OnMouseUp(const gfx::Vector& pos) override;
+	virtual void OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta) override;
+	virtual void OnKeyPress(int key) override;
 
-	void InitSpaceObjects(int width, int height);
+	void InitSpaceObjects();
 
 	void DrawMenuWindow();
 
-	bool m_setupInitialSpeed, m_draggingObject;
-	Vector m_mouseDownPos, m_dragOffset, m_prevCursorPos;
-	size_t m_selectedObjectId;
+	SpaceObject* FindObjectAtPos(const gfx::Vector& pos);
+
+	bool m_setupInitialSpeed, m_dragging;
+	gfx::Vector m_mouseDownPos, m_dragOffset, m_prevCursorPos;
+	SpaceObject* m_activeObject;
+	UniverseModel& m_model;
+	Scene& m_scene;
+	IControllableWindow* m_window;
 };

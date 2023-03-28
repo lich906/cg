@@ -3,44 +3,30 @@
 #include <memory>
 #include <vector>
 
-#include "types/Vertex.h"
-#include "types/Vector.h"
-
-#include "opengl_abstractions/Texture.h"
-#include "opengl_abstractions/VertexArrayObject.h"
+#include "graphics/Vertex.h"
+#include "graphics/Vector.h"
+#include "graphics/Texture.h"
 
 #include "model/ISpaceObjectObserver.h"
+#include "view_model/SquareMesh.h"
+#include "view_model/SceneObject.h"
 
-using SpaceObjectViewPtr = std::unique_ptr<class SpaceObjectView>;
-
-class SpaceObjectView : public ISpaceObjectObserver
+class SpaceObjectView : public SceneObject, public ISpaceObjectObserver
 {
 public:
-	static SpaceObjectViewPtr Create(const Vector& position, float scale, Texture&& texture);
-
-	void Draw(int width, int height);
-
-	bool ExistsAtPos(const Vector& pos) const;
-
-	void Move(const Vector& deltaPos);
+	static std::unique_ptr<SpaceObjectView> Create(const gfx::Vector& position, float scale, const gfx::Texture& texture);
 
 private:
-
-	SpaceObjectView(const Vector& pos, float scale, Texture&& texture);
+	SpaceObjectView(const gfx::Vector& pos, float scale, const gfx::Texture& texture);
 
 	// Inherited via ISpaceObjectObserver
-	virtual void OnSpaceObjectMove(const Vector& deltaPos) override;
+	virtual void OnSpaceObjectMove(const gfx::Vector& pos) override;
+	virtual void OnVelocityChange(const gfx::Vector& value) override;
 
-	/*
-		Update view position according accumulated m_deltaPos.
-	*/
-	void UpdatePosition(int width, int height);
+	// Inherited via SceneObject
+	virtual void DoDraw(int width, int height) override;
 
-	Vector m_deltaPos;
-
-	Texture m_texture;
-
-	std::vector<Vertex> m_vertices;
-
-	VertexArrayObject m_vaoWrapper;
+	float m_scale;
+	gfx::Texture m_texture;
+	SquareMesh m_mesh;
 };
