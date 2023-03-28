@@ -173,7 +173,6 @@
     <ClCompile Include="src\model\ObservableImageObject.cpp" />
     <ClCompile Include="src\view\Scene.cpp" />
     <ClCompile Include="vendor\ImGuiFileDialog\ImGuiFileDialog.cpp" />
-    <ClCompile Include="vendor\stb_image\stb_image.cpp" />
     <ClCompile Include="src\view\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,7 +190,6 @@
     <ClInclude Include="include\model\ObservableImageObject.h" />
     <ClInclude Include="include\view\Scene.h" />
     <ClInclude Include="vendor\ImGuiFileDialog\ImGuiFileDialog.h" />
-    <ClInclude Include="vendor\stb_image\stb_image.h" />
     <ClInclude Include="include\view\Window.h" />
   </ItemGroup>
   <ItemGroup>
