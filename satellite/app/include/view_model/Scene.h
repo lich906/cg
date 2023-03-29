@@ -7,7 +7,7 @@
 class Scene
 {
 public:
-	void AddNewObjectView(std::unique_ptr<SceneObject>&& object);
+	void AddNewObject(std::unique_ptr<SceneObject>&& object);
 
 	void RemoveAllObjects();
 
@@ -15,7 +15,7 @@ public:
 
 private:
 
-	SceneObject::ObjectDeleter CreateDeleter(const SceneObject* ptr) const;
+	SceneObject::ObjectDeleter CreateDeleter(const SceneObject* ptr);
 
 	std::vector<std::unique_ptr<SceneObject>> m_objects;
 };

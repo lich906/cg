@@ -9,8 +9,8 @@
 class UniverseModel
 {
 public:
-	using FindIfCallback = std::function<bool(std::unique_ptr<SpaceObject>& object)>;
-	using ForEachCallback = std::function<void(std::unique_ptr<SpaceObject>& object)>;
+	using FindIfCallback = std::function<bool(const std::unique_ptr<SpaceObject>& object)>;
+	using ForEachCallback = std::function<void(const std::unique_ptr<SpaceObject>& object)>;
 
 	void AddNewObject(std::unique_ptr<SpaceObject>&& obj);
 

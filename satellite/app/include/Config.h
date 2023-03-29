@@ -23,6 +23,9 @@ constexpr int GlfwContextVersionMajor = 3;
 constexpr int GlfwContextVersionMinor = 3;
 constexpr auto GlslVersion = "#version 330";
 constexpr int GlfwSamples = 4;
+constexpr struct {
+	float r = 0.0f, g = 0.05f, b = 0.1f, a = 1.0f;
+} ClearColor;
 
 } // namespace graphics
 

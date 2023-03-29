@@ -4,14 +4,14 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include <GLFW/glfw3.h>
-
 #include <functional>
 #include <stdexcept>
 
 #include "Config.h"
 #include "controller/GlfwCallbacks.h"
 #include "graphics/CurrentProgram.h"
+
+#include <GLFW/glfw3.h>
 
 class BaseGlfwWindow
 {
@@ -32,7 +32,8 @@ private:
 
 	virtual void Draw(int width, int height) = 0;
 
-	void InitGraphics();
+	bool InitGraphicsContext(int width, int height, const char* title);
+	void UpdateProjectionMatrixAndViewport();
 
 	GLFWwindow* m_window;
 

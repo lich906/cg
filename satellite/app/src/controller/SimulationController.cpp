@@ -1,30 +1,35 @@
 #include "controller/SimulationController.h"
 #include "controller/SetupController.h"
 
-void SimulationController::Draw(int width, int height)
+SimulationController::SimulationController(UniverseModel& model, Scene& scene, IControllableWindow* window)
+	: m_model(model)
+	, m_scene(scene)
+	, m_window(window)
 {
-	m_viewModel.Draw(width, height);
+}
+
+void SimulationController::OnDraw(int width, int height)
+{
+	m_scene.Draw(width, height);
 	m_model.NextState(config::Timestep);
 }
 
-GlfwMouseButtonCallback SimulationController::GetMouseButtonCallback()
+void SimulationController::OnMouseDown(const gfx::Vector& pos, int mods)
 {
-	return [this](GLFWwindow* window, int button, int action, int mods) -> void {};
 }
 
-GlfwCursorPosCallback SimulationController::GetCursorPosCallback()
+void SimulationController::OnMouseUp(const gfx::Vector& pos)
 {
-	return [this](GLFWwindow* window, double xpos, double ypos) -> void {};
 }
 
-GlfwKeyCallback SimulationController::GetKeyCallback()
+void SimulationController::OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta)
 {
-	return [this](GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
-		if (key == GLFW_KEY_BACKSPACE && action == GLFW_RELEASE)
-		{
-			int w, h;
-			glfwGetFramebufferSize(window, &w, &h);
-			m_window->SetController(std::make_unique<SetupController>(m_model, m_viewModel, m_window, w, h));
-		}
-	};
+}
+
+void SimulationController::OnKeyPress(int key)
+{
+	if (key == GLFW_KEY_BACKSPACE)
+	{
+		m_window->SetController(std::make_unique<SetupController>(m_model, m_scene, m_window));
+	}
 }

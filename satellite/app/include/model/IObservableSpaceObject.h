@@ -2,9 +2,10 @@
 
 #include "ISpaceObjectObserver.h"
 
-struct IObservableSpaceObject
+class IObservableSpaceObject
 {
+public:
 	virtual ~IObservableSpaceObject() = default;
 
-	virtual void Subsribe(ISpaceObjectObserver* observerPtr) = 0;
+	virtual void Subsribe(ISpaceObjectObserver* observerPtr, bool instantNotify = false) = 0;
 };

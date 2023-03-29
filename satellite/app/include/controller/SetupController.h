@@ -31,7 +31,6 @@ private:
 	SpaceObject* FindObjectAtPos(const gfx::Vector& pos);
 
 	bool m_setupInitialSpeed, m_dragging;
-	gfx::Vector m_mouseDownPos, m_dragOffset, m_prevCursorPos;
 	SpaceObject* m_activeObject;
 	UniverseModel& m_model;
 	Scene& m_scene;

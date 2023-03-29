@@ -1,6 +1,6 @@
 #include "view_model/Scene.h"
 
-void Scene::AddNewObjectView(std::unique_ptr<SceneObject>&& object)
+void Scene::AddNewObject(std::unique_ptr<SceneObject>&& object)
 {
 	object->SetDeleter(CreateDeleter(object.get()));
 	m_objects.emplace_back(std::move(object));
@@ -19,13 +19,11 @@ void Scene::Draw(int width, int height)
 	}
 }
 
-SceneObject::ObjectDeleter Scene::CreateDeleter(const SceneObject* ptr) const
+SceneObject::ObjectDeleter Scene::CreateDeleter(const SceneObject* ptr)
 {
 	return [this](const SceneObject* ptr) {
-		std::remove_if(m_objects.begin(), m_objects.end(),
-			[ptr](const std::unique_ptr<SceneObject>& obj) {
-				return obj.get() == ptr;
-			}
-		);
+		std::erase_if(m_objects, [ptr](const std::unique_ptr<SceneObject>& obj) {
+			return obj.get() == ptr;
+		});
 	};
 }
