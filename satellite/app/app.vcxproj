@@ -166,8 +166,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\controller\SetupController.cpp" />
     <ClCompile Include="src\controller\SimulationController.cpp" />
+    <ClCompile Include="src\factory\SpaceObjectFactory.cpp" />
     <ClCompile Include="src\model\GravityProcessor.cpp" />
-    <ClCompile Include="src\model\ObservableSpaceObject.cpp" />
     <ClCompile Include="src\model\SpaceObject.cpp" />
     <ClCompile Include="src\model\UniverseModel.cpp" />
     <ClCompile Include="src\view\BaseGlfwWindow.cpp" />
@@ -183,10 +183,8 @@
     <ClInclude Include="include\controller\SimulationController.h" />
     <ClInclude Include="include\controller\IController.h" />
     <ClInclude Include="include\Config.h" />
+    <ClInclude Include="include\factory\SpaceObjectFactory.h" />
     <ClInclude Include="include\model\GravityProcessor.h" />
-    <ClInclude Include="include\model\IObservableSpaceObject.h" />
-    <ClInclude Include="include\model\ISpaceObjectObserver.h" />
-    <ClInclude Include="include\model\ObservableSpaceObject.h" />
     <ClInclude Include="include\model\SpaceObject.h" />
     <ClInclude Include="include\model\UniverseModel.h" />
     <ClInclude Include="include\view\BaseGlfwWindow.h" />

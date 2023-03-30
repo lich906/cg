@@ -3,12 +3,16 @@
 #include <memory>
 #include <string>
 
-#include "graphics/Vector.h"
-#include "model/ObservableSpaceObject.h"
+#include "boost/signals2.hpp"
 
-class SpaceObject : public ObservableSpaceObject
+#include "graphics/Vector.h"
+
+using VectorSlotType = boost::signals2::signal<void(const gfx::Vector&)>::slot_type;
+
+class SpaceObject
 {
 public:
+
 	/*
 		Create unique SpaceObject instance.
 	*/
@@ -33,15 +37,16 @@ public:
 
 	bool ExistsAtPos(const gfx::Vector& pos) const;
 
+	boost::signals2::connection RegisterPositionObs(const VectorSlotType& slot, bool instantNotify = false);
+	boost::signals2::connection RegisterVelocityObs(const VectorSlotType& slot, bool instantNotify = false);
+
 private:
 	SpaceObject(const std::string& name, float mass, float size,
 		const gfx::Vector& initialPos, const gfx::Vector& initialVelocity = gfx::Vector());
 
-	// Inherited via ObservableSpaceObject
-	virtual gfx::Vector GetPosition() const override;
-	virtual gfx::Vector GetVelocity() const override;
-
 	std::string m_name;
 	float m_mass, m_size;
-	gfx::Vector m_currentVelocity, m_currentPosition;
+	gfx::Vector m_velocity, m_position;
+
+	boost::signals2::signal<void(const gfx::Vector&)> m_positionSignal, m_velocitySignal;
 };

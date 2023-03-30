@@ -10,6 +10,7 @@
 #include "controller/IController.h"
 #include "view_model/Scene.h"
 #include "view_model/SpaceObjectView.h"
+#include "factory/SpaceObjectFactory.h"
 
 class SetupController : public IController
 {

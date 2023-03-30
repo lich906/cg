@@ -82,25 +82,15 @@ void SetupController::OnKeyPress(int key)
 
 void SetupController::InitSpaceObjects()
 {
-	auto moon = SpaceObject::Create("Moon", config::MoonMass, config::MoonScale, config::MoonInitialPosition);
-	auto moonView = SpaceObjectView::Create(
-		config::MoonInitialPosition,
-		config::MoonScale,
-		gfx::Texture("res/textures/moon.png"));
-	moon->Subsribe(moonView.get(), true);
+	auto moon = SpaceObjectFactory::CreateObjectAndView("Moon", config::MoonMass, config::MoonScale, gfx::Texture("res/textures/moon.png"), config::MoonInitialPosition);
 
-	m_model.AddNewObject(std::move(moon));
-	m_scene.AddNewObject(std::move(moonView));
+	m_model.AddNewObject(std::move(moon.object));
+	m_scene.AddNewObject(std::move(moon.view));
 
-	auto earth = SpaceObject::Create("Earth", config::EarthMass, config::EarthScale, config::EarthInitialPosition);
-	auto earthView = SpaceObjectView::Create(
-		config::EarthInitialPosition,
-		config::EarthScale,
-		gfx::Texture("res/textures/earth.png"));
-	earth->Subsribe(earthView.get(), true);
+	auto earth = SpaceObjectFactory::CreateObjectAndView("Earth", config::EarthMass, config::EarthScale, gfx::Texture("res/textures/earth.png"), config::EarthInitialPosition);
 
-	m_model.AddNewObject(std::move(earth));
-	m_scene.AddNewObject(std::move(earthView));
+	m_model.AddNewObject(std::move(earth.object));
+	m_scene.AddNewObject(std::move(earth.view));
 }
 
 void SetupController::DrawMenuWindow()

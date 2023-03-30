@@ -8,6 +8,7 @@
     },
     "glfw3",
     "glad",
-    "glm"
+    "glm",
+    "boost-signals2"
   ]
 }

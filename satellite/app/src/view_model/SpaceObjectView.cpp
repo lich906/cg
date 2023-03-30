@@ -12,6 +12,16 @@ std::unique_ptr<SpaceObjectView> SpaceObjectView::Create(const gfx::Vector& posi
 	return std::unique_ptr<SpaceObjectView>(instance);
 }
 
+void SpaceObjectView::Observe(SpaceObject& spaceObject)
+{
+	spaceObject.RegisterPositionObs([this](const gfx::Vector& v) {
+		OnSpaceObjectMove(v);
+	}, true);
+	spaceObject.RegisterVelocityObs([this](const gfx::Vector& v) {
+		OnVelocityChange(v);
+	}, true);
+}
+
 void SpaceObjectView::OnSpaceObjectMove(const gfx::Vector& pos)
 {
 	auto trans = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, 0.0f));

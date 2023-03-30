@@ -24,9 +24,6 @@
     <ClCompile Include="src\model\SpaceObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\model\ObservableSpaceObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\model\UniverseModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,21 +51,15 @@
     <ClCompile Include="src\view_model\SceneObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\factory\SpaceObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\view\BaseGlfwWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\model\SpaceObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\model\IObservableSpaceObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\model\ISpaceObjectObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\model\ObservableSpaceObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\model\UniverseModel.h">
@@ -108,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\view_model\SceneObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\factory\SpaceObjectFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
