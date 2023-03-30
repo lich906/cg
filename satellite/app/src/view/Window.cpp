@@ -1,7 +1,9 @@
 #include "view/Window.h"
 
-Window::Window(int width, int height, const char* title)
+Window::Window(int width, int height, const char* title, Scene& scene, MenuWindow& menuW)
 	: BaseGlfwWindow(width, height, title)
+	, m_scene(scene)
+	, m_menuWindow(menuW)
 {
 	SetMouseButtonCallback(
 		[this](GLFWwindow* window, int button, int action, int mods) -> void {
@@ -44,7 +46,9 @@ void Window::SetController(std::unique_ptr<IController>&& controller)
 	m_controller = std::move(controller);
 }
 
-void Window::Draw(int width, int height)
+void Window::Draw()
 {
-	m_controller->OnDraw(width, height);
+	m_controller->OnIdle();
+	m_scene.Draw();
+	m_menuWindow.Draw();
 }

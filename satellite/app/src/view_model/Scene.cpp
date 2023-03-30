@@ -11,11 +11,11 @@ void Scene::RemoveAllObjects()
 	m_objects.clear();
 }
 
-void Scene::Draw(int width, int height)
+void Scene::Draw()
 {
 	for (auto&& object : m_objects)
 	{
-		object->Draw(width, height);
+		object->Draw();
 	}
 }
 

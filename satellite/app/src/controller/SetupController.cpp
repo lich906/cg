@@ -13,13 +13,8 @@ SetupController::SetupController(UniverseModel& model, Scene& scene, IControllab
 	InitSpaceObjects();
 }
 
-void SetupController::OnDraw(int width, int height)
+void SetupController::OnIdle()
 {
-	static bool show_demo_window = true;
-
-	m_scene.Draw(width, height);
-	ImGui::ShowDemoWindow(&show_demo_window);
-	DrawMenuWindow();
 }
 
 void SetupController::OnMouseDown(const gfx::Vector& pos, int mods)
@@ -91,69 +86,6 @@ void SetupController::InitSpaceObjects()
 
 	m_model.AddNewObject(std::move(earth.object));
 	m_scene.AddNewObject(std::move(earth.view));
-}
-
-void SetupController::DrawMenuWindow()
-{
-// clang-format off
-	if (ImGui::Begin("Main Menu", NULL, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse))
-	{
-		static bool helpPopupOpen = false;
-		static bool aboutProgramPopupOpen = false;
-
-		if (helpPopupOpen) ImGui::OpenPopup("Help");
-		if (aboutProgramPopupOpen) ImGui::OpenPopup("About");
-
-		if (ImGui::BeginMenuBar())
-		{
-			if (ImGui::BeginMenu("Help"))
-			{
-				if (ImGui::MenuItem("View Help")) helpPopupOpen = true;
-				if (ImGui::MenuItem("About program")) aboutProgramPopupOpen = true;
-				ImGui::EndMenu();
-			}
-			ImGui::EndMenuBar();
-		}
-
-		if (ImGui::BeginPopupModal("Help", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-		{
-			ImGui::Text("There will be help message soon.");
-
-			if (ImGui::Button("Close"))
-			{
-				ImGui::CloseCurrentPopup();
-				helpPopupOpen = false;
-			}
-			ImGui::EndPopup();
-		}
-
-		if (ImGui::BeginPopupModal("About", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-		{
-			ImGui::TextUnformatted("Moon and Earth simulation.");
-			ImGui::Separator();
-			ImGui::TextUnformatted("https://github.com/lich906");
-
-			if (ImGui::Button("Close"))
-			{
-				ImGui::CloseCurrentPopup();
-				aboutProgramPopupOpen = false;
-			}
-			ImGui::EndPopup();
-		}
-
-		ImGui::TextUnformatted("Positions:");
-
-		m_model.ForEach([&](const std::unique_ptr<SpaceObject>& object) -> void {
-			ImGui::Text("%s: %.2f, %.2f", object->GetName().c_str(), object->GetCurrentPosition().x, object->GetCurrentPosition().y);
-		});
-
-		ImGui::Separator();
-
-		ImGui::TextUnformatted("Graphs: ");
-
-		ImGui::End();
-	}
-// clang-format on
 }
 
 SpaceObject* SetupController::FindObjectAtPos(const gfx::Vector& pos)

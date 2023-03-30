@@ -9,8 +9,9 @@
 int main()
 {
 	UniverseModel model;
-	Scene viewModel;
-	Window window(config::graphics::WindowWidth, config::graphics::WindowHeight, "Satellite");
-	window.SetController(std::make_unique<SetupController>(model, viewModel, &window));
+	Scene scene;
+	MenuWindow menuWindow(model);
+	Window window(config::graphics::WindowWidth, config::graphics::WindowHeight, "Satellite", scene, menuWindow);
+	window.SetController(std::make_unique<SetupController>(model, scene, &window));
 	window.Run();
 }

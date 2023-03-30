@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\view\MenuWindow.cpp" />
     <ClCompile Include="src\controller\SetupController.cpp" />
     <ClCompile Include="src\controller\SimulationController.cpp" />
     <ClCompile Include="src\factory\SpaceObjectFactory.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="include\view_model\Scene.h" />
     <ClInclude Include="include\controller\IControllableWindow.h" />
     <ClInclude Include="include\view_model\SquareMesh.h" />
+    <ClInclude Include="include\view\MenuWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\gfxlib\gfxlib.vcxproj">

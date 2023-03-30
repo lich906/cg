@@ -8,9 +8,8 @@ SimulationController::SimulationController(UniverseModel& model, Scene& scene, I
 {
 }
 
-void SimulationController::OnDraw(int width, int height)
+void SimulationController::OnIdle()
 {
-	m_scene.Draw(width, height);
 	m_model.NextState(config::Timestep);
 }
 

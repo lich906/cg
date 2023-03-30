@@ -10,7 +10,7 @@ class IController
 public:
 	virtual ~IController() = default;
 
-	virtual void OnDraw(int width, int height) = 0;
+	virtual void OnIdle() = 0;
 	virtual void OnMouseDown(const gfx::Vector& pos, int mods) = 0;
 	virtual void OnMouseUp(const gfx::Vector& pos) = 0;
 	virtual void OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta) = 0;

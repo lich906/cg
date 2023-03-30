@@ -1,9 +1,5 @@
 #pragma once
 
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-
 #include <iostream>
 #include <memory>
 
@@ -19,15 +15,13 @@ public:
 
 private:
 	// Inherited via IController
-	virtual void OnDraw(int width, int height) override;
+	virtual void OnIdle() override;
 	virtual void OnMouseDown(const gfx::Vector& pos, int mods) override;
 	virtual void OnMouseUp(const gfx::Vector& pos) override;
 	virtual void OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta) override;
 	virtual void OnKeyPress(int key) override;
 
 	void InitSpaceObjects();
-
-	void DrawMenuWindow();
 
 	SpaceObject* FindObjectAtPos(const gfx::Vector& pos);
 

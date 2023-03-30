@@ -25,7 +25,7 @@ private:
 	void OnVelocityChange(const gfx::Vector& value);
 
 	// Inherited via SceneObject
-	virtual void DoDraw(int width, int height) override;
+	virtual void DoDraw() override;
 
 	float m_scale;
 	gfx::Texture m_texture;

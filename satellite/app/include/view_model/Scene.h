@@ -11,7 +11,7 @@ public:
 
 	void RemoveAllObjects();
 
-	void Draw(int width, int height);
+	void Draw();
 
 private:
 

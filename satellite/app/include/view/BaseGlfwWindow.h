@@ -30,7 +30,7 @@ protected:
 
 private:
 
-	virtual void Draw(int width, int height) = 0;
+	virtual void Draw() = 0;
 
 	bool InitGraphicsContext(int width, int height, const char* title);
 	void UpdateProjectionMatrixAndViewport();

@@ -35,9 +35,7 @@ void BaseGlfwWindow::Run()
 		glClearColor(config::graphics::ClearColor.r, config::graphics::ClearColor.g,
 			config::graphics::ClearColor.b, config::graphics::ClearColor.a);
 		glClear(GL_COLOR_BUFFER_BIT);
-		int width, height;
-		glfwGetFramebufferSize(m_window, &width, &height);
-		Draw(width, height);
+		Draw();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
