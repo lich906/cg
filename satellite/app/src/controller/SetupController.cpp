@@ -144,7 +144,7 @@ void SetupController::DrawMenuWindow()
 		ImGui::TextUnformatted("Positions:");
 
 		m_model.ForEach([&](const std::unique_ptr<SpaceObject>& object) -> void {
-			ImGui::Text("%s: %.2f, %.2f", object->GetName().data(), object->GetCurrentPosition().x, object->GetCurrentPosition().y);
+			ImGui::Text("%s: %.2f, %.2f", object->GetName().c_str(), object->GetCurrentPosition().x, object->GetCurrentPosition().y);
 		});
 
 		ImGui::Separator();
