@@ -26,6 +26,7 @@ void SetupController::OnMouseDown(const gfx::Vector& pos, int mods)
 			if (mods & GLFW_MOD_CONTROL)
 			{
 				m_setupInitialSpeed = true;
+				m_activeObject->SetCurrentVelocity({ 0.0f, 0.0f });
 			}
 			else
 			{

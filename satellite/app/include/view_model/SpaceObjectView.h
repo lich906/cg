@@ -9,6 +9,7 @@
 
 #include "view_model/SquareMesh.h"
 #include "view_model/SceneObject.h"
+#include "view_model/Arrow.h"
 #include "model/SpaceObject.h"
 
 class SpaceObjectView : public SceneObject
@@ -22,7 +23,7 @@ private:
 	SpaceObjectView(const gfx::Vector& pos, float scale, const gfx::Texture& texture);
 
 	void OnSpaceObjectMove(const gfx::Vector& pos);
-	void OnVelocityChange(const gfx::Vector& value);
+	void OnVelocityChange(const gfx::Vector& v);
 
 	// Inherited via SceneObject
 	virtual void DoDraw(int width, int height) override;
@@ -30,4 +31,5 @@ private:
 	float m_scale;
 	gfx::Texture m_texture;
 	SquareMesh m_mesh;
+	Arrow m_arrow;
 };

@@ -63,6 +63,9 @@
     <ClCompile Include="src\view\GraphicsInitializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\view_model\Arrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\view\BaseGlfwWindow.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\view\GraphicsInitializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\view_model\Arrow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
