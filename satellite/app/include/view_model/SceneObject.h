@@ -14,13 +14,13 @@ public:
 
 	void SetDeleter(const ObjectDeleter& deleter);
 
-	void Draw();
+	void Draw(int width, int height);
 
 protected:
 
 	void DestroySelf();
 
-	virtual void DoDraw() = 0;
+	virtual void DoDraw(int width, int height) = 0;
 
 	void Transform(const glm::mat4& mat);
 

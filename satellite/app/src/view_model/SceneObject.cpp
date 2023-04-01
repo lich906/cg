@@ -10,10 +10,10 @@ void SceneObject::SetDeleter(const ObjectDeleter& deleter)
 	m_deleter = deleter;
 }
 
-void SceneObject::Draw()
+void SceneObject::Draw(int width, int height)
 {
 	gfx::CurrentProgram::Get().SetUniformMatrix4fv("m_model", m_transformMat);
-	DoDraw();
+	DoDraw(width, height);
 }
 
 void SceneObject::DestroySelf()

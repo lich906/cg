@@ -9,13 +9,13 @@
 class Window : public BaseGlfwWindow, public IControllableWindow
 {
 public:
-	Window(int width, int height, const char* title, Scene& scene, MenuWindow& menuW);
+	Window(GLFWwindow* window, Scene& scene, MenuWindow& menuW);
 
 	void SetController(std::unique_ptr<IController>&& controller) override;
 
 private:
 
-	void Draw() override;
+	void Draw(int width, int height) override;
 
 	std::unique_ptr<IController> m_controller;
 	Scene& m_scene;

@@ -15,7 +15,6 @@ void MenuWindow::Draw()
 {
 	if (ImGui::Begin("Main Menu", NULL, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse))
 	{
-
 		if (m_helpPopupOpen)
 			ImGui::OpenPopup("Help");
 		if (m_aboutPopupOpen)

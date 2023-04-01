@@ -1,8 +1,9 @@
 #include "view/BaseGlfwWindow.h"
 
-BaseGlfwWindow::BaseGlfwWindow(int width, int height, const char* title)
+BaseGlfwWindow::BaseGlfwWindow(GLFWwindow* window)
+	: m_window(window)
 {
-	if (!InitGraphicsContext(width, height, title))
+	if (!InitGraphicsContext())
 	{
 		throw std::runtime_error("Failed to initialize graphics context.");
 	}
@@ -15,9 +16,6 @@ BaseGlfwWindow::~BaseGlfwWindow()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-
-	glfwDestroyWindow(m_window);
-	glfwTerminate();
 }
 
 void BaseGlfwWindow::Run()
@@ -35,7 +33,9 @@ void BaseGlfwWindow::Run()
 		glClearColor(config::graphics::ClearColor.r, config::graphics::ClearColor.g,
 			config::graphics::ClearColor.b, config::graphics::ClearColor.a);
 		glClear(GL_COLOR_BUFFER_BIT);
-		Draw();
+		int width, height;
+		glfwGetFramebufferSize(m_window, &width, &height);
+		Draw(width, height);
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -59,49 +59,8 @@ void BaseGlfwWindow::SetMouseButtonCallback(GlfwMouseButtonCallback&& callback)
 	m_mouseButtonCallback = std::move(callback);
 }
 
-bool BaseGlfwWindow::InitGraphicsContext(int width, int height, const char* title)
+bool BaseGlfwWindow::InitGraphicsContext()
 {
-	glfwSetErrorCallback([](int error, const char* description) -> void {
-		printf("Glfw error #%d : %s\n", error, description);
-	});
-
-	if (!glfwInit())
-		return false;
-
-	// GL 3.3 + GLSL 330
-	const char* glslVersion = "#version 330 core";
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config::graphics::GlfwContextVersionMajor);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config::graphics::GlfwContextVersionMinor);
-	// Setup OpenGL core profile
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	// Enable multisampling
-	glfwWindowHint(GLFW_SAMPLES, config::graphics::GlfwSamples);
-
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-	// Create window with graphics context
-	m_window = glfwCreateWindow(width, height, title, NULL, NULL);
-
-	if (m_window == NULL)
-		return false;
-
-	glfwMakeContextCurrent(m_window);
-	gladLoadGL();
-	glfwSwapInterval(1); // Enable vsync
-
-	GlCall(glEnable(GL_BLEND));
-	GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)); // Setup blending algorithm
-
-#ifdef _DEBUG
-	printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
-#endif // _DEBUG
-
-	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	(void)io;
-
 	glfwSetWindowUserPointer(m_window, this);
 
 	glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
@@ -114,8 +73,14 @@ bool BaseGlfwWindow::InitGraphicsContext(int width, int height, const char* titl
 		static_cast<BaseGlfwWindow*>(glfwGetWindowUserPointer(window))->m_mouseButtonCallback(window, button, action, mods);
 	});
 
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	(void)io;
+
 	ImGui_ImplGlfw_InitForOpenGL(m_window, true);
-	ImGui_ImplOpenGL3_Init(glslVersion);
+	ImGui_ImplOpenGL3_Init(config::graphics::GlslVersion);
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();

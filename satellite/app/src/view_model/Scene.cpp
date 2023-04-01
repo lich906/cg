@@ -1,4 +1,10 @@
 #include "view_model/Scene.h"
+#include "view_model/Background.h"
+
+Scene::Scene()
+	: m_background(std::make_unique<Background>())
+{
+}
 
 void Scene::AddNewObject(std::unique_ptr<SceneObject>&& object)
 {
@@ -9,13 +15,16 @@ void Scene::AddNewObject(std::unique_ptr<SceneObject>&& object)
 void Scene::RemoveAllObjects()
 {
 	m_objects.clear();
+	AddNewObject(std::make_unique<Background>());
 }
 
-void Scene::Draw()
+void Scene::Draw(int width, int height)
 {
+	m_background->Draw(width, height);
+
 	for (auto&& object : m_objects)
 	{
-		object->Draw();
+		object->Draw(width, height);
 	}
 }
 

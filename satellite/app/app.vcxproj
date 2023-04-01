@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\view\GraphicsInitializer.cpp" />
     <ClCompile Include="src\view\MenuWindow.cpp" />
     <ClCompile Include="src\controller\SetupController.cpp" />
     <ClCompile Include="src\controller\SimulationController.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="src\model\UniverseModel.cpp" />
     <ClCompile Include="src\view\BaseGlfwWindow.cpp" />
     <ClCompile Include="src\view\Window.cpp" />
+    <ClCompile Include="src\view_model\Background.cpp" />
     <ClCompile Include="src\view_model\SceneObject.cpp" />
     <ClCompile Include="src\view_model\SpaceObjectView.cpp" />
     <ClCompile Include="src\view_model\Scene.cpp" />
@@ -185,11 +187,13 @@
     <ClInclude Include="include\controller\IController.h" />
     <ClInclude Include="include\Config.h" />
     <ClInclude Include="include\factory\SpaceObjectFactory.h" />
+    <ClInclude Include="include\view\GraphicsInitializer.h" />
     <ClInclude Include="include\model\GravityProcessor.h" />
     <ClInclude Include="include\model\SpaceObject.h" />
     <ClInclude Include="include\model\UniverseModel.h" />
     <ClInclude Include="include\view\BaseGlfwWindow.h" />
     <ClInclude Include="include\view\Window.h" />
+    <ClInclude Include="include\view_model\Background.h" />
     <ClInclude Include="include\view_model\SceneObject.h" />
     <ClInclude Include="include\view_model\SpaceObjectView.h" />
     <ClInclude Include="include\view_model\Scene.h" />

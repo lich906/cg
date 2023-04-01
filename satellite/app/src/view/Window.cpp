@@ -1,7 +1,7 @@
 #include "view/Window.h"
 
-Window::Window(int width, int height, const char* title, Scene& scene, MenuWindow& menuW)
-	: BaseGlfwWindow(width, height, title)
+Window::Window(GLFWwindow* window, Scene& scene, MenuWindow& menuW)
+	: BaseGlfwWindow(window)
 	, m_scene(scene)
 	, m_menuWindow(menuW)
 {
@@ -46,9 +46,9 @@ void Window::SetController(std::unique_ptr<IController>&& controller)
 	m_controller = std::move(controller);
 }
 
-void Window::Draw()
+void Window::Draw(int width, int height)
 {
 	m_controller->OnIdle();
-	m_scene.Draw();
+	m_scene.Draw(width, height);
 	m_menuWindow.Draw();
 }

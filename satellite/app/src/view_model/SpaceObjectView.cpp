@@ -28,7 +28,7 @@ void SpaceObjectView::OnSpaceObjectMove(const gfx::Vector& pos)
 	Transform(glm::scale(trans, glm::vec3(m_scale, m_scale, 1.0f)));
 }
 
-void SpaceObjectView::DoDraw()
+void SpaceObjectView::DoDraw(int width, int height)
 {
 	m_texture.Bind();
 	m_mesh.Draw();

@@ -17,7 +17,7 @@ class BaseGlfwWindow
 {
 public:
 
-	BaseGlfwWindow(int width, int height, const char* title);
+	BaseGlfwWindow(GLFWwindow* window);
 	~BaseGlfwWindow();
 
 	void Run();
@@ -30,9 +30,9 @@ protected:
 
 private:
 
-	virtual void Draw() = 0;
+	virtual void Draw(int width, int height) = 0;
 
-	bool InitGraphicsContext(int width, int height, const char* title);
+	bool InitGraphicsContext();
 	void UpdateProjectionMatrixAndViewport();
 
 	GLFWwindow* m_window;

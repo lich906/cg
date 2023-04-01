@@ -3,15 +3,17 @@
 #include "imgui_impl_opengl3.h"
 
 #include "Config.h"
-#include "view/Window.h"
 #include "controller/SetupController.h"
+#include "view/Window.h"
+#include "view/GraphicsInitializer.h"
 
 int main()
 {
+	GraphicsInitializer initializer(config::graphics::WindowWidth, config::graphics::WindowHeight, "Satellite");
 	UniverseModel model;
 	Scene scene;
 	MenuWindow menuWindow(model);
-	Window window(config::graphics::WindowWidth, config::graphics::WindowHeight, "Satellite", scene, menuWindow);
+	Window window(initializer.GetGLFWwindow(), scene, menuWindow);
 	window.SetController(std::make_unique<SetupController>(model, scene, &window));
 	window.Run();
 }
