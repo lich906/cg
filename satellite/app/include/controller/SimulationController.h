@@ -1,11 +1,11 @@
 #pragma once
 
-#include "IController.h"
+#include "AbstractController.h"
 
-class SimulationController : public IController
+class SimulationController : public AbstractController
 {
 public:
-	SimulationController(UniverseModel& model, Scene& scene, IControllableWindow* window);
+	using AbstractController::AbstractController;
 
 private:
 	// Inherited via IController
@@ -14,8 +14,5 @@ private:
 	virtual void OnMouseUp(const gfx::Vector& pos) override;
 	virtual void OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta) override;
 	virtual void OnKeyPress(int key) override;
-
-	UniverseModel& m_model;
-	Scene& m_scene;
-	IControllableWindow* m_window;
+	virtual void OnSet() override;
 };

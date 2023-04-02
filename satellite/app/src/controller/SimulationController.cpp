@@ -1,16 +1,10 @@
 #include "controller/SimulationController.h"
 #include "controller/SetupController.h"
-
-SimulationController::SimulationController(UniverseModel& model, Scene& scene, IControllableWindow* window)
-	: m_model(model)
-	, m_scene(scene)
-	, m_window(window)
-{
-}
+#include <GLFW/glfw3.h>
 
 void SimulationController::OnIdle()
 {
-	m_model.NextState(config::Timestep);
+	GetContext()->GetModel().NextState(config::Timestep);
 }
 
 void SimulationController::OnMouseDown(const gfx::Vector& pos, int mods)
@@ -29,6 +23,10 @@ void SimulationController::OnKeyPress(int key)
 {
 	if (key == GLFW_KEY_BACKSPACE)
 	{
-		m_window->SetController(std::make_unique<SetupController>(m_model, m_scene, m_window));
+		GetContext()->SetController(ControllerType::Setup);
 	}
+}
+
+void SimulationController::OnSet()
+{
 }

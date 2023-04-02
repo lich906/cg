@@ -1,17 +1,7 @@
 #include "controller/SetupController.h"
 #include "controller/SimulationController.h"
 #include "Config.h"
-
-SetupController::SetupController(UniverseModel& model, Scene& scene, IControllableWindow* window)
-	: m_model(model)
-	, m_scene(scene)
-	, m_window(window)
-{
-	m_model.RemoveAllObjects();
-	m_scene.RemoveAllObjects();
-
-	InitSpaceObjects();
-}
+#include "GLFW/glfw3.h"
 
 void SetupController::OnIdle()
 {
@@ -72,26 +62,34 @@ void SetupController::OnKeyPress(int key)
 {
 	if (key == GLFW_KEY_ENTER)
 	{
-		m_window->SetController(std::make_unique<SimulationController>(m_model, m_scene, m_window));
+		GetContext()->SetController(ControllerType::Simulation);
 	}
+}
+
+void SetupController::OnSet()
+{
+	GetContext()->GetModel().RemoveAllObjects();
+	GetContext()->GetScene().RemoveAllObjects();
+
+	InitSpaceObjects();
 }
 
 void SetupController::InitSpaceObjects()
 {
 	auto moon = SpaceObjectFactory::CreateObjectAndView("Moon", config::MoonMass, config::MoonScale, gfx::Texture("res/textures/moon.png"), config::MoonInitialPosition);
 
-	m_model.AddNewObject(std::move(moon.object));
-	m_scene.AddNewObject(std::move(moon.view));
+	GetContext()->GetModel().AddNewObject(std::move(moon.object));
+	GetContext()->GetScene().AddNewObject(std::move(moon.view));
 
 	auto earth = SpaceObjectFactory::CreateObjectAndView("Earth", config::EarthMass, config::EarthScale, gfx::Texture("res/textures/earth.png"), config::EarthInitialPosition);
 
-	m_model.AddNewObject(std::move(earth.object));
-	m_scene.AddNewObject(std::move(earth.view));
+	GetContext()->GetModel().AddNewObject(std::move(earth.object));
+	GetContext()->GetScene().AddNewObject(std::move(earth.view));
 }
 
 SpaceObject* SetupController::FindObjectAtPos(const gfx::Vector& pos)
 {
-	return m_model.FindIf([&](const std::unique_ptr<SpaceObject>& obj) -> bool {
+	return GetContext()->GetModel().FindIf([&](const std::unique_ptr<SpaceObject>& obj) -> bool {
 		return obj->ExistsAtPos(pos);
 	});
 }

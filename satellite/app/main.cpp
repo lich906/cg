@@ -12,8 +12,6 @@ int main()
 	GraphicsInitializer initializer(config::graphics::WindowWidth, config::graphics::WindowHeight, "Satellite");
 	UniverseModel model;
 	Scene scene;
-	MenuWindow menuWindow(model);
-	Window window(initializer.GetGLFWwindow(), scene, menuWindow);
-	window.SetController(std::make_unique<SetupController>(model, scene, &window));
+	Window window(initializer.GetGLFWwindow(), model, scene);
 	window.Run();
 }
