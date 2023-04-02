@@ -1,6 +1,7 @@
 #include "view/MenuWindow.h"
 
 #include "imgui.h"
+#include "implot.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
@@ -9,6 +10,15 @@ MenuWindow::MenuWindow(UniverseModel& model)
 	, m_helpPopupOpen(false)
 	, m_aboutPopupOpen(false)
 {
+	ImPlot::CreateContext();
+	m_model.RegisterObjectAddingObs([this](SpaceObject& obj) {
+		RegisterVelocityPlots(obj);
+	});
+}
+
+MenuWindow::~MenuWindow()
+{
+	ImPlot::DestroyContext();
 }
 
 void MenuWindow::Draw()
@@ -68,8 +78,42 @@ void MenuWindow::Draw()
 		ImGui::Separator();
 
 		ImGui::TextUnformatted("Graphs: ");
-		ImGui::TextUnformatted("Soon...");
+
+		DrawVelocityPlots();
 
 		ImGui::End();
 	}
+}
+
+void MenuWindow::DrawVelocityPlots()
+{
+	if (!m_velocityPlots.empty())
+	{
+		m_t += ImGui::GetIO().DeltaTime;
+
+		if (ImPlot::BeginPlot("Velocity", ImVec2(-1, 300)))
+		{
+			ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoTickLabels, ImPlotAxisFlags_NoTickLabels);
+			ImPlot::SetupAxisLimits(ImAxis_X1, m_t - 10.0f, m_t, ImGuiCond_Always);
+			ImPlot::SetupAxisLimits(ImAxis_Y1, 0, 100.0f);
+			ImPlot::SetNextFillStyle(IMPLOT_AUTO_COL, 0.5f);
+			for (auto& [obj, plot] : m_velocityPlots)
+			{
+				plot->Draw();
+			}
+			ImPlot::EndPlot();
+		}
+	}
+	else
+	{
+		m_t = 0.0f;
+	}
+}
+
+void MenuWindow::RegisterVelocityPlots(SpaceObject& object)
+{
+	m_velocityPlots[&object] = 
+		std::make_shared<SpaceObjectVelocityPlot>(object, [this, ptr = &object]() {
+		m_velocityPlots.erase(ptr);
+	});
 }

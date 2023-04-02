@@ -9,6 +9,7 @@
     "glfw3",
     "glad",
     "glm",
-    "boost-signals2"
+    "boost-signals2",
+    "implot"
   ]
 }

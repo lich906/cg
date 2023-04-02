@@ -75,6 +75,12 @@
     <ClCompile Include="src\controller\NoObjectsLeftController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\view\ScrollingPlotBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\SpaceObjectVelocityPlot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\view\BaseGlfwWindow.h">
@@ -153,6 +159,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\view_model\SceneEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\view\ScrollingPlotBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\view\SpaceObjectVelocityPlot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

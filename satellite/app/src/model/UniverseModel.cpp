@@ -3,6 +3,7 @@
 void UniverseModel::AddNewObject(std::unique_ptr<SpaceObject>&& obj)
 {
 	m_objects.emplace_back(std::move(obj));
+	m_objectAddSignal(*m_objects.back());
 }
 
 void UniverseModel::RemoveAllObjects()
@@ -46,6 +47,11 @@ void UniverseModel::ForEach(const ForEachCallback& callback)
 Connection UniverseModel::RegisterCollisionObs(const VectorSignal::slot_type& slot)
 {
 	return m_collisionSignal.connect(slot);
+}
+
+Connection UniverseModel::RegisterObjectAddingObs(const SpaceObjectSignal::slot_type& slot)
+{
+	return m_objectAddSignal.connect(slot);
 }
 
 void UniverseModel::ProcessCollisions()

@@ -85,7 +85,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(TargetDir);$(SolutionDir)vcpkg_installed\x86-windows\debug\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;imguid.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glad.lib;glfw3dll.lib;imguid.lib;implotd.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)vcpkg_installed\x86-windows\debug\bin\glfw3.dll $(OutDir)glfw3.dll</Command>
@@ -109,7 +109,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(TargetDir);$(SolutionDir)vcpkg_installed\x86-windows\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;imgui.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glad.lib;glfw3dll.lib;imgui.lib;implot.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)vcpkg_installed\x86-windows\bin\glfw3.dll $(OutDir)glfw3.dll</Command>
@@ -131,7 +131,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(TargetDir);$(SolutionDir)vcpkg_installed\x86-windows\debug\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;imguid.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glad.lib;glfw3dll.lib;imguid.lib;implotd.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)vcpkg_installed\x86-windows\debug\bin\glfw3.dll $(OutDir)glfw3.dll</Command>
@@ -155,7 +155,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(TargetDir);$(SolutionDir)vcpkg_installed\x86-windows\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glad.lib;glfw3dll.lib;imgui.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glad.lib;glfw3dll.lib;imgui.lib;implot.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)vcpkg_installed\x86-windows\bin\glfw3.dll $(OutDir)glfw3.dll</Command>
@@ -175,6 +175,8 @@
     <ClCompile Include="src\model\SpaceObject.cpp" />
     <ClCompile Include="src\model\UniverseModel.cpp" />
     <ClCompile Include="src\view\BaseGlfwWindow.cpp" />
+    <ClCompile Include="src\view\ScrollingPlotBuffer.cpp" />
+    <ClCompile Include="src\view\SpaceObjectVelocityPlot.cpp" />
     <ClCompile Include="src\view\Window.cpp" />
     <ClCompile Include="src\view_model\Arrow.cpp" />
     <ClCompile Include="src\view_model\Background.cpp" />
@@ -200,6 +202,8 @@
     <ClInclude Include="include\model\SpaceObject.h" />
     <ClInclude Include="include\model\UniverseModel.h" />
     <ClInclude Include="include\view\BaseGlfwWindow.h" />
+    <ClInclude Include="include\view\ScrollingPlotBuffer.h" />
+    <ClInclude Include="include\view\SpaceObjectVelocityPlot.h" />
     <ClInclude Include="include\view\Window.h" />
     <ClInclude Include="include\view_model\Arrow.h" />
     <ClInclude Include="include\view_model\Background.h" />
