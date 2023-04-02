@@ -27,7 +27,7 @@
     <ClCompile Include="src\model\UniverseModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\model\GravityProcessor.cpp">
+    <ClCompile Include="src\model\SpaceObjectMaths.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\view_model\SpaceObjectView.cpp">
@@ -69,6 +69,9 @@
     <ClCompile Include="src\controller\AbstractController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\view_model\Explosion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\view\BaseGlfwWindow.h">
@@ -80,7 +83,7 @@
     <ClInclude Include="include\model\UniverseModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\model\GravityProcessor.h">
+    <ClInclude Include="include\model\SpaceObjectMaths.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Config.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\controller\ControllerType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\view_model\Explosion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

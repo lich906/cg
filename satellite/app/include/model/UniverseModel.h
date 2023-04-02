@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 #include "SpaceObject.h"
-#include "GravityProcessor.h"
+#include "SpaceObjectMaths.h"
 
 class UniverseModel
 {
@@ -18,13 +18,22 @@ public:
 
 	SpaceObject* FindIf(const FindIfCallback& callback);
 
-	void NextState(float dt);
+	/*
+		Returns 'true' if objects are present, 'false' otherwise.
+	*/
+	bool NextState(float dt);
 
 	void ForEach(const ForEachCallback& callback);
 
+	Connection RegisterCollisionObs(const VectorSignal::slot_type& slot);
+
 private:
+
+	void ProcessCollisions();
+
+	gfx::Vector GetDistance(const SpaceObject& obj1, const SpaceObject& obj2);
 
 	std::vector<std::unique_ptr<SpaceObject>> m_objects;
 
-	GravityProcessor m_gravityProcessor;
+	VectorSignal m_collisionSignal;
 };

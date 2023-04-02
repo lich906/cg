@@ -1,5 +1,6 @@
 #include "controller/SimulationController.h"
 #include "controller/SetupController.h"
+#include "view_model/Explosion.h"
 #include <GLFW/glfw3.h>
 
 void SimulationController::OnIdle()
@@ -29,4 +30,7 @@ void SimulationController::OnKeyPress(int key)
 
 void SimulationController::OnSet()
 {
+	GetContext()->GetModel().RegisterCollisionObs([this](const gfx::Vector& v) {
+		GetContext()->GetScene().AddNewObject(std::make_unique<Explosion>(v));
+	});
 }

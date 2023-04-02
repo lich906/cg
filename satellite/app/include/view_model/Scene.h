@@ -13,9 +13,11 @@ public:
 
 	void Draw(int width, int height);
 
+	void Update(float alpha);
+
 private:
 
-	SceneObject::RemoveCallback CreateDeleter(const SceneObject* ptr);
+	SceneObject::RemoveCallback CreateRemoveCallback(const SceneObject* ptr);
 
 	std::vector<std::unique_ptr<SceneObject>> m_objects;
 	std::unique_ptr<SceneObject> m_background;

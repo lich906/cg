@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <array>
 
 #include "graphics/Vertex.h"
 #include "graphics/Vector.h"
@@ -32,4 +33,6 @@ private:
 	gfx::Texture m_texture;
 	SquareMesh m_mesh;
 	Arrow m_arrow;
+
+	std::vector<ScopedConnection> m_connections;
 };

@@ -22,13 +22,17 @@ SpaceObject* UniverseModel::FindIf(const FindIfCallback& callback)
 	return nullptr;
 }
 
-void UniverseModel::NextState(float dt)
+bool UniverseModel::NextState(float dt)
 {
+	ProcessCollisions();
+
 	for (size_t i = 0; i < m_objects.size(); ++i)
 	{
-		auto acceleration = m_gravityProcessor.FindObjectAcceleration(m_objects, i);
+		auto acceleration = SpaceObjectMaths::GetObjectAcceleration(m_objects, i);
 		m_objects[i]->NextPosition(acceleration, dt);
 	}
+
+	return !m_objects.empty();
 }
 
 void UniverseModel::ForEach(const ForEachCallback& callback)
@@ -37,4 +41,33 @@ void UniverseModel::ForEach(const ForEachCallback& callback)
 	{
 		callback(object);
 	}
+}
+
+Connection UniverseModel::RegisterCollisionObs(const VectorSignal::slot_type& slot)
+{
+	return m_collisionSignal.connect(slot);
+}
+
+void UniverseModel::ProcessCollisions()
+{
+	for (size_t i = 0; i < m_objects.size(); ++i)
+	{
+		for (size_t j = i + 1; j < m_objects.size(); ++j)
+		{
+			float distance = SpaceObjectMaths::GetDistance(*m_objects[i], *m_objects[j]);
+			if (distance == 0.0f)
+			{
+				m_collisionSignal(m_objects[i]->GetCurrentPosition());
+				m_collisionSignal(m_objects[j]->GetCurrentPosition());
+
+				m_objects.erase(m_objects.begin() + i);
+				m_objects.erase(m_objects.begin() + j - 1);
+			}
+		}
+	}
+}
+
+gfx::Vector UniverseModel::GetDistance(const SpaceObject& obj1, const SpaceObject& obj2)
+{
+	return gfx::Vector();
 }

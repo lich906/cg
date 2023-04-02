@@ -8,7 +8,7 @@ Scene::Scene()
 
 void Scene::AddNewObject(std::unique_ptr<SceneObject>&& object)
 {
-	object->SetRemoveCallback(CreateDeleter(object.get()));
+	object->SetRemoveCallback(CreateRemoveCallback(object.get()));
 	m_objects.emplace_back(std::move(object));
 }
 
@@ -22,7 +22,15 @@ void Scene::Draw(int width, int height)
 	}
 }
 
-SceneObject::RemoveCallback Scene::CreateDeleter(const SceneObject* ptr)
+void Scene::Update(float alpha)
+{
+	for (size_t i = 0; i < m_objects.size(); i++)
+	{
+		m_objects[i]->Update(alpha);
+	}
+}
+
+SceneObject::RemoveCallback Scene::CreateRemoveCallback(const SceneObject* ptr)
 {
 	return [this](const SceneObject* ptr) {
 		std::erase_if(m_objects, [ptr](const std::unique_ptr<SceneObject>& obj) {

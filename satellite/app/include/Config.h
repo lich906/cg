@@ -14,6 +14,8 @@ constexpr float MoonMass = 20.0f;
 constexpr float EarthMass = 80000.0f;
 constexpr float Timestep = 0.05f;
 constexpr float ArrowScaleCoeff = 2.0f;
+constexpr float ExplosionInitialScale = 50.0f;
+constexpr float ExplosionAnimationTime = 20.0f;
 
 namespace graphics
 {

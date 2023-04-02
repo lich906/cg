@@ -29,7 +29,7 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indic
 	// Texture attribute
 	m_vertexArray.BindAttribute(1, GL_FLOAT, sizeof(TexCoords) / sizeof(float), stride, sizeof(Vector));
 
-	//m_vertexBuffer.Unbind();
+	m_vertexBuffer.Unbind();
 
 	// ! Do not unbind m_indexBuffer !
 

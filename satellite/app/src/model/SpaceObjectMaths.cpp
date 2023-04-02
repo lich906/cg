@@ -1,6 +1,6 @@
-#include "model/GravityProcessor.h"
+#include "model/SpaceObjectMaths.h"
 
-gfx::Vector GravityProcessor::FindObjectAcceleration(const std::vector<std::unique_ptr<SpaceObject>>& objects, size_t index)
+gfx::Vector SpaceObjectMaths::GetObjectAcceleration(const std::vector<std::unique_ptr<SpaceObject>>& objects, size_t index)
 {
 	auto targetObjPos = objects.at(index)->GetCurrentPosition();
 
@@ -19,4 +19,10 @@ gfx::Vector GravityProcessor::FindObjectAcceleration(const std::vector<std::uniq
 	}
 
 	return aVec * config::GravitationCoeff;
+}
+
+float SpaceObjectMaths::GetDistance(const SpaceObject& obj1, const SpaceObject& obj2)
+{
+	gfx::Vector d = obj1.GetCurrentPosition() - obj2.GetCurrentPosition();
+	return std::max(d.Mod() - std::min(obj1.GetRadius(), obj2.GetRadius()), 0.0f);
 }

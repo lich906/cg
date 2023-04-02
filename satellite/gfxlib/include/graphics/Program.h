@@ -25,7 +25,8 @@ public:
 
 	void Use();
 
-	void SetUniform1i(const std::string& name, GLint value);
+	void SetUniform1i(const std::string& name, int value);
+	void SetUniform1f(const std::string& name, float value);
 	void SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat);
 
 private:

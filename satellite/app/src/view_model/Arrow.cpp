@@ -14,7 +14,7 @@ Arrow::Arrow(const gfx::Vector& startP)
 			{{ 1.0f, -0.5f }, { 1.0f, 1.0f }},
 			{{ 1.0f, 0.5f }, { 1.0f, 0.0f }}
 		},
-		{0, 1, 2, 3})
+		{0, 1, 2, 2, 1, 3})
 // clang-format on
 {
 	Transform(glm::scale(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 1.0f)));
@@ -35,7 +35,7 @@ void Arrow::SetDirection(const gfx::Vector& p)
 void Arrow::DoDraw(int width, int height)
 {
 	m_texture.Bind();
-	m_mesh.Draw(GL_TRIANGLE_STRIP);
+	m_mesh.Draw();
 }
 
 void Arrow::UpdateTransformation()

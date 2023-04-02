@@ -74,9 +74,14 @@ void Program::Use()
 	GlCall(glUseProgram(m_obj));
 }
 
-void Program::SetUniform1i(const std::string& name, GLint value)
+void Program::SetUniform1i(const std::string& name, int value)
 {
 	GlCall(glUniform1i(GetUniformLocation(name), value));
+}
+
+void gfx::Program::SetUniform1f(const std::string& name, float value)
+{
+	GlCall(glUniform1f(GetUniformLocation(name), value));
 }
 
 void Program::SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat)

@@ -16,6 +16,10 @@ void SceneObject::Draw(int width, int height)
 	DoDraw(width, height);
 }
 
+void SceneObject::Update(float alpha)
+{
+}
+
 void SceneObject::RemoveSelf()
 {
 	m_removeCallback(this);

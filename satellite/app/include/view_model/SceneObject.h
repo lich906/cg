@@ -12,17 +12,19 @@ public:
 
 	SceneObject();
 
-	void SetRemoveCallback(const RemoveCallback& deleter);
+	virtual ~SceneObject() = default;
 
+	void SetRemoveCallback(const RemoveCallback& deleter);
 	void Draw(int width, int height);
+
+	virtual void Update(float alpha);
 
 protected:
 
 	void RemoveSelf();
+	void Transform(const glm::mat4& mat);
 
 	virtual void DoDraw(int width, int height) = 0;
-
-	void Transform(const glm::mat4& mat);
 
 private:
 	glm::mat4 m_transformMat;

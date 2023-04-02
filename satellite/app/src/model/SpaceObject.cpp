@@ -33,6 +33,11 @@ gfx::Vector SpaceObject::GetCurrentPosition() const
 	return m_position;
 }
 
+float SpaceObject::GetRadius() const
+{
+	return m_size;
+}
+
 float SpaceObject::GetMass() const
 {
 	return m_mass;

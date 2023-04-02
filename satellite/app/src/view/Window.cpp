@@ -50,6 +50,7 @@ Window::Window(GLFWwindow* window, UniverseModel& model, Scene& scene)
 void Window::Draw(int width, int height)
 {
 	m_controller->OnIdle();
+	m_scene.Update(config::Timestep);
 	m_scene.Draw(width, height);
 	m_menuWindow.Draw();
 }

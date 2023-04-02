@@ -10,6 +10,7 @@
 using VectorSignal = boost::signals2::signal<void(const gfx::Vector&)>;
 using VoidSignal = boost::signals2::signal<void()>;
 using Connection = boost::signals2::connection;
+using ScopedConnection = boost::signals2::scoped_connection;
 
 class SpaceObject
 {
@@ -32,6 +33,7 @@ public:
 	void NextPosition(const gfx::Vector& acceleration, float dt);
 
 	gfx::Vector GetCurrentPosition() const;
+	float GetRadius() const;
 	float GetMass() const;
 	gfx::Vector GetCurrentVelocity() const;
 	std::string GetName() const;
