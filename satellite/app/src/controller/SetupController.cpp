@@ -69,7 +69,6 @@ void SetupController::OnKeyPress(int key)
 void SetupController::OnSet()
 {
 	GetContext()->GetModel().RemoveAllObjects();
-	GetContext()->GetScene().RemoveAllObjects();
 
 	InitSpaceObjects();
 }

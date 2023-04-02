@@ -17,12 +17,9 @@ std::unique_ptr<SpaceObjectView> SpaceObjectView::Create(const gfx::Vector& posi
 
 void SpaceObjectView::Observe(SpaceObject& spaceObject)
 {
-	spaceObject.RegisterPositionObs([this](const gfx::Vector& v) {
-		OnSpaceObjectMove(v);
-	}, true);
-	spaceObject.RegisterVelocityObs([this](const gfx::Vector& v) {
-		OnVelocityChange(v);
-	}, true);
+	spaceObject.RegisterPositionObs([this](const gfx::Vector& v) { OnSpaceObjectMove(v); }, true);
+	spaceObject.RegisterVelocityObs([this](const gfx::Vector& v) { OnVelocityChange(v); }, true);
+	spaceObject.RegisterDeletionObs([this]() { RemoveSelf(); });
 }
 
 void SpaceObjectView::OnSpaceObjectMove(const gfx::Vector& pos)

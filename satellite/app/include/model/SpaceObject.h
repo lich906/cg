@@ -7,11 +7,15 @@
 
 #include "graphics/Vector.h"
 
-using VectorSlotType = boost::signals2::signal<void(const gfx::Vector&)>::slot_type;
+using VectorSignal = boost::signals2::signal<void(const gfx::Vector&)>;
+using VoidSignal = boost::signals2::signal<void()>;
+using Connection = boost::signals2::connection;
 
 class SpaceObject
 {
 public:
+
+	~SpaceObject();
 
 	/*
 		Create unique SpaceObject instance.
@@ -37,8 +41,9 @@ public:
 
 	bool ExistsAtPos(const gfx::Vector& pos) const;
 
-	boost::signals2::connection RegisterPositionObs(const VectorSlotType& slot, bool instantNotify = false);
-	boost::signals2::connection RegisterVelocityObs(const VectorSlotType& slot, bool instantNotify = false);
+	Connection RegisterPositionObs(const VectorSignal::slot_type& slot, bool instantNotify = false);
+	Connection RegisterVelocityObs(const VectorSignal::slot_type& slot, bool instantNotify = false);
+	Connection RegisterDeletionObs(const VoidSignal::slot_type& slot);
 
 private:
 	SpaceObject(const std::string& name, float mass, float size,
@@ -48,5 +53,6 @@ private:
 	float m_mass, m_size;
 	gfx::Vector m_velocity, m_position;
 
-	boost::signals2::signal<void(const gfx::Vector&)> m_positionSignal, m_velocitySignal;
+	VectorSignal m_positionSignal, m_velocitySignal;
+	VoidSignal m_deletionSignal;
 };

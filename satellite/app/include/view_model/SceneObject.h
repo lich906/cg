@@ -8,17 +8,17 @@
 class SceneObject
 {
 public:
-	using ObjectDeleter = std::function<void(const SceneObject*)>;
+	using RemoveCallback = std::function<void(const SceneObject*)>;
 
 	SceneObject();
 
-	void SetDeleter(const ObjectDeleter& deleter);
+	void SetRemoveCallback(const RemoveCallback& deleter);
 
 	void Draw(int width, int height);
 
 protected:
 
-	void DestroySelf();
+	void RemoveSelf();
 
 	virtual void DoDraw(int width, int height) = 0;
 
@@ -27,5 +27,5 @@ protected:
 private:
 	glm::mat4 m_transformMat;
 
-	ObjectDeleter m_deleter;
+	RemoveCallback m_removeCallback;
 };

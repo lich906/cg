@@ -1,5 +1,10 @@
 #include "model/SpaceObject.h"
 
+SpaceObject::~SpaceObject()
+{
+	m_deletionSignal();
+}
+
 std::unique_ptr<SpaceObject> SpaceObject::Create(const std::string& name, float mass, float size, const gfx::Vector& initialPos, const gfx::Vector& initialVel)
 {
 	auto instance = new SpaceObject(name, mass, size, initialPos, initialVel);
@@ -51,7 +56,7 @@ bool SpaceObject::ExistsAtPos(const gfx::Vector& pos) const
 		pos <= m_position + gfx::Vector(m_size, m_size);
 }
 
-boost::signals2::connection SpaceObject::RegisterPositionObs(const VectorSlotType& slot, bool instantNotify)
+Connection SpaceObject::RegisterPositionObs(const VectorSignal::slot_type& slot, bool instantNotify)
 {
 	if (instantNotify)
 	{
@@ -61,7 +66,7 @@ boost::signals2::connection SpaceObject::RegisterPositionObs(const VectorSlotTyp
 	return m_positionSignal.connect(slot);
 }
 
-boost::signals2::connection SpaceObject::RegisterVelocityObs(const VectorSlotType& slot, bool instantNotify)
+Connection SpaceObject::RegisterVelocityObs(const VectorSignal::slot_type& slot, bool instantNotify)
 {
 	if (instantNotify)
 	{
@@ -69,6 +74,11 @@ boost::signals2::connection SpaceObject::RegisterVelocityObs(const VectorSlotTyp
 	}
 
 	return m_velocitySignal.connect(slot);
+}
+
+Connection SpaceObject::RegisterDeletionObs(const VoidSignal::slot_type& slot)
+{
+	return m_deletionSignal.connect(slot);
 }
 
 void SpaceObject::SetCurrentPosition(const gfx::Vector& p)

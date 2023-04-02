@@ -14,4 +14,5 @@ int main()
 	Scene scene;
 	Window window(initializer.GetGLFWwindow(), model, scene);
 	window.Run();
+	model.RemoveAllObjects();
 }

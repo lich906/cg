@@ -5,9 +5,9 @@ SceneObject::SceneObject()
 {
 }
 
-void SceneObject::SetDeleter(const ObjectDeleter& deleter)
+void SceneObject::SetRemoveCallback(const RemoveCallback& deleter)
 {
-	m_deleter = deleter;
+	m_removeCallback = deleter;
 }
 
 void SceneObject::Draw(int width, int height)
@@ -16,9 +16,9 @@ void SceneObject::Draw(int width, int height)
 	DoDraw(width, height);
 }
 
-void SceneObject::DestroySelf()
+void SceneObject::RemoveSelf()
 {
-	m_deleter(this);
+	m_removeCallback(this);
 }
 
 void SceneObject::Transform(const glm::mat4& mat)
