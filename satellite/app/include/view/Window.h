@@ -22,6 +22,7 @@ private:
 	virtual UniverseModel& GetModel() override;
 	virtual Scene& GetScene() override;
 	virtual MenuWindow& GetMenuWindow() override;
+	virtual void CloseWindow() override;
 
 	void InitControllers();
 

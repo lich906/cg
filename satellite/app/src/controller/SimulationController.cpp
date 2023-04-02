@@ -5,7 +5,10 @@
 
 void SimulationController::OnIdle()
 {
-	GetContext()->GetModel().NextState(config::Timestep);
+	if (!GetContext()->GetModel().NextState(config::Timestep))
+	{
+		GetContext()->SetController(ControllerType::NoObjectsLeft);
+	}
 }
 
 void SimulationController::OnMouseDown(const gfx::Vector& pos, int mods)

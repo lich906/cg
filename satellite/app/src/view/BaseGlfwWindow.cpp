@@ -59,6 +59,11 @@ void BaseGlfwWindow::SetMouseButtonCallback(GlfwMouseButtonCallback&& callback)
 	m_mouseButtonCallback = std::move(callback);
 }
 
+void BaseGlfwWindow::CloseWindow()
+{
+	glfwSetWindowShouldClose(m_window, true);
+}
+
 bool BaseGlfwWindow::InitGraphicsContext()
 {
 	glfwSetWindowUserPointer(m_window, this);

@@ -13,4 +13,5 @@ struct IWindowContext
 	virtual UniverseModel& GetModel() = 0;
 	virtual Scene& GetScene() = 0;
 	virtual MenuWindow& GetMenuWindow() = 0;
+	virtual void CloseWindow() = 0;
 };

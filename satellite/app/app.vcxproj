@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\controller\AbstractController.cpp" />
+    <ClCompile Include="src\controller\NoObjectsLeftController.cpp" />
     <ClCompile Include="src\view\GraphicsInitializer.cpp" />
     <ClCompile Include="src\view\MenuWindow.cpp" />
     <ClCompile Include="src\controller\SetupController.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="include\controller\AbstractController.h" />
     <ClInclude Include="include\controller\GlfwCallbacks.h" />
     <ClInclude Include="include\controller\IWindowContext.h" />
+    <ClInclude Include="include\controller\NoObjectsLeftController.h" />
     <ClInclude Include="include\controller\SetupController.h" />
     <ClInclude Include="include\controller\SimulationController.h" />
     <ClInclude Include="include\controller\IController.h" />

@@ -1,6 +1,7 @@
 #include "view/Window.h"
 #include "controller/SetupController.h"
 #include "controller/SimulationController.h"
+#include "controller/NoObjectsLeftController.h"
 
 Window::Window(GLFWwindow* window, UniverseModel& model, Scene& scene)
 	: BaseGlfwWindow(window)
@@ -80,4 +81,10 @@ void Window::InitControllers()
 {
 	m_controllers.insert({ ControllerType::Setup, std::make_unique<SetupController>(static_cast<IWindowContext*>(this)) });
 	m_controllers.insert({ ControllerType::Simulation, std::make_unique<SimulationController>(static_cast<IWindowContext*>(this)) });
+	m_controllers.insert({ ControllerType::NoObjectsLeft, std::make_unique<NoObjectsLeftController>(static_cast<IWindowContext*>(this)) });
+}
+
+void Window::CloseWindow()
+{
+	BaseGlfwWindow::CloseWindow();
 }

@@ -28,6 +28,8 @@ protected:
 	void SetCursorPosCallback(GlfwCursorPosCallback&& callback);
 	void SetMouseButtonCallback(GlfwMouseButtonCallback&& callback);
 
+	void CloseWindow();
+
 private:
 
 	virtual void Draw(int width, int height) = 0;
