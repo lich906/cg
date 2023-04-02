@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "view_model/SceneObject.h"
+#include "SceneObject.h"
 
 class Scene
 {
@@ -10,10 +10,9 @@ public:
 	Scene();
 
 	void AddNewObject(std::unique_ptr<SceneObject>&& object);
-
 	void Draw(int width, int height);
-
 	void Update(float alpha);
+	void DispatchEvent(SceneEvent event);
 
 private:
 

@@ -4,6 +4,7 @@
 
 #include "glm/ext/matrix_float4x4.hpp"
 #include "graphics/CurrentProgram.h"
+#include "SceneEvent.h"
 
 class SceneObject
 {
@@ -18,6 +19,7 @@ public:
 	void Draw(int width, int height);
 
 	virtual void Update(float alpha);
+	virtual void DispatchEvent(SceneEvent);
 
 protected:
 

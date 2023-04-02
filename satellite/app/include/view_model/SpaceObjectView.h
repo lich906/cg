@@ -28,7 +28,9 @@ private:
 
 	// Inherited via SceneObject
 	virtual void DoDraw(int width, int height) override;
+	virtual void DispatchEvent(SceneEvent event) override;
 
+	bool m_showArrow;
 	float m_scale;
 	gfx::Texture m_texture;
 	SquareMesh m_mesh;

@@ -20,6 +20,10 @@ void SceneObject::Update(float alpha)
 {
 }
 
+void SceneObject::DispatchEvent(SceneEvent)
+{
+}
+
 void SceneObject::RemoveSelf()
 {
 	m_removeCallback(this);

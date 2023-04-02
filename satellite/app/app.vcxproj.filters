@@ -152,5 +152,8 @@
     <ClInclude Include="include\controller\NoObjectsLeftController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\view_model\SceneEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

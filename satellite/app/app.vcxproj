@@ -204,6 +204,7 @@
     <ClInclude Include="include\view_model\Arrow.h" />
     <ClInclude Include="include\view_model\Background.h" />
     <ClInclude Include="include\view_model\Explosion.h" />
+    <ClInclude Include="include\view_model\SceneEvent.h" />
     <ClInclude Include="include\view_model\SceneObject.h" />
     <ClInclude Include="include\view_model\SpaceObjectView.h" />
     <ClInclude Include="include\view_model\Scene.h" />

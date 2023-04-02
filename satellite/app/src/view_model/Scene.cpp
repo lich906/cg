@@ -30,6 +30,14 @@ void Scene::Update(float alpha)
 	}
 }
 
+void Scene::DispatchEvent(SceneEvent event)
+{
+	for (size_t i = 0; i < m_objects.size(); i++)
+	{
+		m_objects[i]->DispatchEvent(event);
+	}
+}
+
 SceneObject::RemoveCallback Scene::CreateRemoveCallback(const SceneObject* ptr)
 {
 	return [this](const SceneObject* ptr) {
