@@ -89,31 +89,29 @@ void MenuWindow::DrawVelocityPlots()
 {
 	if (!m_velocityPlots.empty())
 	{
-		m_t += ImGui::GetIO().DeltaTime;
-
-		if (ImPlot::BeginPlot("Velocity", ImVec2(-1, 300)))
+		m_t += config::Timestep;
+		if (ImPlot::BeginPlot("Velocity", ImVec2(-1, 200)))
 		{
 			ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoTickLabels, ImPlotAxisFlags_NoTickLabels);
-			ImPlot::SetupAxisLimits(ImAxis_X1, m_t - 10.0f, m_t, ImGuiCond_Always);
+			ImPlot::SetupAxisLimits(ImAxis_X1, m_t - 30.0f, m_t, ImGuiCond_Always);
 			ImPlot::SetupAxisLimits(ImAxis_Y1, 0, 100.0f);
 			ImPlot::SetNextFillStyle(IMPLOT_AUTO_COL, 0.5f);
 			for (auto& [obj, plot] : m_velocityPlots)
 			{
-				plot->Draw();
+				plot->Draw(m_t);
 			}
 			ImPlot::EndPlot();
 		}
-	}
-	else
-	{
-		m_t = 0.0f;
 	}
 }
 
 void MenuWindow::RegisterVelocityPlots(SpaceObject& object)
 {
-	m_velocityPlots[&object] = 
-		std::make_shared<SpaceObjectVelocityPlot>(object, [this, ptr = &object]() {
+	m_velocityPlots[&object] = std::make_shared<SpaceObjectVelocityPlot>(object);
+
+	m_connections.push_back(object.RegisterDeletionObs([this, ptr = &object]() {
 		m_velocityPlots.erase(ptr);
-	});
+		if (m_velocityPlots.empty())
+			m_t = 0;
+	}));
 }

@@ -8,14 +8,12 @@
 class SpaceObjectVelocityPlot
 {
 public:
-	SpaceObjectVelocityPlot(SpaceObject& obj, const std::function<void()>& removeSelf);
+	SpaceObjectVelocityPlot(SpaceObject& obj);
 
-	void Draw();
+	void Draw(float x);
 
 private:
 	float m_x;
 	SpaceObject& m_object;
 	ScrollingPlotBuffer m_buffer;
-	std::vector<ScopedConnection> m_connections;
-	std::function<void()> m_removeSelf;
 };

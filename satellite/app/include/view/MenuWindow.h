@@ -23,4 +23,5 @@ private:
 	float m_t = 0.0f;
 	bool m_helpPopupOpen, m_aboutPopupOpen;
 	UniverseModel& m_model;
+	std::vector<ScopedConnection> m_connections;
 };
