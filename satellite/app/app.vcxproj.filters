@@ -81,6 +81,9 @@
     <ClCompile Include="src\view\SpaceObjectVelocityPlot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\signal\ScopedConnections.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\view\BaseGlfwWindow.h">
@@ -165,6 +168,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\view\SpaceObjectVelocityPlot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\signal\ScopedConnections.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\signal\aliases.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

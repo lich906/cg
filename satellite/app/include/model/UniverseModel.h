@@ -6,8 +6,6 @@
 #include "SpaceObject.h"
 #include "SpaceObjectMaths.h"
 
-using SpaceObjectSignal = boost::signals2::signal<void(SpaceObject&)>;
-
 class UniverseModel
 {
 public:

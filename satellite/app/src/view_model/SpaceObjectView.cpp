@@ -18,18 +18,15 @@ std::unique_ptr<SpaceObjectView> SpaceObjectView::Create(const gfx::Vector& posi
 
 void SpaceObjectView::Observe(SpaceObject& spaceObject)
 {
-	m_connections.push_back(spaceObject.RegisterPositionObs([this](const gfx::Vector& v)
-		{
-			OnSpaceObjectMove(v);
-		}, true));
-	m_connections.push_back(spaceObject.RegisterVelocityObs([this](const gfx::Vector& v)
-		{
-			OnVelocityChange(v);
-		}, true));
-	m_connections.push_back(spaceObject.RegisterDeletionObs([this]()
-		{
-			RemoveSelf();
-		}));
+	m_connections += spaceObject.RegisterPositionObs([this](const gfx::Vector& v) {
+		OnSpaceObjectMove(v);
+	}, true);
+	m_connections += spaceObject.RegisterVelocityObs([this](const gfx::Vector& v) {
+		OnVelocityChange(v);
+	}, true);
+	m_connections += spaceObject.RegisterDeletionObs([this]() {
+		RemoveSelf();
+	});
 }
 
 void SpaceObjectView::OnSpaceObjectMove(const gfx::Vector& pos)

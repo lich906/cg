@@ -6,6 +6,7 @@
 #include "ScrollingPlotBuffer.h"
 #include "SpaceObjectVelocityPlot.h"
 #include "controller/IWindowContext.h"
+#include "signal/ScopedConnections.h"
 
 class MenuWindow
 {
@@ -24,5 +25,5 @@ private:
 	float m_t = 0.0f;
 	bool m_helpPopupOpen, m_aboutPopupOpen;
 	IWindowContext* m_context;
-	std::vector<ScopedConnection> m_connections;
+	ScopedConnections m_connections;
 };

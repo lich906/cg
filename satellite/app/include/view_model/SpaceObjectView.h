@@ -12,6 +12,7 @@
 #include "view_model/SceneObject.h"
 #include "view_model/Arrow.h"
 #include "model/SpaceObject.h"
+#include "signal/ScopedConnections.h"
 
 class SpaceObjectView : public SceneObject
 {
@@ -36,5 +37,5 @@ private:
 	SquareMesh m_mesh;
 	Arrow m_arrow;
 
-	std::vector<ScopedConnection> m_connections;
+	ScopedConnections m_connections;
 };

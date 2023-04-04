@@ -115,9 +115,9 @@ void MenuWindow::RegisterVelocityPlots(SpaceObject& object)
 {
 	m_velocityPlots[&object] = std::make_shared<SpaceObjectVelocityPlot>(object);
 
-	m_connections.push_back(object.RegisterDeletionObs([this, ptr = &object]() {
+	m_connections += object.RegisterDeletionObs([this, ptr = &object]() {
 		m_velocityPlots.erase(ptr);
 		if (m_velocityPlots.empty())
 			m_t = 0;
-	}));
+	});
 }
