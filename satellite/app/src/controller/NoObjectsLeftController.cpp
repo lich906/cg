@@ -7,7 +7,7 @@
 void NoObjectsLeftController::OnIdle()
 {
 	ImGuiStyle& style = ImGui::GetStyle();
-	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.85f, 0.85f, 0.95f, 0.05f);
+	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.85f, 0.85f, 0.95f, 0.02f);
 	ImGui::OpenPopup("GameOver");
 
 	if (ImGui::BeginPopupModal("GameOver", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize))
