@@ -5,13 +5,13 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-MenuWindow::MenuWindow(UniverseModel& model)
-	: m_model(model)
+MenuWindow::MenuWindow(IWindowContext* context)
+	: m_context(context)
 	, m_helpPopupOpen(false)
 	, m_aboutPopupOpen(false)
 {
 	ImPlot::CreateContext();
-	m_model.RegisterObjectAddingObs([this](SpaceObject& obj) {
+	m_context->GetModel().RegisterObjectAddingObs([this](SpaceObject& obj) {
 		RegisterVelocityPlots(obj);
 	});
 }
@@ -71,11 +71,17 @@ void MenuWindow::Draw()
 
 		ImGui::TextUnformatted("Positions:");
 
-		m_model.ForEach([&](const std::unique_ptr<SpaceObject>& object) -> void {
+		m_context->GetModel().ForEach([&](const std::unique_ptr<SpaceObject>& object) -> void {
 			ImGui::Text("%s: %.2f, %.2f", object->GetName().c_str(), object->GetCurrentPosition().x, object->GetCurrentPosition().y);
 		});
 
 		ImGui::Separator();
+
+		if (ImGui::Button("Restart (Backspace)"))
+			m_context->SetController(ControllerType::Setup);
+		ImGui::SameLine();
+		if (ImGui::Button("Exit"))
+			m_context->CloseWindow();
 
 		ImGui::TextUnformatted("Graphs: ");
 

@@ -7,7 +7,7 @@ Window::Window(GLFWwindow* window, UniverseModel& model, Scene& scene)
 	: BaseGlfwWindow(window)
 	, m_scene(scene)
 	, m_model(model)
-	, m_menuWindow(model)
+	, m_menuWindow(this)
 {
 	InitControllers();
 	SetController(ControllerType::Setup);

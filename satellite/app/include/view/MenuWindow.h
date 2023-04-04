@@ -5,11 +5,12 @@
 #include "model/UniverseModel.h"
 #include "ScrollingPlotBuffer.h"
 #include "SpaceObjectVelocityPlot.h"
+#include "controller/IWindowContext.h"
 
 class MenuWindow
 {
 public:
-	MenuWindow(UniverseModel& model);
+	MenuWindow(IWindowContext* context);
 	~MenuWindow();
 
 	void Draw();
@@ -22,6 +23,6 @@ private:
 
 	float m_t = 0.0f;
 	bool m_helpPopupOpen, m_aboutPopupOpen;
-	UniverseModel& m_model;
+	IWindowContext* m_context;
 	std::vector<ScopedConnection> m_connections;
 };

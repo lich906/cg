@@ -3,7 +3,8 @@
 #include "ControllerType.h"
 #include "model/UniverseModel.h"
 #include "view_model/Scene.h"
-#include "view/MenuWindow.h"
+
+class MenuWindow;
 
 struct IWindowContext
 {
