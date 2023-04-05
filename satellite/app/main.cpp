@@ -15,7 +15,6 @@ try
 	Scene scene;
 	Window window(initializer.GetGLFWwindow(), model, scene);
 	window.Run();
-	//model.RemoveAllObjects();
 }
 catch (const std::runtime_error& e)
 {
