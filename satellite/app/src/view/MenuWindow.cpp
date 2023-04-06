@@ -82,6 +82,8 @@ void MenuWindow::Draw()
 		ImGui::SameLine();
 		if (ImGui::Button("Exit"))
 			m_context->CloseWindow();
+		if (ImGui::Checkbox("Show arrows", &m_showArrows))
+			m_context->GetScene().DispatchEvent(m_showArrows ? SceneEvent::ShowArrows : SceneEvent::HideArrows);
 
 		ImGui::TextUnformatted("Graphs: ");
 

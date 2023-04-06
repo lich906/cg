@@ -20,10 +20,14 @@ SpaceObject::SpaceObject(const std::string& name, float mass, float size, const 
 {
 }
 
-void SpaceObject::NextPosition(const gfx::Vector& acceleration, float dt)
+void SpaceObject::NextVelocity(const gfx::Vector& acceleration, float dt)
 {
 	m_velocity += acceleration * dt;
 	m_velocitySignal(m_velocity);
+}
+
+void SpaceObject::NextPosition(float dt)
+{
 	m_position += m_velocity * dt;
 	m_positionSignal(m_position);
 }

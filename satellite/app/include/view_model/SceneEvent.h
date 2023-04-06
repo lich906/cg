@@ -2,5 +2,6 @@
 
 enum class SceneEvent
 {
+	ShowArrows,
 	HideArrows,
 };

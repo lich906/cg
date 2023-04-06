@@ -23,6 +23,7 @@ private:
 	std::unordered_map<SpaceObject*, std::shared_ptr<SpaceObjectVelocityPlot>> m_velocityPlots;
 
 	float m_t = 0.0f;
+	bool m_showArrows = true;
 	bool m_helpPopupOpen, m_aboutPopupOpen;
 	IWindowContext* m_context;
 	ScopedConnections m_connections;

@@ -7,6 +7,7 @@
 #include "controller/IWindowContext.h"
 #include "controller/AbstractController.h"
 #include "view/MenuWindow.h"
+#include "Camera.h"
 
 class Window : public BaseGlfwWindow, private IWindowContext
 {
@@ -26,10 +27,14 @@ private:
 
 	void InitControllers();
 
+	static gfx::Vector GetCursorPosInWorld(double x, double y);
+
 	AbstractController* m_controller;
 	std::unordered_map<ControllerType, std::unique_ptr<AbstractController>> m_controllers;
 
 	Scene& m_scene;
 	UniverseModel& m_model;
 	MenuWindow m_menuWindow;
+	bool m_movingCamera = false;
+	Camera m_camera;
 };

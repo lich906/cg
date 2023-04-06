@@ -53,6 +53,8 @@ void SpaceObjectView::DispatchEvent(SceneEvent event)
 	case SceneEvent::HideArrows:
 		m_showArrow = false;
 		break;
+	case SceneEvent::ShowArrows:
+		m_showArrow = true;
 	default:
 		break;
 	}

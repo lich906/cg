@@ -8,9 +8,12 @@ namespace config
 constexpr float GravitationCoeff = 1.0f;
 const gfx::Vector MoonInitialPosition = { 100.0f, 200.0f };
 const gfx::Vector EarthInitialPosition = { 400.0f, 500.0f };
+const gfx::Vector MarsInitialPosition = { 500.0f, 200.0f };
 constexpr float MoonScale = 20.0f;
 constexpr float EarthScale = 50.0f;
+constexpr float MarsScale = 30.0f;
 constexpr float MoonMass = 20.0f;
+constexpr float MarsMass = 2000.0f;
 constexpr float EarthMass = 80000.0f;
 constexpr float Timestep = 0.05f;
 constexpr float ArrowScaleCoeff = 2.0f;

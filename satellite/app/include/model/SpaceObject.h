@@ -18,12 +18,8 @@ public:
 		float mass, const gfx::Vector& initialPos,
 		const gfx::Vector& initialVelocity = gfx::Vector());
 
-	/*
-		Sets Space Object's position according given acceleration after 'dt' time
-
-		and invoke Moved() method to trigger corresponding Space Object View notification
-	*/
-	void NextPosition(const gfx::Vector& acceleration, float dt);
+	void NextVelocity(const gfx::Vector& acceleration, float dt);
+	void NextPosition(float dt);
 
 	gfx::Vector GetCurrentPosition() const;
 	float GetRadius() const;

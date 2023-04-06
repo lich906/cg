@@ -167,6 +167,7 @@
     <ClCompile Include="src\controller\AbstractController.cpp" />
     <ClCompile Include="src\controller\NoObjectsLeftController.cpp" />
     <ClCompile Include="src\signal\ScopedConnections.cpp" />
+    <ClCompile Include="src\view\Camera.cpp" />
     <ClCompile Include="src\view\GraphicsInitializer.cpp" />
     <ClCompile Include="src\view\MenuWindow.cpp" />
     <ClCompile Include="src\controller\SetupController.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="include\controller\ControllerType.h" />
     <ClInclude Include="include\signal\aliases.h" />
     <ClInclude Include="include\signal\ScopedConnections.h" />
+    <ClInclude Include="include\view\Camera.h" />
     <ClInclude Include="include\view\GraphicsInitializer.h" />
     <ClInclude Include="include\model\SpaceObjectMaths.h" />
     <ClInclude Include="include\model\SpaceObject.h" />

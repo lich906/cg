@@ -1,3 +1,4 @@
+#include "view/Camera.h"
 #include "controller/SetupController.h"
 #include "controller/SimulationController.h"
 #include "Config.h"
@@ -71,6 +72,8 @@ void SetupController::OnSet()
 	GetContext()->GetModel().RemoveAllObjects();
 
 	InitSpaceObjects();
+
+	Camera::Reset();
 }
 
 void SetupController::InitSpaceObjects()
@@ -84,6 +87,11 @@ void SetupController::InitSpaceObjects()
 
 	GetContext()->GetModel().AddNewObject(std::move(earth.object));
 	GetContext()->GetScene().AddNewObject(std::move(earth.view));
+
+	auto mars = SpaceObjectFactory::CreateObjectAndView("Mars", config::MarsMass, config::MarsScale, gfx::Texture("res/textures/mars.png"), config::MarsInitialPosition);
+
+	GetContext()->GetModel().AddNewObject(std::move(mars.object));
+	GetContext()->GetScene().AddNewObject(std::move(mars.view));
 }
 
 SpaceObject* SetupController::FindObjectAtPos(const gfx::Vector& pos)

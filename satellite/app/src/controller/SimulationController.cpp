@@ -36,5 +36,4 @@ void SimulationController::OnSet()
 	GetContext()->GetModel().RegisterCollisionObs([this](const gfx::Vector& v) {
 		GetContext()->GetScene().AddNewObject(std::make_unique<Explosion>(v));
 	});
-	GetContext()->GetScene().DispatchEvent(SceneEvent::HideArrows);
 }

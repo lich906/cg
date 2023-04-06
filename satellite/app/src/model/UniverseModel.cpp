@@ -30,7 +30,12 @@ bool UniverseModel::NextState(float dt)
 	for (size_t i = 0; i < m_objects.size(); ++i)
 	{
 		auto acceleration = SpaceObjectMaths::GetObjectAcceleration(m_objects, i);
-		m_objects[i]->NextPosition(acceleration, dt);
+		m_objects[i]->NextVelocity(acceleration, dt);
+	}
+
+	for (auto& object : m_objects)
+	{
+		object->NextPosition(dt);
 	}
 
 	return !m_objects.empty();

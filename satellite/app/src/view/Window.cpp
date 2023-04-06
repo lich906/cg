@@ -16,9 +16,9 @@ Window::Window(GLFWwindow* window, UniverseModel& model, Scene& scene)
 		[this](GLFWwindow* window, int button, int action, int mods) -> void {
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
-		gfx::Vector cursorPos(static_cast<float>(x), static_cast<float>(y));
+		gfx::Vector cursorPos = GetCursorPosInWorld(x, y);
 
-		if ((button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_RIGHT))
+		if (button == GLFW_MOUSE_BUTTON_LEFT)
 		{
 			if (action == GLFW_PRESS)
 			{
@@ -29,14 +29,28 @@ Window::Window(GLFWwindow* window, UniverseModel& model, Scene& scene)
 				m_controller->OnMouseUp(cursorPos);
 			}
 		}
+
+		if (button == GLFW_MOUSE_BUTTON_RIGHT)
+		{
+			if (action == GLFW_PRESS)
+			{
+				m_movingCamera = true;
+			}
+			if (action == GLFW_RELEASE)
+			{
+				m_movingCamera = false;
+			}
+		}
 	});
 
 	SetCursorPosCallback(
 		[this, prevCursorPos = gfx::Vector()]
-		(GLFWwindow* window, double xpos, double ypos) mutable -> void {
-			gfx::Vector cursorPos{ static_cast<float>(xpos), static_cast<float>(ypos) };
-
-			m_controller->OnMouseMove(cursorPos, cursorPos - prevCursorPos);
+	(GLFWwindow* window, double xpos, double ypos) mutable -> void {
+			gfx::Vector cursorPos(static_cast<float>(xpos), static_cast<float>(ypos));
+			gfx::Vector delta = cursorPos - prevCursorPos;
+			if (m_movingCamera)
+				m_camera.OnCameraMove(delta);
+			m_controller->OnMouseMove(cursorPos - Camera::GetOffset(), delta);
 			prevCursorPos = cursorPos;
 		});
 
@@ -53,6 +67,7 @@ void Window::Draw(int width, int height)
 	m_controller->OnIdle();
 	m_scene.Update(config::Timestep);
 	m_scene.Draw(width, height);
+	Camera::UpdateViewMatrix();
 	m_menuWindow.Draw();
 }
 
@@ -82,6 +97,13 @@ void Window::InitControllers()
 	m_controllers.insert({ ControllerType::Setup, std::make_unique<SetupController>(static_cast<IWindowContext*>(this)) });
 	m_controllers.insert({ ControllerType::Simulation, std::make_unique<SimulationController>(static_cast<IWindowContext*>(this)) });
 	m_controllers.insert({ ControllerType::NoObjectsLeft, std::make_unique<NoObjectsLeftController>(static_cast<IWindowContext*>(this)) });
+}
+
+gfx::Vector Window::GetCursorPosInWorld(double x, double y)
+{
+	gfx::Vector actualPos(static_cast<float>(x), static_cast<float>(y));
+
+	return actualPos - Camera::GetOffset();
 }
 
 void Window::CloseWindow()
