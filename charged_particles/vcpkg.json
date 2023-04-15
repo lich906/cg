@@ -1,0 +1,10 @@
+{
+  "name": "chargedparticles",
+  "version": "0.1",
+  "dependencies": [
+    "glfw3",
+    "glad",
+    "glm",
+    "boost-signals2"
+  ]
+}
