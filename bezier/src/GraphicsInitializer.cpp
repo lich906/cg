@@ -18,7 +18,7 @@ GraphicsInitializer::GraphicsInitializer(int width, int height, const char* titl
 	// Enable multisampling
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 	// Create window with graphics context
 	m_window = glfwCreateWindow(width, height, title, NULL, NULL);

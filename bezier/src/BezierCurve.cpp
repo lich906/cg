@@ -27,7 +27,7 @@ std::vector<gfx::Vertex> BezierCurve::GetCurveVertices()
 {
 	// P = (1-t)^3*P1 + 3*(1-t)^2*t*P2 + 3*(1-t)*t^2*P3 + t^3*P4
 	std::vector<gfx::Vertex> vertices;
-	static float alpha = 0.0005f;
+	static const float alpha = 0.0005f;
 
 	for (float t = 0.0f; t < 1.0f; t += alpha)
 	{

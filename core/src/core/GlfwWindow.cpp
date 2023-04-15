@@ -90,6 +90,13 @@ void GlfwWindow::Init(const WindowProps& props)
 	if (m_window == NULL)
 		throw std::runtime_error("Failed to create GLFW window.");
 
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	// Setup OpenGL core profile
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	// Enable multisampling
+	glfwWindowHint(GLFW_SAMPLES, 4);
+
 	glfwMakeContextCurrent(m_window);
 	gladLoadGL();
 

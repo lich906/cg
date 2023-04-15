@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gfxlib", "gfxlib\gfxlib.vcxproj", "{4E5B6AC2-012A-4874-A28C-612761C98C95}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "..\core\core.vcxproj", "{2D038C15-C7F0-42F5-87D9-CC70DABA7149}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -36,6 +38,14 @@ Global
 		{4E5B6AC2-012A-4874-A28C-612761C98C95}.Release|x64.Build.0 = Release|x64
 		{4E5B6AC2-012A-4874-A28C-612761C98C95}.Release|x86.ActiveCfg = Release|Win32
 		{4E5B6AC2-012A-4874-A28C-612761C98C95}.Release|x86.Build.0 = Release|Win32
+		{2D038C15-C7F0-42F5-87D9-CC70DABA7149}.Debug|x64.ActiveCfg = Debug|x64
+		{2D038C15-C7F0-42F5-87D9-CC70DABA7149}.Debug|x64.Build.0 = Debug|x64
+		{2D038C15-C7F0-42F5-87D9-CC70DABA7149}.Debug|x86.ActiveCfg = Debug|Win32
+		{2D038C15-C7F0-42F5-87D9-CC70DABA7149}.Debug|x86.Build.0 = Debug|Win32
+		{2D038C15-C7F0-42F5-87D9-CC70DABA7149}.Release|x64.ActiveCfg = Release|x64
+		{2D038C15-C7F0-42F5-87D9-CC70DABA7149}.Release|x64.Build.0 = Release|x64
+		{2D038C15-C7F0-42F5-87D9-CC70DABA7149}.Release|x86.ActiveCfg = Release|Win32
+		{2D038C15-C7F0-42F5-87D9-CC70DABA7149}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -34,7 +34,7 @@ private:
 	{
 		std::string title;
 		uint32_t width{}, height{};
-		bool vSync;
+		bool vSync = false;
 		EventSignal eventSignal;
 	} m_data;
 };
