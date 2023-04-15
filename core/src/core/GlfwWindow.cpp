@@ -34,9 +34,9 @@ uint32_t GlfwWindow::GetHeight() const
 	return m_data.height;
 }
 
-void GlfwWindow::ListenEvents(const EventSignal::slot_type& slot)
+IWindow::Connection GlfwWindow::ListenEvents(const EventSlot& slot)
 {
-	m_data.eventSignal.connect(slot);
+	return m_data.eventSignal.connect(slot);
 }
 
 void GlfwWindow::SetVSync(bool enabled)

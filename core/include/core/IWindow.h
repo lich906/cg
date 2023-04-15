@@ -27,6 +27,8 @@ class IWindow
 {
 public:
 	using EventSignal = boost::signals2::signal<void(event::Event&)>;
+	using EventSlot = EventSignal::slot_type;
+	using Connection = boost::signals2::connection;
 
 	virtual ~IWindow() = default;
 
@@ -35,7 +37,7 @@ public:
 	virtual uint32_t GetWidth() const = 0;
 	virtual uint32_t GetHeight() const = 0;
 
-	virtual void ListenEvents(const EventSignal::slot_type& slot) = 0;
+	virtual Connection ListenEvents(const EventSlot& slot) = 0;
 	virtual void SetVSync(bool enabled) = 0;
 	virtual bool IsVSync() const = 0;
 

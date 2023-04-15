@@ -17,7 +17,7 @@ public:
 	virtual void OnUpdate() override;
 	virtual uint32_t GetWidth() const override;
 	virtual uint32_t GetHeight() const override;
-	virtual void ListenEvents(const EventSignal::slot_type& slot) override;
+	virtual Connection ListenEvents(const EventSlot& slot) override;
 	virtual void SetVSync(bool enabled) override;
 	virtual bool IsVSync() const override;
 	virtual void* GetNativeWindow() const override;
