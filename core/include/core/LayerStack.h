@@ -10,18 +10,19 @@ namespace core
 class LayerStack
 {
 public:
-	LayerStack();
-	~LayerStack();
+	using LayerVector = std::vector<std::shared_ptr<Layer>>;
+	using LayerIterator = LayerVector::iterator;
 
-	void PushLayer(Layer* layer);
-	void PushOverlay(Layer* overlay);
-	void PopLayer(Layer* layer);
-	void PopOverlay(Layer* overlay);
+	void PushLayer(const std::shared_ptr<Layer>& layer);
+	void PushOverlay(const std::shared_ptr<Layer>& overlay);
+	void PopLayer(const std::shared_ptr<Layer>& layer);
+	void PopOverlay(const std::shared_ptr<Layer>& overlay);
 
-	std::vector<Layer*>::iterator begin() { return m_layers.begin(); }
-	std::vector<Layer*>::iterator end() { return m_layers.end(); }
+	LayerIterator begin() { return m_layers.begin(); }
+	LayerIterator end() { return m_layers.end(); }
+
 private:
-	std::vector<Layer*> m_layers;
+	LayerVector m_layers;
 	uint32_t m_layerInsertIndex = 0;
 };
 

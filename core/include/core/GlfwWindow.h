@@ -13,8 +13,6 @@ public:
 	GlfwWindow(const WindowProps& props);
 	virtual ~GlfwWindow();
 
-	static IWindow* Create(const WindowProps& props = WindowProps());
-
 	// Inherited via IGlfwWindow
 	virtual void OnUpdate() override;
 	virtual uint32_t GetWidth() const override;

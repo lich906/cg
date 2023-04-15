@@ -4,64 +4,65 @@
 
 #include "Event.h"
 
-namespace core::event {
+namespace core::event
+{
 
-	class WindowResizeEvent : public Event
+class WindowResizeEvent : public Event
+{
+public:
+	WindowResizeEvent(uint32_t width, uint32_t height)
+		: m_width(width), m_height(height) {}
+
+	inline uint32_t GetWidth() const { return m_width; }
+	inline uint32_t GetHeight() const { return m_height; }
+
+	std::string ToString() const override
 	{
-	public:
-		WindowResizeEvent(uint32_t width, uint32_t height)
-			: m_Width(width), m_Height(height) {}
+		std::stringstream ss;
+		ss << "WindowResizeEvent: " << m_width << ", " << m_height;
+		return ss.str();
+	}
 
-		inline uint32_t GetWidth() const { return m_Width; }
-		inline uint32_t GetHeight() const { return m_Height; }
+	EVENT_CLASS_TYPE(WindowResize)
+	EVENT_CLASS_CATEGORY(EventCategoryApplication)
+private:
+	uint32_t m_width, m_height;
+};
 
-		std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << "WindowResizeEvent: " << m_Width << ", " << m_Height;
-			return ss.str();
-		}
+class WindowCloseEvent : public Event
+{
+public:
+	WindowCloseEvent() {}
 
-		EVENT_CLASS_TYPE(WindowResize)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
-	private:
-		uint32_t m_Width, m_Height;
-	};
+	EVENT_CLASS_TYPE(WindowClose)
+	EVENT_CLASS_CATEGORY(EventCategoryApplication)
+};
 
-	class WindowCloseEvent : public Event
-	{
-	public:
-		WindowCloseEvent() {}
+class AppTickEvent : public Event
+{
+public:
+	AppTickEvent() {}
 
-		EVENT_CLASS_TYPE(WindowClose)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
-	};
+	EVENT_CLASS_TYPE(AppTick)
+	EVENT_CLASS_CATEGORY(EventCategoryApplication)
+};
 
-	class AppTickEvent : public Event
-	{
-	public:
-		AppTickEvent() {}
+class AppUpdateEvent : public Event
+{
+public:
+	AppUpdateEvent() {}
 
-		EVENT_CLASS_TYPE(AppTick)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
-	};
+	EVENT_CLASS_TYPE(AppUpdate)
+	EVENT_CLASS_CATEGORY(EventCategoryApplication)
+};
 
-	class AppUpdateEvent : public Event
-	{
-	public:
-		AppUpdateEvent() {}
+class AppRenderEvent : public Event
+{
+public:
+	AppRenderEvent() {}
 
-		EVENT_CLASS_TYPE(AppUpdate)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
-	};
-
-	class AppRenderEvent : public Event
-	{
-	public:
-		AppRenderEvent() {}
-
-		EVENT_CLASS_TYPE(AppRender)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
-	};
+	EVENT_CLASS_TYPE(AppRender)
+	EVENT_CLASS_CATEGORY(EventCategoryApplication)
+};
 
 } // namespace core::event

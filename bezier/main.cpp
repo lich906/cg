@@ -104,9 +104,9 @@ int main()
 	program.SetUniformMatrix4fv("m_projection", glm::ortho(0.0f, 1280.0f, 720.0f, 0.0f, -1.0f, 100.0f));
 	gfx::CurrentProgram::Set(program);
 
-	app->PushLayer(new BackgroundLayer({ 0.0f, 0.0f, 0.0f, 0.0f }));
-	app->PushLayer(new PointsLineLayer(points[0], points[1], points[2], points[3], { 0.8f, 0.8f, 0.8f, 1.0f }));
-	app->PushLayer(new BezierCurveLayer(points[0], points[1], points[2], points[3], { 1.0f, 0.0f, 0.0f, 1.0f }));
+	app->PushLayer(std::shared_ptr<BackgroundLayer>(new BackgroundLayer({ 0.0f, 0.0f, 0.0f, 0.0f })));
+	app->PushLayer(std::shared_ptr<PointsLineLayer>(new PointsLineLayer(points[0], points[1], points[2], points[3], { 0.8f, 0.8f, 0.8f, 1.0f })));
+	app->PushLayer(std::shared_ptr<BezierCurveLayer>(new BezierCurveLayer(points[0], points[1], points[2], points[3], { 1.0f, 0.0f, 0.0f, 1.0f })));
 
 	GlCall(glEnable(GL_BLEND));
 	GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)); // Setup blending algorithm

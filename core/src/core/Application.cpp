@@ -15,16 +15,16 @@ Application::Application(const std::string& name, uint32_t width, uint32_t heigh
 {
 	s_instance = this;
 
-	m_window = std::unique_ptr<IWindow>(GlfwWindow::Create({ name, width, height }));
+	m_window = std::make_unique<GlfwWindow>(WindowProps{ name, width, height });
 	m_window->ListenEvents(BIND_EVENT_FN(OnEvent));
 }
 
-void Application::PushLayer(Layer* layer)
+void Application::PushLayer(const std::shared_ptr<Layer>& layer)
 {
 	m_layerStack.PushLayer(layer);
 }
 
-void Application::PushOverlay(Layer* layer)
+void Application::PushOverlay(const std::shared_ptr<Layer>& layer)
 {
 	m_layerStack.PushOverlay(layer);
 }
@@ -50,7 +50,7 @@ void Application::Run()
 		Timestep timestep = time - m_lastFrameTime;
 		m_lastFrameTime = time;
 
-		for (Layer* layer : m_layerStack)
+		for (const auto& layer : m_layerStack)
 			layer->OnUpdate(timestep);
 
 		m_window->OnUpdate();

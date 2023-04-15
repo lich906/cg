@@ -19,8 +19,8 @@ public:
 
 	void OnEvent(event::Event& e);
 
-	void PushLayer(Layer* layer);
-	void PushOverlay(Layer* layer);
+	void PushLayer(const std::shared_ptr<Layer>& layer);
+	void PushOverlay(const std::shared_ptr<Layer>& layer);
 
 	inline IWindow& GetWindow() { return *m_window; }
 

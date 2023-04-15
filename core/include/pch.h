@@ -12,5 +12,6 @@
 #include <boost/signals2.hpp>
 #include <string>
 #include <sstream>
+#include <memory>
 
 #endif //PCH_H

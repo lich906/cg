@@ -18,11 +18,6 @@ GlfwWindow::~GlfwWindow()
 	Shutdown();
 }
 
-IWindow* GlfwWindow::Create(const WindowProps& props)
-{
-	return new GlfwWindow(props);
-}
-
 void GlfwWindow::OnUpdate()
 {
 	glfwPollEvents();
