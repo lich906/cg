@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.h"
+#include "gfxpch.h"
 
 #include "Texture.h"
 #include "Vertex.h"
@@ -18,7 +18,7 @@ public:
 		const std::vector<GLuint>& indices,
 		GLenum usage = GL_STATIC_DRAW);
 
-	void Draw(GLenum mode = GL_TRIANGLES);
+	void Draw(GLenum mode = GL_TRIANGLES) const;
 
 private:
 	VertexArray m_vertexArray;

@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "gfxpch.h"
 
 #include "graphics/IndexBuffer.h"
 
@@ -73,7 +73,7 @@ void IndexBuffer::SetSubData(const void* data, size_t offset, size_t size)
 	GlCall(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, size, data));
 }
 
-void IndexBuffer::GetSubData(void* data, size_t offset, size_t length)
+void IndexBuffer::GetSubData(void* data, size_t offset, size_t length) const
 {
 	Bind();
 	GlCall(glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, length, data));

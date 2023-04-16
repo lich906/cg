@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "gfxpch.h"
 
 #include "graphics/VertexArray.h"
 
@@ -19,12 +19,12 @@ VertexArray::~VertexArray()
 	gc.Destroy(m_obj);
 }
 
-void VertexArray::Bind()
+void VertexArray::Bind() const
 {
 	GlCall(glBindVertexArray(m_obj));
 }
 
-void VertexArray::Unbind()
+void VertexArray::Unbind() const
 {
 	GlCall(glBindVertexArray(0));
 }
@@ -40,7 +40,7 @@ const VertexArray& VertexArray::operator=(const VertexArray& other)
 	return *this;
 }
 
-void VertexArray::BindAttribute(GLint location, GLenum type, GLuint count, GLuint stride, intptr_t offset)
+void VertexArray::BindAttribute(GLint location, GLenum type, GLuint count, GLuint stride, intptr_t offset) const
 {
 	GlCall(glVertexAttribPointer(location, count, type, GL_FALSE, stride, (const GLvoid*)offset));
 	GlCall(glEnableVertexAttribArray(location));

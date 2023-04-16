@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.h"
+#include "gfxpch.h"
 
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
@@ -16,13 +16,13 @@ public:
 
 	~VertexArray();
 
-	void Bind();
-	void Unbind();
+	void Bind() const;
+	void Unbind() const;
 
 	operator GLuint() const;
 	const VertexArray& operator=(const VertexArray& other);
 
-	void BindAttribute(GLint location, GLenum type, GLuint count, GLuint stride, intptr_t offset);
+	void BindAttribute(GLint location, GLenum type, GLuint count, GLuint stride, intptr_t offset) const;
 
 private:
 	static inline GL::GC gc;

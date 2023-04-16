@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "gfxpch.h"
 
 #include "graphics/VertexBuffer.h"
 
@@ -73,7 +73,7 @@ void VertexBuffer::SetSubData(const void* data, size_t offset, size_t size)
 	GlCall(glBufferSubData(GL_ARRAY_BUFFER, offset, size, data));
 }
 
-void VertexBuffer::GetSubData(void* data, size_t offset, size_t size)
+void VertexBuffer::GetSubData(void* data, size_t offset, size_t size) const
 {
 	Bind();
 	GlCall(glGetBufferSubData(GL_ARRAY_BUFFER, offset, size, data));

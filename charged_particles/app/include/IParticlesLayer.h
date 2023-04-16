@@ -11,4 +11,5 @@ public:
 
 	virtual void AddParticleView(std::unique_ptr<ParticleView>&& particleView) = 0;
 	virtual void RemoveAllParticleViews() = 0;
+	virtual void RemoveParticleView(ParticleView* viewPtr) = 0;
 };

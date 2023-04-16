@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "gfxpch.h"
 
 #include "graphics/Mesh.h"
 
@@ -16,18 +16,21 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indic
 	m_indexBuffer.SetData(indices.data(), indices.size() * sizeof(GLuint), usage);
 
 	/*
-	vertex #1    > vertex #2    > ...
-	[x, y][s, t] > [x, y][s, t] > ...
-	 |<============>| stride
-	 |<======>| vertex size = (vector size + tex coords size)
+	vertex #1                > vertex #2                > ...
+	[x, y][r, g, b, a][s, t] > [x, y][r, g, b, a][s, t] > ...
+	 |<========================>| stride
+	 |<==================>| vertex size = (vector size + color size + tex coords size)
 	*/
-	GLsizei stride = sizeof(Vector) + sizeof(TexCoords);
+	GLsizei stride = sizeof(Vertex);
 
 	// Position attribute
 	m_vertexArray.BindAttribute(0, GL_FLOAT, sizeof(Vector) / sizeof(float), stride, 0);
 
+	// Color attribute
+	m_vertexArray.BindAttribute(1, GL_FLOAT, sizeof(Vertex::Color) / sizeof(float), stride, sizeof(Vector));
+
 	// Texture attribute
-	m_vertexArray.BindAttribute(1, GL_FLOAT, sizeof(TexCoords) / sizeof(float), stride, sizeof(Vector));
+	m_vertexArray.BindAttribute(2, GL_FLOAT, sizeof(TexCoords) / sizeof(float), stride, sizeof(Vector) + sizeof(Vertex::Color));
 
 	m_vertexBuffer.Unbind();
 
@@ -36,7 +39,7 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indic
 	m_vertexArray.Unbind();
 }
 
-void Mesh::Draw(GLenum mode)
+void Mesh::Draw(GLenum mode) const
 {
 	m_vertexArray.Bind();
 	GlCall(glDrawElements(mode, m_indexBuffer.GetSize(), GL_UNSIGNED_INT, 0));

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.h"
+#include "gfxpch.h"
 
 #include "Shader.h"
 
@@ -25,18 +25,18 @@ public:
 
 	void Use();
 
-	void SetUniform1i(const std::string& name, int value);
-	void SetUniform1f(const std::string& name, float value);
-	void SetUniform4fv(const std::string& name, const glm::vec4& v);
-	void SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat);
+	void SetUniform1i(const std::string& name, int value) const;
+	void SetUniform1f(const std::string& name, float value) const;
+	void SetUniform4fv(const std::string& name, const glm::vec4& v) const;
+	void SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat) const;
 
 private:
 	Program();
-	void Link();
+	void Link() const;
 	std::string GetInfoLog() const;
 
-	GLint GetAttributeLocation(const std::string& name);
-	GLint GetUniformLocation(const std::string& name);
+	GLint GetAttributeLocation(const std::string& name) const;
+	GLint GetUniformLocation(const std::string& name) const;
 
 	static inline GL::GC gc;
 	GLuint m_obj;

@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "gfxpch.h"
 
 #include "graphics/Program.h"
 
@@ -74,27 +74,27 @@ void Program::Use()
 	GlCall(glUseProgram(m_obj));
 }
 
-void Program::SetUniform1i(const std::string& name, int value)
+void Program::SetUniform1i(const std::string& name, int value) const
 {
 	GlCall(glUniform1i(GetUniformLocation(name), value));
 }
 
-void gfx::Program::SetUniform1f(const std::string& name, float value)
+void gfx::Program::SetUniform1f(const std::string& name, float value) const
 {
 	GlCall(glUniform1f(GetUniformLocation(name), value));
 }
 
-void gfx::Program::SetUniform4fv(const std::string& name, const glm::vec4& v)
+void gfx::Program::SetUniform4fv(const std::string& name, const glm::vec4& v) const
 {
 	GlCall(glUniform4fv(GetUniformLocation(name), 1, glm::value_ptr(v)));
 }
 
-void Program::SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat)
+void Program::SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat) const
 {
 	GlCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(mat)));
 }
 
-void Program::Link()
+void Program::Link() const
 {
 	GLint res;
 
@@ -124,7 +124,7 @@ std::string Program::GetInfoLog() const
 	}
 }
 
-GLint Program::GetAttributeLocation(const std::string& name)
+GLint Program::GetAttributeLocation(const std::string& name) const
 {
 	GlCall(GLint loc = glGetAttribLocation(m_obj, name.c_str()));
 
@@ -138,7 +138,7 @@ GLint Program::GetAttributeLocation(const std::string& name)
 	return loc;
 }
 
-GLint Program::GetUniformLocation(const std::string& name)
+GLint Program::GetUniformLocation(const std::string& name) const
 {
 	GlCall(GLint loc = glGetUniformLocation(m_obj, name.c_str()));
 

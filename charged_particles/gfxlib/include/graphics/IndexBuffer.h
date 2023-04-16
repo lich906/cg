@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.h"
+#include "gfxpch.h"
 
 namespace gfx
 {
@@ -25,7 +25,7 @@ public:
 	void SetData(const void* data, size_t size, GLenum usage);
 	void SetSubData(const void* data, size_t offset, size_t size);
 
-	void GetSubData(void* data, size_t offset, size_t size);
+	void GetSubData(void* data, size_t offset, size_t size) const;
 
 private:
 	static inline GL::GC gc;

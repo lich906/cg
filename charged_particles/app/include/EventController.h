@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/event/Event.h"
+#include "core/event/event_inc.h"
 #include "ParticlesModel.h"
 #include "IParticlesLayer.h"
 
@@ -13,6 +13,14 @@ public:
 	void OnUpdate(core::Timestep timestep);
 
 private:
+	void DispatchMouseMove(core::event::EventDispatcher& dispatcher);
+	void DispatchMouseButtonPressed(core::event::EventDispatcher& dispatcher);
+	void DispatchKeyPressed(core::event::EventDispatcher& dispatcher);
+	void AddPositiveParticle();
+	void AddNegativeParticle();
+
 	ParticlesModel& m_model;
 	IParticlesLayer* m_layer;
+
+	gfx::Vector m_lastCursorPos;
 };
