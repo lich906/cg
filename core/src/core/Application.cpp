@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "corepch.h"
 
 #include "core/Application.h"
 #include "core/GlfwWindow.h"
@@ -16,7 +16,7 @@ Application::Application(const std::string& name, uint32_t width, uint32_t heigh
 	s_instance = this;
 
 	m_window = std::make_unique<GlfwWindow>(WindowProps{ name, width, height });
-	m_window->ListenEvents(BIND_EVENT_FN(OnEvent));
+	m_conns += m_window->ListenEvents(BIND_EVENT_FN(OnEvent));
 }
 
 void Application::PushLayer(const std::shared_ptr<Layer>& layer)

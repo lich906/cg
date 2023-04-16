@@ -78,7 +78,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)vcpkg_installed\x86-windows\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -97,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)vcpkg_installed\x86-windows\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -116,7 +116,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)vcpkg_installed\x86-windows\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -135,7 +135,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)vcpkg_installed\x86-windows\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -149,9 +149,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\core\Application.h" />
+    <ClInclude Include="include\core\core.h" />
     <ClInclude Include="include\core\event\ApplicationEvent.h" />
     <ClInclude Include="include\core\event\Event.h" />
     <ClInclude Include="include\core\event\EventDispatcher.h" />
+    <ClInclude Include="include\core\event\event_inc.h" />
     <ClInclude Include="include\core\event\KeyEvent.h" />
     <ClInclude Include="include\core\event\MouseEvent.h" />
     <ClInclude Include="include\core\GlfwWindow.h" />
@@ -159,7 +161,8 @@
     <ClInclude Include="include\core\Layer.h" />
     <ClInclude Include="include\core\LayerStack.h" />
     <ClInclude Include="include\core\Timestep.h" />
-    <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\core\utils\ScopedConnections.h" />
+    <ClInclude Include="include\corepch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Application.cpp" />
@@ -167,7 +170,8 @@
     <ClCompile Include="src\core\GlfwWindow.cpp" />
     <ClCompile Include="src\core\Layer.cpp" />
     <ClCompile Include="src\core\LayerStack.cpp" />
-    <ClCompile Include="src\pch.cpp">
+    <ClCompile Include="src\core\utils\ScopedConnections.cpp" />
+    <ClCompile Include="src\corepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

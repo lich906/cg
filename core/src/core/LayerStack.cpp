@@ -1,9 +1,21 @@
-#include "pch.h"
+#include "corepch.h"
 
 #include "core/LayerStack.h"
 
 namespace core
 {
+
+LayerStack::LayerStack()
+{
+}
+
+LayerStack::~LayerStack()
+{
+	for (auto& layer : m_layers)
+	{
+		layer->OnDetach();
+	}
+}
 
 void LayerStack::PushLayer(const std::shared_ptr<Layer>& layer)
 {

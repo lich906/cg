@@ -5,6 +5,7 @@
 #include "core/event/Event.h"
 #include "core/event/ApplicationEvent.h"
 #include "core/Timestep.h"
+#include "core/utils/ScopedConnections.h"
 
 namespace core
 {
@@ -30,9 +31,11 @@ private:
 	bool OnWindowClose(event::WindowCloseEvent& e);
 
 	std::unique_ptr<IWindow> m_window;
+
 	bool m_running = true;
 	LayerStack m_layerStack;
 	float m_lastFrameTime = 0.0f;
+	utils::ScopedConnections m_conns;
 
 	static Application* s_instance;
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.h"
+#include "corepch.h"
 
 #include "core/Layer.h"
 
@@ -12,6 +12,9 @@ class LayerStack
 public:
 	using LayerVector = std::vector<std::shared_ptr<Layer>>;
 	using LayerIterator = LayerVector::iterator;
+
+	LayerStack();
+	~LayerStack();
 
 	void PushLayer(const std::shared_ptr<Layer>& layer);
 	void PushOverlay(const std::shared_ptr<Layer>& overlay);

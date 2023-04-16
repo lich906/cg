@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "corepch.h"
 
 #include "core/GlfwWindow.h"
 #include "core/event/ApplicationEvent.h"
@@ -180,6 +180,7 @@ void GlfwWindow::Init(const WindowProps& props)
 void GlfwWindow::Shutdown()
 {
 	glfwDestroyWindow(m_window);
+	glfwTerminate();
 }
 
 } // namespace core
