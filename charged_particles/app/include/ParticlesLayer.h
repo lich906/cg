@@ -20,6 +20,7 @@ private:
 	virtual void AddParticleView(std::unique_ptr<ParticleView>&& particleView) override;
 	virtual void RemoveAllParticleViews() override;
 	virtual void RemoveParticleView(ParticleView* viewPtr) override;
+	virtual gfx::Program& GetProgram() override;
 
 	void OnDraw();
 	void DispatchWindowResizeEvent(core::event::Event& event) const;
@@ -28,5 +29,5 @@ private:
 	const float InitialAspectRatio;
 	std::vector<std::unique_ptr<ParticleView>> m_particleViews;
 	EventController m_controller;
-	std::optional<gfx::Program> m_program;
+	gfx::Program m_program;
 };

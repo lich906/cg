@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/event/event_inc.h"
+#include "core/utils/OrthographicCamera.h"
 #include "ParticlesModel.h"
 #include "IParticlesLayer.h"
 
@@ -18,6 +19,8 @@ private:
 	void DispatchKeyPressed(core::event::EventDispatcher& dispatcher);
 	void AddPositiveParticle();
 	void AddNegativeParticle();
+
+	core::utils::OrthographicCamera m_camera;
 
 	ParticlesModel& m_model;
 	IParticlesLayer* m_layer;

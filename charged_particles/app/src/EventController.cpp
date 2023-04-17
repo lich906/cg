@@ -6,11 +6,18 @@
 EventController::EventController(ParticlesModel& model, IParticlesLayer* layer)
 	: m_model(model)
 	, m_layer(layer)
+	, m_camera(GLFW_MOUSE_BUTTON_MIDDLE)
 {
+	m_camera.SubscribeOnViewMatrixChange(
+		[this](const glm::mat4& vm) {
+			m_layer->GetProgram().SetUniformMatrix4fv("m_view", vm);
+		});
 }
 
 void EventController::OnEvent(core::event::Event& event)
 {
+	m_camera.OnEvent(event);
+
 	core::event::EventDispatcher dispatcher(event);
 
 	DispatchMouseMove(dispatcher);
@@ -27,8 +34,10 @@ void EventController::DispatchMouseMove(core::event::EventDispatcher& dispatcher
 {
 	dispatcher.Dispatch<core::event::MouseMovedEvent>(
 		[this](const core::event::MouseMovedEvent& e) {
-			m_lastCursorPos.x = e.GetX();
-			m_lastCursorPos.y = e.GetY();
+			float x = e.GetX(), y = e.GetY();
+			m_camera.TransformScreenCoords(x, y);
+			m_lastCursorPos.x = x;
+			m_lastCursorPos.y = y;
 			return true;
 		});
 }

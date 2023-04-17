@@ -161,6 +161,7 @@
     <ClInclude Include="include\core\Layer.h" />
     <ClInclude Include="include\core\LayerStack.h" />
     <ClInclude Include="include\core\Timestep.h" />
+    <ClInclude Include="include\core\utils\OrthographicCamera.h" />
     <ClInclude Include="include\core\utils\ScopedConnections.h" />
     <ClInclude Include="include\corepch.h" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClCompile Include="src\core\GlfwWindow.cpp" />
     <ClCompile Include="src\core\Layer.cpp" />
     <ClCompile Include="src\core\LayerStack.cpp" />
+    <ClCompile Include="src\core\utils\OrthographicCamera.cpp" />
     <ClCompile Include="src\core\utils\ScopedConnections.cpp" />
     <ClCompile Include="src\corepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

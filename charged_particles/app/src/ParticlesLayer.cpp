@@ -4,18 +4,18 @@
 ParticlesLayer::ParticlesLayer(ParticlesModel& model)
 	: m_controller(model, this)
 	, InitialAspectRatio(core::Application::Get().GetWindow().GetWidth() / core::Application::Get().GetWindow().GetHeight())
+	, m_program(gfx::Program("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl"))
 {
 }
 
 void ParticlesLayer::OnAttach()
 {
-	m_program = gfx::Program("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl");
-	m_program->Use();
-	m_program->SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
-	m_program->SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
+	m_program.Use();
+	m_program.SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
+	m_program.SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
 
 	core::IWindow& window = core::Application::Get().GetWindow();
-	m_program->SetUniformMatrix4fv("m_projection", glm::ortho(
+	m_program.SetUniformMatrix4fv("m_projection", glm::ortho(
 		0.0f, float(window.GetWidth()), float(window.GetHeight()), 0.0f, -1.0f, 1.0f));
 }
 
@@ -56,7 +56,7 @@ void ParticlesLayer::OnDraw()
 {
 	for (auto& particleView : m_particleViews)
 	{
-		particleView->OnDraw(*m_program);
+		particleView->OnDraw(m_program);
 	}
 }
 
@@ -74,5 +74,10 @@ void ParticlesLayer::DispatchWindowResizeEvent(core::event::Event& event) const
 void ParticlesLayer::UpdateProjectionMatrixAndViewport(float width, float height) const
 {
 	GlCall(glViewport(0, 0, width, height));
-	m_program->SetUniformMatrix4fv("m_projection", glm::ortho(0.0f, width, height, 0.0f, -1.0f, 1.0f));
+	m_program.SetUniformMatrix4fv("m_projection", glm::ortho(0.0f, width, height, 0.0f, -1.0f, 1.0f));
+}
+
+gfx::Program& ParticlesLayer::GetProgram()
+{
+	return m_program;
 }

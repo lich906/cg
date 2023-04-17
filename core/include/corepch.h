@@ -9,6 +9,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <boost/signals2.hpp>
+#include <glm/matrix.hpp>
+#include <glm/ext/matrix_transform.hpp>
 #include <string>
 #include <sstream>
 #include <memory>
