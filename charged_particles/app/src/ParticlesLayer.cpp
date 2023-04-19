@@ -3,7 +3,6 @@
 
 ParticlesLayer::ParticlesLayer(ParticlesModel& model)
 	: m_controller(model, this)
-	, InitialAspectRatio(core::Application::Get().GetWindow().GetWidth() / core::Application::Get().GetWindow().GetHeight())
 	, m_program(gfx::Program("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl"))
 {
 }
@@ -66,15 +65,15 @@ void ParticlesLayer::DispatchWindowResizeEvent(core::event::Event& event) const
 
 	dispatcher.Dispatch<core::event::WindowResizeEvent>(
 		[this](core::event::WindowResizeEvent& e) {
-			UpdateProjectionMatrixAndViewport(e.GetWidth(), e.GetHeight());
+			UpdateProjectionMatrixAndViewport((int)e.GetWidth(), (int)e.GetHeight());
 			return true;
 		});
 }
 
-void ParticlesLayer::UpdateProjectionMatrixAndViewport(float width, float height) const
+void ParticlesLayer::UpdateProjectionMatrixAndViewport(int width, int height) const
 {
 	GlCall(glViewport(0, 0, width, height));
-	m_program.SetUniformMatrix4fv("m_projection", glm::ortho(0.0f, width, height, 0.0f, -1.0f, 1.0f));
+	m_program.SetUniformMatrix4fv("m_projection", glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f));
 }
 
 gfx::Program& ParticlesLayer::GetProgram()

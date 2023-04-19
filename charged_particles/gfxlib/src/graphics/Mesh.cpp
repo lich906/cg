@@ -42,5 +42,5 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indic
 void Mesh::Draw(GLenum mode) const
 {
 	m_vertexArray.Bind();
-	GlCall(glDrawElements(mode, m_indexBuffer.GetSize(), GL_UNSIGNED_INT, 0));
+	GlCall(glDrawElements(mode, (int)m_indexBuffer.GetSize(), GL_UNSIGNED_INT, 0));
 }

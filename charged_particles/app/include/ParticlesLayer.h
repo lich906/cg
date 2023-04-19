@@ -24,9 +24,8 @@ private:
 
 	void OnDraw();
 	void DispatchWindowResizeEvent(core::event::Event& event) const;
-	void UpdateProjectionMatrixAndViewport(float width, float height) const;
+	void UpdateProjectionMatrixAndViewport(int width, int height) const;
 
-	const float InitialAspectRatio;
 	std::vector<std::unique_ptr<ParticleView>> m_particleViews;
 	EventController m_controller;
 	gfx::Program m_program;
