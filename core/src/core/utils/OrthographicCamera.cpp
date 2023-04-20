@@ -27,6 +27,9 @@ void core::utils::OrthographicCamera::OnEvent(event::Event& event)
 
 	dispatcher.Dispatch<event::MouseMovedEvent>(
 		std::bind(&OrthographicCamera::OnMouseMoved, this, std::placeholders::_1));
+
+	dispatcher.Dispatch<event::MouseScrolledEvent>(
+		std::bind(&OrthographicCamera::OnMouseScrolled, this, std::placeholders::_1));
 }
 
 boost::signals2::connection core::utils::OrthographicCamera::SubscribeOnViewMatrixChange(const MatrixSignal::slot_type& slot)
@@ -36,8 +39,8 @@ boost::signals2::connection core::utils::OrthographicCamera::SubscribeOnViewMatr
 
 void core::utils::OrthographicCamera::TransformScreenCoords(float& x, float& y) const
 {
-	x -= m_position.x;
-	y -= m_position.y;
+	(x -= m_position.x) /= m_zoomLevel;
+	(y -= m_position.y) /= m_zoomLevel;
 }
 
 bool core::utils::OrthographicCamera::OnMouseMoved(const event::MouseMovedEvent& e)
@@ -46,11 +49,32 @@ bool core::utils::OrthographicCamera::OnMouseMoved(const event::MouseMovedEvent&
 
 	if (m_controlMouseButtonPressed)
 	{
-		m_position += cursorPos - m_lastCursorPos;
-		m_viewMatrixSignal(glm::translate(glm::mat4(1.0f), glm::vec3(m_position, 0.0f)));
+		m_position += (cursorPos - m_lastCursorPos) / m_zoomLevel;
+		m_viewMatrixSignal(GetViewMatrix());
 	}
 
 	m_lastCursorPos = cursorPos;
 
 	return false;
+}
+
+bool core::utils::OrthographicCamera::OnMouseScrolled(const event::MouseScrolledEvent& e)
+{
+	if (e.GetYOffset() > 0.0f)
+		m_zoomLevel += 0.05f;
+	else
+		m_zoomLevel -= 0.05f;
+
+	m_zoomLevel = std::max(0.05f, m_zoomLevel);
+
+	m_viewMatrixSignal(GetViewMatrix());
+
+	return false;
+}
+
+glm::mat4 core::utils::OrthographicCamera::GetViewMatrix()
+{
+	auto mat = glm::translate(glm::mat4(1.0f), glm::vec3(m_position, 0.0f));
+	mat = glm::scale(mat, glm::vec3(m_zoomLevel, m_zoomLevel, 1.0f));
+	return mat;
 }

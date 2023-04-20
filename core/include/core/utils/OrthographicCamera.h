@@ -8,6 +8,7 @@ namespace core::utils
 {
 
 using MatrixSignal = boost::signals2::signal<void(const glm::mat4&)>;
+using FloatSignal = boost::signals2::signal<void(float)>;
 
 class OrthographicCamera
 {
@@ -21,6 +22,8 @@ public:
 
 private:
 	bool OnMouseMoved(const event::MouseMovedEvent& e);
+	bool OnMouseScrolled(const event::MouseScrolledEvent& e);
+	glm::mat4 GetViewMatrix();
 
 	const int m_controlMouseButton;
 
@@ -28,6 +31,7 @@ private:
 	glm::vec2 m_position = glm::vec2();
 	MatrixSignal m_viewMatrixSignal;
 	bool m_controlMouseButtonPressed = false;
+	float m_zoomLevel = 1.0f;
 };
 
 } // namespace core::utils

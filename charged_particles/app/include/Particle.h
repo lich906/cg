@@ -8,7 +8,7 @@
 
 using VectorSignal = boost::signals2::signal<void(const gfx::Vector&)>;
 using VoidSignal = boost::signals2::signal<void()>;
-
+// добавить гравитационное взаимодействие между частицами
 class Particle
 {
 public:

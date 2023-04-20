@@ -8,10 +8,7 @@ EventController::EventController(ParticlesModel& model, IParticlesLayer* layer)
 	, m_layer(layer)
 	, m_camera(GLFW_MOUSE_BUTTON_MIDDLE)
 {
-	m_camera.SubscribeOnViewMatrixChange(
-		[this](const glm::mat4& vm) {
-			m_layer->GetProgram().SetUniformMatrix4fv("m_view", vm);
-		});
+	m_camera.SubscribeOnViewMatrixChange(std::bind(&EventController::OnViewMatrixChange, this, std::placeholders::_1));
 }
 
 void EventController::OnEvent(core::event::Event& event)
@@ -34,10 +31,7 @@ void EventController::DispatchMouseMove(core::event::EventDispatcher& dispatcher
 {
 	dispatcher.Dispatch<core::event::MouseMovedEvent>(
 		[this](const core::event::MouseMovedEvent& e) {
-			float x = e.GetX(), y = e.GetY();
-			m_camera.TransformScreenCoords(x, y);
-			m_lastCursorPos.x = x;
-			m_lastCursorPos.y = y;
+			UpdateLastCursorPos(e.GetX(), e.GetY());
 			return true;
 		});
 }
@@ -101,4 +95,20 @@ void EventController::AddNegativeParticle()
 	particleView->Observe(*particle);
 	m_layer->AddParticleView(std::move(particleView));
 	m_model.AddParticle(std::move(particle));
+}
+
+void EventController::UpdateLastCursorPos(float x, float y)
+{
+	m_camera.TransformScreenCoords(x, y);
+	m_lastCursorPos.x = x;
+	m_lastCursorPos.y = y;
+}
+
+void EventController::OnViewMatrixChange(const glm::mat4& vm)
+{
+	m_layer->GetProgram().SetUniformMatrix4fv("m_view", vm);
+	GLFWwindow* wnd = (GLFWwindow*)core::Application::Get().GetWindow().GetNativeWindow();
+	double x, y;
+	glfwGetCursorPos(wnd, &x, &y);
+	UpdateLastCursorPos((float)x, (float)y);
 }

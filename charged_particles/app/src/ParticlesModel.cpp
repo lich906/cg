@@ -71,11 +71,13 @@ std::pair<gfx::Vector, gfx::Vector> ParticlesModel::GetDipoleAccelerationImpact(
 
 	if (first.GetType() == second.GetType())
 	{
+		forceMagnitude -= consts::GRAV_CONSTANT / (d * d);
 		forceMagnitude += consts::REPULSION_COEFF / (d * d * d);
 		return { -r * forceMagnitude, r * forceMagnitude };
 	}
 	else
 	{
+		forceMagnitude += consts::GRAV_CONSTANT / (d * d);
 		forceMagnitude -= consts::REPULSION_COEFF / (d * d * d);
 		return { r * forceMagnitude, -r * forceMagnitude };
 	}

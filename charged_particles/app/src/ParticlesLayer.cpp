@@ -26,7 +26,7 @@ void ParticlesLayer::OnUpdate(core::Timestep timestep)
 
 void ParticlesLayer::OnEvent(core::event::Event& event)
 {
-	DispatchWindowResizeEvent(event);
+	//DispatchWindowResizeEvent(event);
 	m_controller.OnEvent(event);
 }
 
