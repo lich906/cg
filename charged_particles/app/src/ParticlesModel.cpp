@@ -67,10 +67,16 @@ std::pair<gfx::Vector, gfx::Vector> ParticlesModel::GetDipoleAccelerationImpact(
 	gfx::Vector v = second.GetPosition() - first.GetPosition();
 	float d = v.Mod();
 	gfx::Vector r = v / d;
-	float forceMagnitude = consts::COLOUMB_LAW_CONSTANT / (d * d) - consts::REPULSION_COEFF / (d * d * d);
+	float forceMagnitude = consts::COLOUMB_LAW_CONSTANT / (d * d);
 
 	if (first.GetType() == second.GetType())
+	{
+		forceMagnitude += consts::REPULSION_COEFF / (d * d * d);
 		return { -r * forceMagnitude, r * forceMagnitude };
+	}
 	else
+	{
+		forceMagnitude -= consts::REPULSION_COEFF / (d * d * d);
 		return { r * forceMagnitude, -r * forceMagnitude };
+	}
 }
