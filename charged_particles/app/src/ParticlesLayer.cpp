@@ -26,7 +26,7 @@ void ParticlesLayer::OnUpdate(core::Timestep timestep)
 
 void ParticlesLayer::OnEvent(core::event::Event& event)
 {
-	//DispatchWindowResizeEvent(event);
+	DispatchWindowResizeEvent(event);
 	m_controller.OnEvent(event);
 }
 
@@ -73,7 +73,7 @@ void ParticlesLayer::DispatchWindowResizeEvent(core::event::Event& event) const
 void ParticlesLayer::UpdateProjectionMatrixAndViewport(int width, int height) const
 {
 	GlCall(glViewport(0, 0, width, height));
-	m_program.SetUniformMatrix4fv("m_projection", glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f));
+	//m_program.SetUniformMatrix4fv("m_projection", glm::ortho(0.0f, (float)width, (float)height, 0.0f, -1.0f, 1.0f));
 }
 
 gfx::Program& ParticlesLayer::GetProgram()

@@ -49,7 +49,7 @@ bool core::utils::OrthographicCamera::OnMouseMoved(const event::MouseMovedEvent&
 
 	if (m_controlMouseButtonPressed)
 	{
-		m_position += (cursorPos - m_lastCursorPos) / m_zoomLevel;
+		m_position += (cursorPos - m_lastCursorPos) * (m_zoomLevel * 2);
 		m_viewMatrixSignal(GetViewMatrix());
 	}
 
@@ -60,13 +60,8 @@ bool core::utils::OrthographicCamera::OnMouseMoved(const event::MouseMovedEvent&
 
 bool core::utils::OrthographicCamera::OnMouseScrolled(const event::MouseScrolledEvent& e)
 {
-	if (e.GetYOffset() > 0.0f)
-		m_zoomLevel += 0.05f;
-	else
-		m_zoomLevel -= 0.05f;
-
+	m_zoomLevel += e.GetYOffset() * 0.02f;
 	m_zoomLevel = std::max(0.05f, m_zoomLevel);
-
 	m_viewMatrixSignal(GetViewMatrix());
 
 	return false;

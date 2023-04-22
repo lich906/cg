@@ -28,7 +28,7 @@ try
 	ParticlesModel model;
 	std::unique_ptr<core::Application> app = std::make_unique<core::Application>("Charged particles");
 
-	app->PushLayer(std::make_shared<BgLayer>(0.0f, 0.1f, 0.1f, 0.0f));
+	app->PushLayer(std::make_shared<BgLayer>(0.0f, 0.05f, 0.05f, 0.0f));
 	app->PushLayer(std::make_shared<ParticlesLayer>(model));
 
 	app->Run();
