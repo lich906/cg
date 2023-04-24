@@ -22,6 +22,8 @@ void PolyhedronLayer::OnAttach()
 
 	m_lightSource.SetLightColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	m_lightSource.SetPosition(glm::vec3(3.0f, 1.0f, -1.0f));
+
+	GlCall(glEnable(GL_DEPTH_TEST));
 }
 
 void PolyhedronLayer::OnDetach()
@@ -32,7 +34,7 @@ void PolyhedronLayer::OnDetach()
 void PolyhedronLayer::OnUpdate(core::Timestep ts)
 {
 	GlCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-	GlCall(glClear(GL_COLOR_BUFFER_BIT));
+	GlCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
 	m_lightSource.Use(m_program);
 	// Move polygon a bit forward from camera
