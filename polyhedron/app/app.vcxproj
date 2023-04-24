@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\LightSource.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\PolyhedronLayer.cpp" />
     <ClCompile Include="src\TriangleMeshLoader.cpp" />
@@ -158,9 +159,12 @@
   <ItemGroup>
     <ClInclude Include="include\PolyhedronLayer.h" />
     <ClInclude Include="include\TriangleMeshLoader.h" />
+    <ClInclude Include="include\LightSource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment.glsl" />
+    <None Include="assets\shaders\lightning.fragment.glsl" />
+    <None Include="assets\shaders\lightning.vertex.glsl" />
     <None Include="assets\shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

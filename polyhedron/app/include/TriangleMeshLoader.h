@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 #include "graphics/Mesh.h"
 
 class TriangleMeshLoader
@@ -11,7 +13,7 @@ public:
 
 private:
 
-	gfx::Vector ReadVector(std::istream& input);
+	std::array<glm::vec3, 3> ReadTriangleVertices(std::istream& input);
 
 	gfx::Vertex::Color m_color;
 };

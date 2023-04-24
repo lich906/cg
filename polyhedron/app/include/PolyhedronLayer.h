@@ -8,6 +8,7 @@
 #include "graphics/Program.h"
 
 #include "TriangleMeshLoader.h"
+#include "LightSource.h"
 
 class PolyhedronLayer : public core::Layer
 {
@@ -25,4 +26,5 @@ private:
 
 	gfx::Program m_program;
 	std::optional<gfx::Mesh> m_mesh;
+	LightSource m_lightSource;
 };

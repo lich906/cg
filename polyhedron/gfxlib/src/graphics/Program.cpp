@@ -89,6 +89,11 @@ void gfx::Program::SetUniform4fv(const std::string& name, const glm::vec4& v) co
 	GlCall(glUniform4fv(GetUniformLocation(name), 1, glm::value_ptr(v)));
 }
 
+void gfx::Program::SetUniform3fv(const std::string& name, const glm::vec3& v) const
+{
+	GlCall(glUniform3fv(GetUniformLocation(name), 1, glm::value_ptr(v)));
+}
+
 void Program::SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat) const
 {
 	GlCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(mat)));

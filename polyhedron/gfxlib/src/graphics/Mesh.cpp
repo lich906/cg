@@ -15,22 +15,16 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indic
 	m_indexBuffer.Bind();
 	m_indexBuffer.SetData(indices.data(), indices.size() * sizeof(GLuint), usage);
 
-	/*
-	vertex #1                > vertex #2                > ...
-	[x, y, z][r, g, b, a][s, t] > [x, y, z][r, g, b, a][s, t] > ...
-	 |<===========================>| stride
-	 |<=====================>| vertex size = (vector size + color size + tex coords size)
-	*/
 	GLsizei stride = sizeof(Vertex);
 
 	// Position attribute
-	m_vertexArray.BindAttribute(0, GL_FLOAT, sizeof(Vector) / sizeof(float), stride, 0);
+	m_vertexArray.BindAttribute(0, GL_FLOAT, sizeof(Vertex::Position) / sizeof(float), stride, 0);
+
+	// Normal attribute
+	m_vertexArray.BindAttribute(1, GL_FLOAT, sizeof(Vertex::Normal) / sizeof(float), stride, sizeof(Vertex::Position));
 
 	// Color attribute
-	m_vertexArray.BindAttribute(1, GL_FLOAT, sizeof(Vertex::Color) / sizeof(float), stride, sizeof(Vector));
-
-	// Texture attribute
-	m_vertexArray.BindAttribute(2, GL_FLOAT, sizeof(TexCoords) / sizeof(float), stride, sizeof(Vector) + sizeof(Vertex::Color));
+	m_vertexArray.BindAttribute(2, GL_FLOAT, sizeof(Vertex::Color) / sizeof(float), stride, sizeof(Vertex::Position) + sizeof(Vertex::Normal));
 
 	m_vertexBuffer.Unbind();
 

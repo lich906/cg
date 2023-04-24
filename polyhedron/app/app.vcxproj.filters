@@ -24,6 +24,9 @@
     <ClCompile Include="src\PolyhedronLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\LightSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\TriangleMeshLoader.h">
@@ -32,9 +35,14 @@
     <ClInclude Include="include\PolyhedronLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\LightSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment.glsl" />
     <None Include="assets\shaders\vertex.glsl" />
+    <None Include="assets\shaders\lightning.fragment.glsl" />
+    <None Include="assets\shaders\lightning.vertex.glsl" />
   </ItemGroup>
 </Project>

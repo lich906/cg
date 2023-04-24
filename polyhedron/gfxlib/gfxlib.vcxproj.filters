@@ -39,9 +39,6 @@
     <ClInclude Include="include\graphics\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\graphics\Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\graphics\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,9 +78,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\VertexArray.cpp">

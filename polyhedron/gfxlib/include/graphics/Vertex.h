@@ -2,7 +2,6 @@
 
 #include "gfxpch.h"
 
-#include "Vector.h"
 #include "TexCoords.h"
 
 namespace gfx
@@ -10,12 +9,13 @@ namespace gfx
 
 struct Vertex
 {
-	Vector position;
-	struct Color
-	{
-		float r, g, b, a;
-	} color;
-	TexCoords texCoords;
+	using Position = glm::vec3;
+	using Normal = glm::vec3;
+	using Color = glm::vec4;
+
+	Position position;
+	Normal normal;
+	Color color;
 };
 
 } // namespace gfx
