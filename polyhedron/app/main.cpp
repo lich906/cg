@@ -1,13 +1,13 @@
 #include "core/core.h"
 
-#include "PolyhedronLayer.h"
+#include "SceneLayer.h"
 
 int main()
 try
 {
 	std::unique_ptr<core::Application> app = std::make_unique<core::Application>("Polyhedron");
 
-	app->PushLayer(std::make_shared<PolyhedronLayer>());
+	app->PushLayer(std::make_shared<SceneLayer>());
 
 	app->Run();
 

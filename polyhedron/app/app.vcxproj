@@ -143,9 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\LightSource.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\PolyhedronLayer.cpp" />
+    <ClCompile Include="src\Object.cpp" />
+    <ClCompile Include="src\Polyhedron.cpp" />
+    <ClCompile Include="src\SceneLayer.cpp" />
     <ClCompile Include="src\TriangleMeshLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +160,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\PolyhedronLayer.h" />
+    <ClInclude Include="include\Background.h" />
+    <ClInclude Include="include\Object.h" />
+    <ClInclude Include="include\Polyhedron.h" />
+    <ClInclude Include="include\SceneLayer.h" />
     <ClInclude Include="include\TriangleMeshLoader.h" />
     <ClInclude Include="include\LightSource.h" />
   </ItemGroup>

@@ -7,24 +7,22 @@
 #include "graphics/Mesh.h"
 #include "graphics/Program.h"
 
-#include "TriangleMeshLoader.h"
-#include "LightSource.h"
+#include "Object.h"
 
-class PolyhedronLayer : public core::Layer
+class SceneLayer : public core::Layer
 {
 public:
-	PolyhedronLayer();
+	SceneLayer();
 
 	// Inherited via core::Layer
 	virtual void OnAttach();
 	virtual void OnDetach();
 	virtual void OnUpdate(core::Timestep ts);
+	virtual void OnEvent(core::event::Event& event);
 
 private:
 
-	void LoadMesh();
-
+	std::vector<std::unique_ptr<Object>> m_objects;
+	glm::mat4 m_polyhedronTransform = glm::mat4(1.0f);
 	gfx::Program m_program;
-	std::optional<gfx::Mesh> m_mesh;
-	LightSource m_lightSource;
 };
