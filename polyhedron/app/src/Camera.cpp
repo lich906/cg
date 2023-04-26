@@ -73,9 +73,9 @@ void Camera::UpdateViewMatrix()
 {
 	float distance = glm::length(m_center);
 	glm::vec3 v = glm::normalize(-m_center); // orth from center to origin
-	v = glm::normalize(glm::rotate(v, glm::radians(m_yawAngle), glm::vec3(0.0f, 1.0f, 0.0f))); // rotate in ZX surface
+	v = glm::rotate(v, glm::radians(m_yawAngle), glm::vec3(0.0f, 1.0f, 0.0f)); // rotate in ZX surface
 	glm::vec3 perp = glm::vec3(v.z, v.y, -v.x); // perpendicular to vector 'v' laying in ZX surface
-	v = glm::normalize(glm::rotate(v, glm::radians(m_pitchAngle), perp));
+	v = glm::rotate(v, glm::radians(m_pitchAngle), perp);
 
 	m_cameraPos = m_center + (v * (distance + m_zoomLevel));
 	m_viewMatrix = glm::lookAt(m_cameraPos, m_center, glm::vec3(0.0f, 1.0f, 0.0f));
