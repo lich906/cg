@@ -54,7 +54,7 @@ bool Camera::OnMouseMoved(core::event::MouseMovedEvent& event)
 	{
 		auto delta = pos - m_lastCursorPos;
 		m_yawAngle -= delta.x * CONTROL_SPEED;
-		m_pitchAngle += delta.y * CONTROL_SPEED;
+		m_pitchAngle -= delta.y * CONTROL_SPEED;
 		m_pitchAngle = std::max(-89.0f, std::min(89.0f, m_pitchAngle));
 		UpdateViewMatrix();
 	}
