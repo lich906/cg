@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Background.h" />
+    <ClInclude Include="include\consts.h" />
     <ClInclude Include="include\Object.h" />
     <ClInclude Include="include\Polyhedron.h" />
     <ClInclude Include="include\SceneLayer.h" />

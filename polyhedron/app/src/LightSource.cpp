@@ -1,9 +1,11 @@
 #include "LightSource.h"
 
+constexpr float CONTROL_SPEED = 0.8f;
+
 LightSource::LightSource(const glm::vec3& pos, const glm::vec4& color)
 	: m_position(pos)
 	, m_lightColor(color)
-	, m_point({ gfx::Vertex{ { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } } }, { 0 })
+	, m_point({ gfx::Vertex{ pos, { 0.0f, 0.0f, 0.0f }, color } }, { 0 })
 {
 }
 
@@ -67,20 +69,18 @@ void LightSource::OnEvent(core::event::Event& event)
 
 void LightSource::OnUpdate(core::Timestep ts)
 {
-	static const float speed = 0.5f;
-
 	if (m_forward)
-		m_position.z -= ts * speed;
+		m_position.z -= ts * CONTROL_SPEED;
 	if (m_backward)
-		m_position.z += ts * speed;
+		m_position.z += ts * CONTROL_SPEED;
 	if (m_left)
-		m_position.x -= ts * speed;
+		m_position.x -= ts * CONTROL_SPEED;
 	if (m_right)
-		m_position.x += ts * speed;
+		m_position.x += ts * CONTROL_SPEED;
 	if (m_up)
-		m_position.y += ts * speed;
+		m_position.y += ts * CONTROL_SPEED;
 	if (m_down)
-		m_position.y -= ts * speed;
+		m_position.y -= ts * CONTROL_SPEED;
 }
 
 void LightSource::OnDraw(gfx::Program& prog)
@@ -93,5 +93,5 @@ void LightSource::OnDraw(gfx::Program& prog)
 	GlCall(glPointSize(10.0f));
 	m_point.Draw(GL_POINTS);
 
-	prog.SetUniform1f("u_ambientValue", 0.1f);
+	prog.SetUniform1f("u_ambientValue", 0.05f);
 }

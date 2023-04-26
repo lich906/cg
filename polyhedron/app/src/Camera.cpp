@@ -9,6 +9,7 @@ Camera::Camera(const glm::vec3& center)
 	: m_center(center)
 	, m_viewMatrix(1.0f)
 	, m_lastCursorPos()
+	, m_cameraPos()
 {
 }
 
@@ -24,6 +25,7 @@ void Camera::OnEvent(core::event::Event& event)
 
 void Camera::OnDraw(gfx::Program& prog)
 {
+	prog.SetUniform3fv("u_viewPos", m_cameraPos);
 	prog.SetUniformMatrix4fv("m_view", m_viewMatrix);
 }
 
@@ -75,9 +77,6 @@ void Camera::UpdateViewMatrix()
 	glm::vec3 perp = glm::vec3(v.z, v.y, -v.x); // perpendicular to vector 'v' laying in ZX surface
 	v = glm::normalize(glm::rotate(v, glm::radians(m_pitchAngle), perp));
 
-	float yaw = glm::radians(m_yawAngle), pitch = glm::radians(m_pitchAngle);
-
-	glm::vec3 cameraPos = m_center + (v * (distance + m_zoomLevel));
-
-	m_viewMatrix = glm::lookAt(cameraPos, m_center, glm::vec3(0.0f, 1.0f, 0.0f));
+	m_cameraPos = m_center + (v * (distance + m_zoomLevel));
+	m_viewMatrix = glm::lookAt(m_cameraPos, m_center, glm::vec3(0.0f, 1.0f, 0.0f));
 }

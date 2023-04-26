@@ -3,6 +3,7 @@
 #include "Background.h"
 #include "Polyhedron.h"
 #include "Camera.h"
+#include "consts.h"
 
 SceneLayer::SceneLayer()
 	: m_program(gfx::Program("assets/shaders/lightning.vertex.glsl", "assets/shaders/lightning.fragment.glsl"))
@@ -14,6 +15,7 @@ void SceneLayer::OnAttach()
 	m_program.Use();
 	m_program.SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
 	m_program.SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
+	m_program.SetUniform1f("u_ambientValue", 0.05f);
 
 	core::IWindow& window = core::Application::Get().GetWindow();
 	m_program.SetUniformMatrix4fv("m_projection",
@@ -22,11 +24,10 @@ void SceneLayer::OnAttach()
 			(float)window.GetWidth() / (float)window.GetHeight(),
 			0.1f, 100.0f));
 
-	std::unique_ptr<Object> bg = std::make_unique<Background>(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	std::unique_ptr<Object> camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, -4.0f));
-	std::unique_ptr<Object> light = std::make_unique<LightSource>(
-		glm::vec3(0.0f, 0.0f, 0.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	std::unique_ptr<Object> polyhedron = std::make_unique<Polyhedron>("mesh_data.txt", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	std::unique_ptr<Object> bg = std::make_unique<Background>(consts::BACKGROUND_COLOR);
+	std::unique_ptr<Object> camera = std::make_unique<Camera>(consts::POLYHEDRON_POSITION);
+	std::unique_ptr<Object> light = std::make_unique<LightSource>(consts::LIGHT_SOURCE_INIT_POS, consts::LIGHT_COLOR);
+	std::unique_ptr<Object> polyhedron = std::make_unique<Polyhedron>("mesh_data.txt", consts::POLYHEDRON_COLOR);
 
 	m_objects.emplace_back(std::move(bg));
 	m_objects.emplace_back(std::move(camera));

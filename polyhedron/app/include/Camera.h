@@ -19,6 +19,7 @@ private:
 
 	glm::mat4 m_viewMatrix;
 	glm::vec3 m_center;
+	glm::vec3 m_cameraPos;
 	glm::vec2 m_lastCursorPos;
 
 	float m_pitchAngle = 0.0f, m_yawAngle = 0.0f, m_zoomLevel = 0.0f;
