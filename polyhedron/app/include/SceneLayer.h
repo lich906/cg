@@ -21,6 +21,7 @@ public:
 	virtual void OnEvent(core::event::Event& event);
 
 private:
+	void LayerOnEvent(core::event::Event& event);
 
 	std::vector<std::unique_ptr<Object>> m_objects;
 	glm::mat4 m_polyhedronTransform = glm::mat4(1.0f);

@@ -16,7 +16,7 @@ void SceneLayer::OnAttach()
 	m_program.SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
 
 	core::IWindow& window = core::Application::Get().GetWindow();
-	m_program.SetUniformMatrix4fv("m_projection", 
+	m_program.SetUniformMatrix4fv("m_projection",
 		glm::perspective(
 			glm::radians(45.0f),
 			(float)window.GetWidth() / (float)window.GetHeight(),
@@ -55,8 +55,26 @@ void SceneLayer::OnUpdate(core::Timestep ts)
 
 void SceneLayer::OnEvent(core::event::Event& event)
 {
+	LayerOnEvent(event);
+
 	for (auto& obj : m_objects)
 	{
 		obj->OnEvent(event);
 	}
+}
+
+void SceneLayer::LayerOnEvent(core::event::Event& event)
+{
+	core::event::EventDispatcher dispatcher(event);
+
+	dispatcher.Dispatch<core::event::WindowResizeEvent>(
+		[this](core::event::WindowResizeEvent& e) {
+			GlCall(glViewport(0, 0, e.GetWidth(), e.GetHeight()));
+			m_program.SetUniformMatrix4fv("m_projection",
+				glm::perspective(
+					glm::radians(45.0f),
+					(float)e.GetWidth() / (float)e.GetHeight(),
+					0.1f, 100.0f));
+			return false;
+		});
 }
