@@ -24,15 +24,10 @@ void SceneLayer::OnAttach()
 			(float)window.GetWidth() / (float)window.GetHeight(),
 			0.1f, 100.0f));
 
-	std::unique_ptr<Object> bg = std::make_unique<Background>(consts::BACKGROUND_COLOR);
-	std::unique_ptr<Object> camera = std::make_unique<Camera>(consts::POLYHEDRON_POSITION);
-	std::unique_ptr<Object> light = std::make_unique<LightSource>(consts::LIGHT_SOURCE_INIT_POS, consts::LIGHT_COLOR);
-	std::unique_ptr<Object> polyhedron = std::make_unique<Polyhedron>("mesh_data.txt", consts::POLYHEDRON_COLOR);
-
-	m_objects.emplace_back(std::move(bg));
-	m_objects.emplace_back(std::move(camera));
-	m_objects.emplace_back(std::move(light));
-	m_objects.emplace_back(std::move(polyhedron));
+	m_objects.emplace_back(std::make_unique<Background>(consts::BACKGROUND_COLOR));
+	m_objects.emplace_back(std::make_unique<Camera>(consts::POLYHEDRON_POSITION));
+	m_objects.emplace_back(std::make_unique<LightSource>(consts::LIGHT_SOURCE_INIT_POS, consts::LIGHT_COLOR));
+	m_objects.emplace_back(std::make_unique<Polyhedron>("mesh_data.txt", consts::POLYHEDRON_COLOR));
 
 	GlCall(glEnable(GL_DEPTH_TEST));
 }
