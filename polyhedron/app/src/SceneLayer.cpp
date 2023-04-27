@@ -6,19 +6,19 @@
 #include "consts.h"
 
 SceneLayer::SceneLayer()
-	: m_program(gfx::Program("assets/shaders/lightning.vertex.glsl", "assets/shaders/lightning.fragment.glsl"))
+	: m_lightProgram("assets/shaders/lightning.vertex.glsl", "assets/shaders/lightning.fragment.glsl")
 {
 }
 
 void SceneLayer::OnAttach()
 {
-	m_program.Use();
-	m_program.SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
-	m_program.SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
-	m_program.SetUniform1f("u_ambientValue", 0.05f);
+	m_lightProgram.Use();
+	m_lightProgram.SetUniformMatrix4fv("m_model", glm::mat4(1.0f)); // Load identity matrices by default
+	m_lightProgram.SetUniformMatrix4fv("m_view", glm::mat4(1.0f));
+	m_lightProgram.SetUniform1f("u_ambientValue", consts::AMBIENT_LIGHT_VALUE);
 
 	core::IWindow& window = core::Application::Get().GetWindow();
-	m_program.SetUniformMatrix4fv("m_projection",
+	m_lightProgram.SetUniformMatrix4fv("m_projection",
 		glm::perspective(
 			glm::radians(45.0f),
 			(float)window.GetWidth() / (float)window.GetHeight(),
@@ -30,6 +30,8 @@ void SceneLayer::OnAttach()
 	m_objects.emplace_back(std::make_unique<Polyhedron>("mesh_data.txt", consts::POLYHEDRON_COLOR));
 
 	GlCall(glEnable(GL_DEPTH_TEST));
+	GlCall(glEnable(GL_BLEND));
+	GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 }
 
 void SceneLayer::OnDetach()
@@ -45,7 +47,7 @@ void SceneLayer::OnUpdate(core::Timestep ts)
 
 	for (auto& obj : m_objects)
 	{
-		obj->OnDraw(m_program);
+		obj->OnDraw(m_lightProgram);
 	}
 }
 
@@ -66,10 +68,11 @@ void SceneLayer::LayerOnEvent(core::event::Event& event)
 	dispatcher.Dispatch<core::event::WindowResizeEvent>(
 		[this](core::event::WindowResizeEvent& e) {
 			GlCall(glViewport(0, 0, e.GetWidth(), e.GetHeight()));
-			m_program.SetUniformMatrix4fv("m_projection",
+			m_lightProgram.Use();
+			m_lightProgram.SetUniformMatrix4fv("m_projection",
 				glm::perspective(
 					glm::radians(45.0f),
-					(float)e.GetWidth() / (float)e.GetHeight(),
+					((float)e.GetWidth() + 1) / ((float)e.GetHeight() + 1),
 					0.1f, 100.0f));
 			return false;
 		});

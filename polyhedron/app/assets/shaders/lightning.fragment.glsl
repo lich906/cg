@@ -22,14 +22,14 @@ void main()
 	vec3 lightDir = normalize(u_lightPosition - FragPos);
 	vec3 norm = normalize(VertexNormal);
 
-	float diffusion = max(dot(norm, lightDir), 0.0);
+	float diffusion = abs(dot(norm, lightDir));
 	vec4 diffuseColor = diffusion * u_lightColor;
 
 	//Specular
 	vec3 viewDir = normalize(u_viewPos - FragPos);
 	vec3 reflectDir = reflect(-lightDir, norm);
 
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+	float spec = pow(abs(dot(viewDir, reflectDir)), 64);
 	vec4 specularColor = specularValue * spec * u_lightColor;
 
 	color = (ambientColor + diffuseColor + specularColor) * VertexColor;

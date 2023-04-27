@@ -74,28 +74,33 @@ void Program::Use()
 	GlCall(glUseProgram(m_obj));
 }
 
-void Program::SetUniform1i(const std::string& name, int value) const
+void Program::SetUniform1i(const std::string& name, int value)
 {
+	m_container.Set(name, value);
 	GlCall(glUniform1i(GetUniformLocation(name), value));
 }
 
-void gfx::Program::SetUniform1f(const std::string& name, float value) const
+void gfx::Program::SetUniform1f(const std::string& name, float value)
 {
+	m_container.Set(name, value);
 	GlCall(glUniform1f(GetUniformLocation(name), value));
 }
 
-void gfx::Program::SetUniform4fv(const std::string& name, const glm::vec4& v) const
+void gfx::Program::SetUniform4fv(const std::string& name, const glm::vec4& v)
 {
+	m_container.Set(name, v);
 	GlCall(glUniform4fv(GetUniformLocation(name), 1, glm::value_ptr(v)));
 }
 
-void gfx::Program::SetUniform3fv(const std::string& name, const glm::vec3& v) const
+void gfx::Program::SetUniform3fv(const std::string& name, const glm::vec3& v)
 {
+	m_container.Set(name, v);
 	GlCall(glUniform3fv(GetUniformLocation(name), 1, glm::value_ptr(v)));
 }
 
-void Program::SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat) const
+void Program::SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat)
 {
+	m_container.Set(name, mat);
 	GlCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(mat)));
 }
 

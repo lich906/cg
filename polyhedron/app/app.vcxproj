@@ -171,10 +171,10 @@
     <ClInclude Include="include\LightSource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\fragment.glsl" />
+    <None Include="assets\shaders\light\fragment.glsl" />
     <None Include="assets\shaders\lightning.fragment.glsl" />
     <None Include="assets\shaders\lightning.vertex.glsl" />
-    <None Include="assets\shaders\vertex.glsl" />
+    <None Include="assets\shaders\light\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

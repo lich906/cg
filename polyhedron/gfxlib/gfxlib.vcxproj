@@ -29,6 +29,7 @@
     <ClInclude Include="include\graphics\Shader.h" />
     <ClInclude Include="include\graphics\TexCoords.h" />
     <ClInclude Include="include\graphics\Texture.h" />
+    <ClInclude Include="include\graphics\UniformContainer.h" />
     <ClInclude Include="include\graphics\Vertex.h" />
     <ClInclude Include="include\graphics\VertexArray.h" />
     <ClInclude Include="include\graphics\VertexBuffer.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="src\graphics\Program.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
     <ClCompile Include="src\graphics\Texture.cpp" />
+    <ClCompile Include="src\graphics\UniformContainer.cpp" />
     <ClCompile Include="src\graphics\VertexArray.cpp" />
     <ClCompile Include="src\graphics\VertexBuffer.cpp" />
     <ClCompile Include="src\gfxpch.cpp">

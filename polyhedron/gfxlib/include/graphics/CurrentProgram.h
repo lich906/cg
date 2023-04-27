@@ -17,7 +17,7 @@ public:
 private:
 	CurrentProgram() = delete;
 
-	static inline std::optional<Program> m_program;
+	static inline std::optional<Program> m_lightProgram;
 };
 
 } // namespace gfx

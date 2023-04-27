@@ -3,6 +3,7 @@
 #include "gfxpch.h"
 
 #include "Shader.h"
+#include "UniformContainer.h"
 
 namespace gfx
 {
@@ -25,11 +26,13 @@ public:
 
 	void Use();
 
-	void SetUniform1i(const std::string& name, int value) const;
-	void SetUniform1f(const std::string& name, float value) const;
-	void SetUniform4fv(const std::string& name, const glm::vec4& v) const;
-	void SetUniform3fv(const std::string& name, const glm::vec3& v) const;
-	void SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat) const;
+	void SetUniform1i(const std::string& name, int value);
+	void SetUniform1f(const std::string& name, float value);
+	void SetUniform4fv(const std::string& name, const glm::vec4& v);
+	void SetUniform3fv(const std::string& name, const glm::vec3& v);
+	void SetUniformMatrix4fv(const std::string& name, const glm::mat4& mat);
+
+	inline const UniformContainer& GetUniformContainer() const { return m_container; }
 
 private:
 	Program();
@@ -41,6 +44,7 @@ private:
 
 	static inline GL::GC gc;
 	GLuint m_obj;
+	UniformContainer m_container;
 };
 
 } // namespace gfx

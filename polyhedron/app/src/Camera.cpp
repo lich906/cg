@@ -25,8 +25,12 @@ void Camera::OnEvent(core::event::Event& event)
 
 void Camera::OnDraw(gfx::Program& prog)
 {
-	prog.SetUniform3fv("u_viewPos", m_cameraPos);
-	prog.SetUniformMatrix4fv("m_view", m_viewMatrix);
+	if (m_matrixChanged)
+	{
+		prog.SetUniform3fv("u_viewPos", m_cameraPos);
+		prog.SetUniformMatrix4fv("m_view", m_viewMatrix);
+		m_matrixChanged = false;
+	}
 }
 
 bool Camera::OnMouseBtnPressed(core::event::MouseButtonPressedEvent& event)
@@ -79,4 +83,5 @@ void Camera::UpdateViewMatrix()
 
 	m_cameraPos = m_center + (v * (distance + m_zoomLevel));
 	m_viewMatrix = glm::lookAt(m_cameraPos, m_center, glm::vec3(0.0f, 1.0f, 0.0f));
+	m_matrixChanged = true;
 }

@@ -27,6 +27,7 @@ gfx::Mesh TriangleMeshLoader::LoadFromFile(std::istream& input)
 	return gfx::Mesh(vertices, indices);
 }
 
+// TODO: добавить данные о цвете каждой вершины в формат файла
 gfx::Mesh TriangleMeshLoader::LoadFromFile(const std::string& fileName)
 {
 	std::ifstream file("mesh_data.txt");

@@ -6,19 +6,19 @@ using namespace gfx;
 
 void CurrentProgram::Set(const Program& program)
 {
-	m_program = program;
+	m_lightProgram = program;
 }
 
 void CurrentProgram::Unset()
 {
-	m_program.reset();
+	m_lightProgram.reset();
 }
 
 Program& CurrentProgram::Get()
 {
-	if (m_program)
+	if (m_lightProgram)
 	{
-		return *m_program;
+		return *m_lightProgram;
 	}
 
 	throw std::logic_error("Current program was not set.");

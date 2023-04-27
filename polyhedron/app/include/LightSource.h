@@ -18,6 +18,7 @@ private:
 	glm::vec3 m_position;
 	glm::vec4 m_lightColor;
 	gfx::Mesh m_point;
+	gfx::Program m_lightProgram;
 
 	bool m_forward = false, m_backward = false,
 		m_left = false, m_right = false,

@@ -24,4 +24,5 @@ private:
 
 	float m_pitchAngle = 0.0f, m_yawAngle = 0.0f, m_zoomLevel = 0.0f;
 	bool m_dragging = false;
+	bool m_matrixChanged = true;
 };
