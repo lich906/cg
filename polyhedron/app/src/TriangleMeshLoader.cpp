@@ -1,10 +1,5 @@
 #include "TriangleMeshLoader.h"
 
-TriangleMeshLoader::TriangleMeshLoader(gfx::Vertex::Color col)
-	: m_color(col)
-{
-}
-
 gfx::Mesh TriangleMeshLoader::LoadFromFile(std::istream& input)
 {
 	std::vector<gfx::Vertex> vertices;
@@ -15,10 +10,11 @@ gfx::Mesh TriangleMeshLoader::LoadFromFile(std::istream& input)
 		auto triangleVerts = ReadTriangleVertices(input);
 		glm::vec3 normal = glm::cross(triangleVerts[1] - triangleVerts[0], triangleVerts[2] - triangleVerts[0]);
 		normal = glm::normalize(normal);
+		glm::vec4 color = ReadColor(input);
 
-		vertices.push_back({ triangleVerts[0], normal, m_color });
-		vertices.push_back({ triangleVerts[1], normal, m_color });
-		vertices.push_back({ triangleVerts[2], normal, m_color });
+		vertices.push_back({ triangleVerts[0], normal, color });
+		vertices.push_back({ triangleVerts[1], normal, color });
+		vertices.push_back({ triangleVerts[2], normal, color });
 		indices.push_back((GLuint)indices.size());
 		indices.push_back((GLuint)indices.size());
 		indices.push_back((GLuint)indices.size());
@@ -27,10 +23,9 @@ gfx::Mesh TriangleMeshLoader::LoadFromFile(std::istream& input)
 	return gfx::Mesh(vertices, indices);
 }
 
-// TODO: добавить данные о цвете каждой вершины в формат файла
 gfx::Mesh TriangleMeshLoader::LoadFromFile(const std::string& fileName)
 {
-	std::ifstream file("mesh_data.txt");
+	std::ifstream file(fileName);
 	if (!file.is_open())
 	{
 		throw std::runtime_error("Failed to open mesh data file.");
@@ -50,4 +45,11 @@ std::array<glm::vec3, 3> TriangleMeshLoader::ReadTriangleVertices(std::istream& 
 	}
 
 	return vertices;
+}
+
+glm::vec4 TriangleMeshLoader::ReadColor(std::istream& input)
+{
+	glm::vec4 col{};
+	input >> col.r >> col.g >> col.b >> col.a;
+	return col;
 }

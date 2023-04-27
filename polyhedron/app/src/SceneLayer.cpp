@@ -27,7 +27,7 @@ void SceneLayer::OnAttach()
 	m_objects.emplace_back(std::make_unique<Background>(consts::BACKGROUND_COLOR));
 	m_objects.emplace_back(std::make_unique<Camera>(consts::POLYHEDRON_POSITION));
 	m_objects.emplace_back(std::make_unique<LightSource>(consts::LIGHT_SOURCE_INIT_POS, consts::LIGHT_COLOR));
-	m_objects.emplace_back(std::make_unique<Polyhedron>("mesh_data.txt", consts::POLYHEDRON_COLOR));
+	m_objects.emplace_back(std::make_unique<Polyhedron>("mesh_data_colored.txt", consts::POLYHEDRON_COLOR));
 
 	GlCall(glEnable(GL_DEPTH_TEST));
 	GlCall(glEnable(GL_BLEND));

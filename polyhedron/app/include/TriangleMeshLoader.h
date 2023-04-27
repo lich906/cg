@@ -8,14 +8,11 @@
 class TriangleMeshLoader
 {
 public:
-	TriangleMeshLoader(gfx::Vertex::Color col);
-
-	gfx::Mesh LoadFromFile(std::istream& input);
-	gfx::Mesh LoadFromFile(const std::string& fileName);
+	static gfx::Mesh LoadFromFile(std::istream& input);
+	static gfx::Mesh LoadFromFile(const std::string& fileName);
 
 private:
+	static std::array<glm::vec3, 3> ReadTriangleVertices(std::istream& input);
+	static glm::vec4 ReadColor(std::istream& input);
 
-	std::array<glm::vec3, 3> ReadTriangleVertices(std::istream& input);
-
-	gfx::Vertex::Color m_color;
 };

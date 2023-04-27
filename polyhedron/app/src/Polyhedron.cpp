@@ -3,7 +3,7 @@
 #include "consts.h"
 
 Polyhedron::Polyhedron(const std::string& fileName, const glm::vec4& color)
-	: m_mesh(TriangleMeshLoader(color).LoadFromFile(fileName))
+	: m_mesh(TriangleMeshLoader::LoadFromFile(fileName))
 	, m_transform(glm::translate(glm::mat4(1.0f), consts::POLYHEDRON_POSITION))
 {
 }
