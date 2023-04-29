@@ -24,6 +24,5 @@ private:
 	void LayerOnEvent(core::event::Event& event);
 
 	std::vector<std::unique_ptr<Object>> m_objects;
-	glm::mat4 m_polyhedronTransform = glm::mat4(1.0f);
 	gfx::Program m_lightProgram;
 };
