@@ -5,7 +5,7 @@
 int main()
 try
 {
-	std::unique_ptr<core::Application> app = std::make_unique<core::Application>("Polyhedron");
+	std::unique_ptr<core::Application> app = std::make_unique<core::Application>("Quadric Surface");
 
 	app->PushLayer(std::make_shared<SceneLayer>());
 
