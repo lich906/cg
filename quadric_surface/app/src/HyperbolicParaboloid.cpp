@@ -62,3 +62,8 @@ gfx::Vertex::Normal HyperbolicParaboloid::GetNormal(const gfx::Vertex::Position&
 {
 	return -glm::normalize(glm::vec3((2 * pos.x) / (COEFF_A * COEFF_A), -1.0f, -(2 * pos.z) / (COEFF_B * COEFF_B)));
 }
+
+gfx::Vertex::Color HyperbolicParaboloid::GetColor(float y) const
+{
+	return gfx::Vertex::Color();
+}

@@ -13,6 +13,31 @@ uniform float u_ambientValue;
 
 float specularValue = 0.5f;
 
+vec4 GetVertexColor(float height)
+{
+	if (height > 10.0)
+	{
+		return vec4(1.0, 0.0, 0.0, 1.0);
+	}
+	if (height > 5.0)
+	{
+		return vec4(1.0, (height - 10.0) / -5.0, 0.0, 1.0);
+	}
+	if (height > 0.0)
+	{
+		return vec4(height / 5.0, 1.0, 0.0, 1.0);
+	}
+	if (height > -5.0)
+	{
+		return vec4(0.0, 1.0, height / -5.0, 1.0);
+	}
+	if (height > -10.0)
+	{
+		return vec4(0.0, (10.0 + height) / 5.0, 1.0, 1.0);
+	}
+	return vec4(0.0, 0.0, 1.0, 1.0);
+}
+
 void main()
 {
 	// Ambient
@@ -32,5 +57,5 @@ void main()
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 64);
 	vec4 specularColor = specularValue * spec * u_lightColor;
 
-	color = (ambientColor + diffuseColor + specularColor) * VertexColor;
+	color = (ambientColor + diffuseColor + specularColor) * GetVertexColor(FragPos.y);
 }

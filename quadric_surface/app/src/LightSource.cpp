@@ -93,6 +93,7 @@ void LightSource::OnDraw(gfx::Program& prog)
 
 	GlCall(glPointSize(10.0f));
 	m_point.Draw(GL_POINTS);
+	GlCall(glPointSize(1.0f));
 
 	prog.Use();
 	prog.SetUniform3fv("u_lightPosition", m_position);

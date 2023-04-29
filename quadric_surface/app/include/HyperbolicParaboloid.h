@@ -15,6 +15,7 @@ private:
 	std::vector<gfx::Vertex> GenerateVertices() const;
 	std::vector<GLuint> GenerateIndices() const;
 	gfx::Vertex::Normal GetNormal(const gfx::Vertex::Position& pos) const;
+	gfx::Vertex::Color GetColor(float y) const;
 
 	gfx::Mesh m_mesh;
 	glm::mat4 m_transform;
