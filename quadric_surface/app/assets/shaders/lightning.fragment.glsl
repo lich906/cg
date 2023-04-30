@@ -15,25 +15,26 @@ float specularValue = 0.5f;
 
 vec4 GetVertexColor(float height)
 {
-	if (height > 10.0)
+	float gradientWidth = 1.0;
+	if (height > gradientWidth * 2)
 	{
 		return vec4(1.0, 0.0, 0.0, 1.0);
 	}
-	if (height > 5.0)
+	if (height > gradientWidth)
 	{
-		return vec4(1.0, (height - 10.0) / -5.0, 0.0, 1.0);
+		return vec4(1.0, (height - gradientWidth * 2) / -gradientWidth, 0.0, 1.0);
 	}
 	if (height > 0.0)
 	{
-		return vec4(height / 5.0, 1.0, 0.0, 1.0);
+		return vec4(height / gradientWidth, 1.0, 0.0, 1.0);
 	}
-	if (height > -5.0)
+	if (height > -gradientWidth)
 	{
-		return vec4(0.0, 1.0, height / -5.0, 1.0);
+		return vec4(0.0, 1.0, height / -gradientWidth, 1.0);
 	}
-	if (height > -10.0)
+	if (height > -gradientWidth * 2)
 	{
-		return vec4(0.0, (10.0 + height) / 5.0, 1.0, 1.0);
+		return vec4(0.0, (gradientWidth * 2 + height) / gradientWidth, 1.0, 1.0);
 	}
 	return vec4(0.0, 0.0, 1.0, 1.0);
 }

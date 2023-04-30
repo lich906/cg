@@ -43,7 +43,7 @@ std::vector<GLuint> HyperbolicParaboloid::GenerateIndices() const
 {
 	std::vector<GLuint> indices;
 
-	GLuint verticesPerRow = static_cast<GLuint>(consts::SURFACE_SIZE / consts::SURFACE_QUAD_SIZE);
+	GLuint verticesPerRow = static_cast<GLuint>(consts::SURFACE_SIZE / consts::SURFACE_QUAD_SIZE) + 1;
 
 	for (GLuint row = 0; row < verticesPerRow - 1; ++row)
 	{
@@ -61,9 +61,4 @@ std::vector<GLuint> HyperbolicParaboloid::GenerateIndices() const
 gfx::Vertex::Normal HyperbolicParaboloid::GetNormal(const gfx::Vertex::Position& pos) const
 {
 	return -glm::normalize(glm::vec3((2 * pos.x) / (COEFF_A * COEFF_A), -1.0f, -(2 * pos.z) / (COEFF_B * COEFF_B)));
-}
-
-gfx::Vertex::Color HyperbolicParaboloid::GetColor(float y) const
-{
-	return gfx::Vertex::Color();
 }
