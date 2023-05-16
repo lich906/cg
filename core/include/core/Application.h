@@ -24,6 +24,7 @@ public:
 	void PushOverlay(const std::shared_ptr<Layer>& layer);
 
 	inline IWindow& GetWindow() { return *m_window; }
+	inline void* GetNativeWindow() { return m_window->GetNativeWindow(); }
 
 	inline static Application& Get() { return *s_instance; }
 

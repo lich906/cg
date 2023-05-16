@@ -157,7 +157,9 @@
     <ClInclude Include="include\core\event\KeyEvent.h" />
     <ClInclude Include="include\core\event\MouseEvent.h" />
     <ClInclude Include="include\core\GlfwWindow.h" />
+    <ClInclude Include="include\core\Input.h" />
     <ClInclude Include="include\core\IWindow.h" />
+    <ClInclude Include="include\core\KeyCodes.h" />
     <ClInclude Include="include\core\Layer.h" />
     <ClInclude Include="include\core\LayerStack.h" />
     <ClInclude Include="include\core\Timestep.h" />
@@ -169,6 +171,7 @@
     <ClCompile Include="src\core\Application.cpp" />
     <ClCompile Include="src\core\event\Event.cpp" />
     <ClCompile Include="src\core\GlfwWindow.cpp" />
+    <ClCompile Include="src\core\Input.cpp" />
     <ClCompile Include="src\core\Layer.cpp" />
     <ClCompile Include="src\core\LayerStack.cpp" />
     <ClCompile Include="src\core\utils\OrthographicCamera.cpp" />
