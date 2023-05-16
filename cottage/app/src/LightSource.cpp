@@ -10,78 +10,32 @@ LightSource::LightSource(const glm::vec3& pos, const glm::vec4& color)
 {
 }
 
-void LightSource::OnEvent(core::event::Event& event)
-{
-	core::event::EventDispatcher dispatcher(event);
-
-	dispatcher.Dispatch<core::event::KeyPressedEvent>(
-		[this](core::event::KeyPressedEvent& e) {
-			switch (e.GetKeyCode())
-			{
-			case GLFW_KEY_W:
-				m_backward = false;
-				return m_forward = true;
-			case GLFW_KEY_S:
-				m_forward = false;
-				return m_backward = true;
-			case GLFW_KEY_A:
-				m_right = false;
-				return m_left = true;
-			case GLFW_KEY_D:
-				m_left = false;
-				return m_right = true;
-			case GLFW_KEY_UP:
-				m_down = false;
-				return m_up = true;
-			case GLFW_KEY_DOWN:
-				m_up = false;
-				return m_down = true;
-			default:
-				return false;
-			}
-		});
-
-	dispatcher.Dispatch<core::event::KeyReleasedEvent>(
-		[this](core::event::KeyReleasedEvent& e) {
-			switch (e.GetKeyCode())
-			{
-			case GLFW_KEY_W:
-				m_forward = false;
-				return true;
-			case GLFW_KEY_S:
-				m_backward = false;
-				return true;
-			case GLFW_KEY_A:
-				m_left = false;
-				return true;
-			case GLFW_KEY_D:
-				m_right = false;
-				return true;
-			case GLFW_KEY_UP:
-				m_up = false;
-				return true;
-			case GLFW_KEY_DOWN:
-				m_down = false;
-			default:
-				return true;
-			}
-		});
-}
-
 void LightSource::OnUpdate(core::Timestep ts)
 {
-	if (m_forward)
+	if (core::Input::IsKeyDown(core::KeyCode::W))
+	{
 		m_position.z -= ts * CONTROL_SPEED;
-	if (m_backward)
+	}
+	if (core::Input::IsKeyDown(core::KeyCode::S))
+	{
 		m_position.z += ts * CONTROL_SPEED;
-	if (m_left)
+	}
+	if (core::Input::IsKeyDown(core::KeyCode::A))
+	{
 		m_position.x -= ts * CONTROL_SPEED;
-	if (m_right)
+	}
+	if (core::Input::IsKeyDown(core::KeyCode::D))
+	{
 		m_position.x += ts * CONTROL_SPEED;
-	if (m_up)
+	}
+	if (core::Input::IsKeyDown(core::KeyCode::Up))
+	{
 		m_position.y += ts * CONTROL_SPEED;
-	if (m_down)
+	}
+	if (core::Input::IsKeyDown(core::KeyCode::Down))
+	{
 		m_position.y -= ts * CONTROL_SPEED;
+	}
 }
 
 void LightSource::OnDraw(gfx::Program& prog)

@@ -10,6 +10,5 @@ public:
 
 	virtual void OnEvent(core::event::Event& e) {}
 	virtual void OnUpdate(core::Timestep ts) {}
-	// 
-	virtual void OnDraw(gfx::Program& prog) {}
+	virtual void OnDraw(gfx::Program& prog) {} // TODO: do not pass gfx::Program into OnDraw() methods
 };
