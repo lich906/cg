@@ -36,7 +36,7 @@
     <ClCompile Include="src\TriangleMeshLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HyperbolicParaboloid.cpp">
+    <ClCompile Include="src\MorphingParaboloid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,7 +68,7 @@
     <ClInclude Include="include\TriangleMeshLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HyperbolicParaboloid.h">
+    <ClInclude Include="include\MorphingParaboloid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

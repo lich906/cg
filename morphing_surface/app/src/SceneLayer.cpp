@@ -1,6 +1,6 @@
 #include "SceneLayer.h"
 #include "LightSource.h"
-#include "HyperbolicParaboloid.h"
+#include "MorphingParaboloid.h"
 #include "Background.h"
 #include "Camera.h"
 #include "consts.h"
@@ -27,7 +27,7 @@ void SceneLayer::OnAttach()
 	m_objects.emplace_back(std::make_unique<Background>(consts::BACKGROUND_COLOR));
 	m_objects.emplace_back(std::make_unique<Camera>(consts::SURFACE_POSITION));
 	m_objects.emplace_back(std::make_unique<LightSource>(consts::LIGHT_SOURCE_INIT_POS, consts::LIGHT_COLOR));
-	m_objects.emplace_back(std::make_unique<HyperbolicParaboloid>(consts::SURFACE_POSITION));
+	m_objects.emplace_back(std::make_unique<MorphingParaboloid>(consts::SURFACE_POSITION));
 
 	GlCall(glEnable(GL_DEPTH_TEST));
 	//GlCall(glEnable(GL_BLEND));

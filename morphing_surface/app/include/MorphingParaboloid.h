@@ -4,10 +4,10 @@
 #include "Object.h"
 #include "graphics/Mesh.h"
 
-class HyperbolicParaboloid : public Object
+class MorphingParaboloid : public Object
 {
 public:
-	HyperbolicParaboloid(const glm::vec3& position);
+	MorphingParaboloid(const glm::vec3& position);
 
 private:
 	virtual void OnUpdate(core::Timestep ts) override;
