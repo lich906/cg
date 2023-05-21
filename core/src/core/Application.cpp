@@ -57,6 +57,12 @@ void Application::Run()
 			layer->OnUpdate(timestep);
 
 		m_window->OnUpdate();
+
+#ifdef  _DEBUG
+		const float ms = timestep.GetMilliseconds();
+		printf("Last frame (ms): %.2f FPS: %.2f\r\t\t\t\t\t\r", ms, 1000 / ms);
+#endif //  _DEBUG
+
 	}
 }
 
