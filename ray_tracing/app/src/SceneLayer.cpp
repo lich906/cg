@@ -31,8 +31,12 @@ void SceneLayer::OnAttach()
 
 void SceneLayer::OnUpdate(core::Timestep ts)
 {
-	m_camera.OnUpdate(ts);
-	m_renderer.Render(m_scene, m_camera);
+	bool viewProjectionChanged = m_camera.OnUpdate(ts);
+
+	if (viewProjectionChanged || m_firstFrame)
+	{
+		m_renderer.Render(m_scene, m_camera);
+	}
 
 	const ColorBuffer& colorBuffer = m_renderer.GetColorBuffer();
 
@@ -42,7 +46,10 @@ void SceneLayer::OnUpdate(core::Timestep ts)
 		(GLsizei)colorBuffer.GetHeight(),
 		GL_RGBA,
 		GL_UNSIGNED_BYTE,
-		(const void*)colorBuffer.GetData());
+		colorBuffer.GetData());
+
+	if (m_firstFrame)
+		m_firstFrame = false;
 }
 
 void SceneLayer::OnEvent(core::event::Event& event)
@@ -55,5 +62,6 @@ bool SceneLayer::OnResize(core::event::WindowResizeEvent& e)
 {
 	m_camera.OnResize(e.GetWidth(), e.GetHeight());
 	m_renderer.OnResize(e.GetWidth(), e.GetHeight());
+	m_renderer.Render(m_scene, m_camera);
 	return true;
 }

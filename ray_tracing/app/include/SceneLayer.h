@@ -24,4 +24,5 @@ private:
 	Renderer m_renderer;
 
 	gfx::Program m_shader;
+	bool m_firstFrame = true;
 };
