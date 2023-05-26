@@ -84,7 +84,7 @@ glm::vec4 Renderer::GetPixelColor(uint32_t x, uint32_t y) const
 	const Material& material = object.GetMaterial();
 
 	glm::vec4 objectColor = glm::vec4(material.Color, 1.0f);
-	glm::vec4 ambientColor = objectColor * 0.05f;
+	glm::vec4 ambientColor = objectColor * 0.3f;
 
 	return objectColor * CalcPointLight(payload) + ambientColor;
 }
