@@ -16,8 +16,11 @@ void SceneLayer::OnAttach()
 	Material sphereMaterial;
 	sphereMaterial.Color = glm::vec3{ 1.0f, 0.5f, 0.0f };
 
-	auto sphere = std::make_unique<Sphere>(0.5f);
+	auto sphere = std::make_unique<Sphere>();
 	sphere->SetMaterial(sphereMaterial);
+	glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.0f, 0.0f, 0.0f));
+	transform = glm::scale(transform, glm::vec3(2.0f, 1.0f, 1.0f));
+	sphere->SetTransform(transform);
 
 	m_scene.AddObject(std::move(sphere));
 
@@ -60,8 +63,11 @@ void SceneLayer::OnEvent(core::event::Event& event)
 
 bool SceneLayer::OnResize(core::event::WindowResizeEvent& e)
 {
-	m_camera.OnResize(e.GetWidth(), e.GetHeight());
-	m_renderer.OnResize(e.GetWidth(), e.GetHeight());
+	uint32_t width = e.GetWidth() ? e.GetWidth() : 1;
+	uint32_t height = e.GetHeight() ? e.GetHeight() : 1;
+
+	m_camera.OnResize(width, height);
+	m_renderer.OnResize(width, height);
 	m_renderer.Render(m_scene, m_camera);
 	return true;
 }

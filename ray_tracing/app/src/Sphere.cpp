@@ -1,18 +1,14 @@
 #include "Sphere.h"
 
-Sphere::Sphere(float radius)
-	: m_radius(radius)
-{
-}
-
 bool Sphere::Hit(const Ray& actualRay, HitPayload& payload) const
 {
 	Ray ray = actualRay;
 	ray.Transform(GetInverseTransform());
 
+	const float r = 1.0f;
 	float a = glm::dot(ray.Direction, ray.Direction);
 	float b = 2.0f * glm::dot(ray.Origin, ray.Direction);
-	float c = glm::dot(ray.Origin, ray.Origin) - m_radius * m_radius;
+	float c = glm::dot(ray.Origin, ray.Origin) - r * r;
 
 	float discriminant = b * b - 4.0f * a * c;
 

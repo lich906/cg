@@ -5,11 +5,9 @@
 class Sphere : public SceneObjectImpl
 {
 public:
-	Sphere(float radius);
+	Sphere() = default;
 
 private:
 	// Inherited via ISceneObject
 	virtual bool Hit(const Ray& ray, HitPayload& payload) const override;
-
-	float m_radius;
 };
