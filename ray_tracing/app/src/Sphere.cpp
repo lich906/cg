@@ -19,6 +19,7 @@ bool Sphere::Hit(const Ray& actualRay, HitPayload& payload) const
 	if (lowestTime > 0.0f && lowestTime < payload.HitTime)
 	{
 		payload.HitTime = lowestTime;
+		payload.WorldNormal = ray.At(lowestTime);
 		return true; // New closest hit found
 	}
 

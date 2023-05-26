@@ -19,10 +19,11 @@ private:
 
 	bool OnResize(core::event::WindowResizeEvent& e);
 
+	void InitScene();
+
 	Camera m_camera;
 	Scene m_scene;
 	Renderer m_renderer;
 
 	gfx::Program m_shader;
-	bool m_firstFrame = true;
 };

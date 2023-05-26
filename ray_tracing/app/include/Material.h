@@ -4,7 +4,17 @@
 
 struct Material
 {
-	glm::vec3 Color = glm::vec3(1.0f);
-	float Roughness = 1.0f;
-	float Metallic = 0.0f;
+	Material(
+		const glm::vec3& color = glm::vec3(1.0f),
+		float roughness = 1.0f,
+		float metallic = 0.0f)
+		: Color(color)
+		, Roughness(roughness)
+		, Metallic(metallic)
+	{
+	}
+
+	glm::vec3 Color;
+	float Roughness;
+	float Metallic;
 };

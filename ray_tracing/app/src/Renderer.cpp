@@ -113,9 +113,8 @@ HitPayload Renderer::ClosestHit(Ray ray, HitPayload payload) const
 	const ISceneObject& closestObject = m_activeScene->GetObject(payload.ObjectIndex);
 
 	ray.Transform(closestObject.GetInverseTransform());
-
 	payload.WorldPosition = ray.At(payload.HitTime);
-	payload.WorldNormal = glm::normalize(payload.WorldPosition);
+	payload.WorldNormal = payload.WorldNormal;
 	payload.WorldPosition = closestObject.GetTransform() * glm::vec4(payload.WorldPosition, 1.0f);
 
 	return payload;
