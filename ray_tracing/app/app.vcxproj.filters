@@ -86,6 +86,9 @@
     <ClInclude Include="include\Plane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragment.glsl" />

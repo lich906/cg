@@ -66,13 +66,27 @@ void SceneLayer::InitScene()
 {
 	auto sphere = std::make_unique<Sphere>();
 	sphere->SetMaterial(Material(glm::vec3{ 1.0f, 0.5f, 0.0f }));
-	glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	transform = glm::scale(transform, glm::vec3(2.0f, 1.0f, 1.0f));
 	sphere->SetTransform(transform);
 
-	auto plane = std::make_unique<Plane>(glm::vec3(1.0f, 1.0f, 0.0f));
+	auto sphere2 = std::make_unique<Sphere>();
+	sphere2->SetMaterial(Material(glm::vec3{ 0.3f, 0.7f, 1.0f }));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 2.0f, 1.5f));
+	transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
+	sphere2->SetTransform(transform);
+
+	auto plane = std::make_unique<Plane>(glm::vec3(0.0f, 1.0f, 0.0f));
 	plane->SetMaterial(Material(glm::vec3{ 0.3f, 0.5f, 0.0f }));
 
 	m_scene.AddObject(std::move(sphere));
+	m_scene.AddObject(std::move(sphere2));
 	m_scene.AddObject(std::move(plane));
+
+	PointLight light;
+	light.Position = glm::vec3(3.0f, 3.0f, 3.0f);
+	light.LightColor = glm::vec3(1.0f);
+	light.Intensity = 1.0f;
+
+	m_scene.AddPointLight(light);
 }

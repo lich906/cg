@@ -15,13 +15,13 @@ static Color ConvertToColor(const glm::vec4& color)
 
 void Renderer::OnResize(size_t width, size_t height)
 {
-	m_colorBuffer.Resize(width, height);
+	m_colorBuffer.Resize((uint32_t)width, (uint32_t)height);
 
 	m_horizontalIndices.resize(width);
 	m_verticalIndices.resize(height);
-	for (size_t i = 0; i < width; i++)
+	for (uint32_t i = 0; i < width; i++)
 		m_horizontalIndices[i] = i;
-	for (size_t i = 0; i < height; i++)
+	for (uint32_t i = 0; i < height; i++)
 		m_verticalIndices[i] = i;
 }
 
@@ -75,15 +75,63 @@ glm::vec4 Renderer::GetPixelColor(uint32_t x, uint32_t y) const
 		return glm::vec4(skyColor, 1.0f);
 	}
 
+	/* Directional light
 	glm::vec3 lightDir = glm::normalize(glm::vec3(-1, -1, -1));
 	float lightIntensity = glm::max(glm::dot(payload.WorldNormal, -lightDir), 0.0f); // == cos(angle)
+	*/
 
 	const ISceneObject& object = m_activeScene->GetObject(payload.ObjectIndex);
 	const Material& material = object.GetMaterial();
 
-	glm::vec3 objectColor = material.Color;
+	glm::vec4 objectColor = glm::vec4(material.Color, 1.0f);
+	glm::vec4 ambientColor = objectColor * 0.05f;
 
-	return glm::vec4(objectColor * lightIntensity, 1.0f);
+	return objectColor * CalcPointLight(payload) + ambientColor;
+}
+
+glm::vec4 Renderer::CalcPointLight(const HitPayload& payload) const
+{
+	glm::vec4 accumulatedColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+	m_activeScene->IteratePointLights(
+		[&](const PointLight& light) {
+			Ray ray;
+			ray.Origin = payload.WorldPosition;
+			ray.Direction = glm::normalize(light.Position - ray.Origin);
+
+			/* Taking into account surface normal */
+			float attenuation = glm::max(glm::dot(payload.WorldNormal, ray.Direction), 0.0f);
+
+			HitPayload pl;
+			pl.HitTime = std::numeric_limits<float>::max();
+			/*
+				Pixel is lit by default
+				Find if pixel is overshadowed by some object
+			*/
+			float isLit = true;
+			m_activeScene->IterateObjects(
+				[&](const ISceneObject* object, int index) {
+					if (isLit && object->Hit(ray, pl) && index != payload.ObjectIndex)
+					{
+						// Pixel is overshadowed
+						isLit = false;
+					}
+				});
+
+			if (isLit)
+			{
+				float distance = glm::length(light.Position - ray.Origin);
+				attenuation *= float(light.Intensity / (0.005 * distance * distance + 1.0));
+			}
+			else
+			{
+				attenuation = 0.0f;
+			}
+
+			accumulatedColor += glm::vec4(light.LightColor * attenuation, 1.0f);
+		});
+
+	return glm::clamp(accumulatedColor, glm::vec4(0.0f), glm::vec4(1.0f));
 }
 
 HitPayload Renderer::TraceRay(const Ray& ray) const
@@ -114,7 +162,6 @@ HitPayload Renderer::ClosestHit(Ray ray, HitPayload payload) const
 
 	ray.Transform(closestObject.GetInverseTransform());
 	payload.WorldPosition = ray.At(payload.HitTime);
-	payload.WorldNormal = payload.WorldNormal;
 	payload.WorldPosition = closestObject.GetTransform() * glm::vec4(payload.WorldPosition, 1.0f);
 
 	return payload;

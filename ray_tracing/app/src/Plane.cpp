@@ -12,7 +12,7 @@ bool Plane::Hit(const Ray& actualRay, HitPayload& payload) const
 
 	float time = -(glm::dot(m_normal, ray.Origin) / glm::dot(m_normal, ray.Direction));
 
-	if (time > 0.0f && time < payload.HitTime)
+	if (time > TIME_EPSILON && time < payload.HitTime)
 	{
 		payload.HitTime = time;
 		payload.WorldNormal = m_normal;

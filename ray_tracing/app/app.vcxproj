@@ -168,6 +168,7 @@
     <ClInclude Include="include\SceneObjectImpl.h" />
     <ClInclude Include="include\Sphere.h" />
     <ClInclude Include="include\Plane.h" />
+    <ClInclude Include="include\PointLight.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\core\core.vcxproj">

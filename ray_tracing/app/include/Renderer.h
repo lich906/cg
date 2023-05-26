@@ -13,6 +13,7 @@ public:
 
 private:
 	glm::vec4 GetPixelColor(uint32_t x, uint32_t y) const;
+	glm::vec4 CalcPointLight(const HitPayload& payload) const;
 
 	HitPayload TraceRay(const Ray& ray) const;
 	HitPayload ClosestHit(Ray ray, HitPayload payload) const;
@@ -22,5 +23,5 @@ private:
 	const Camera* m_activeCamera;
 
 	ColorBuffer m_colorBuffer;
-	std::vector<size_t> m_horizontalIndices, m_verticalIndices;
+	std::vector<uint32_t> m_horizontalIndices, m_verticalIndices;
 };

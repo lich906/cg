@@ -15,11 +15,11 @@ bool Sphere::Hit(const Ray& actualRay, HitPayload& payload) const
 	if (discriminant < 0.0f)
 		return false; // No intersections
 
-	float lowestTime = (-b - glm::sqrt(discriminant)) / (2.0f * a);
-	if (lowestTime > 0.0f && lowestTime < payload.HitTime)
+	float time = (-b - glm::sqrt(discriminant)) / (2.0f * a);
+	if (time > TIME_EPSILON && time < payload.HitTime)
 	{
-		payload.HitTime = lowestTime;
-		payload.WorldNormal = ray.At(lowestTime);
+		payload.HitTime = time;
+		payload.WorldNormal = ray.At(time);
 		return true; // New closest hit found
 	}
 

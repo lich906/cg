@@ -2,6 +2,8 @@
 
 #include "ISceneObject.h"
 
+constexpr float TIME_EPSILON = 0.001f;
+
 class SceneObjectImpl : public ISceneObject
 {
 public:
