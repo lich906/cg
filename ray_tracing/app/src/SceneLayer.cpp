@@ -85,9 +85,10 @@ void SceneLayer::InitScene()
 	transform = glm::scale(transform, glm::vec3(0.5f, 1.5f, 0.5f));
 	sphere3->SetTransform(transform);
 
-	auto torus = std::make_unique<Torus>(1.0f, 0.4f);
+	auto torus = std::make_unique<Torus>(1.0f, 0.3f);
 	torus->SetMaterial(Material(glm::vec3{ 1.0f, 0.3f, 0.3f }));
 	transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 3.0f));
+	transform = glm::rotate(transform, glm::radians(-45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	torus->SetTransform(transform);
 
 	auto plane = std::make_unique<Plane>(glm::vec3(0.0f, 1.0f, 0.0f));
