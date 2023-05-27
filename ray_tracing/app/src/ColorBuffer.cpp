@@ -3,29 +3,16 @@
 
 #include "ColorBuffer.h"
 
-ColorBuffer::~ColorBuffer()
-{
-	std::free(m_data);
-}
-
 void ColorBuffer::Resize(uint32_t width, uint32_t height)
 {
-	if (!m_data)
-	{
-		m_data = reinterpret_cast<Color*>(std::calloc(width * height, sizeof(Color)));
-	}
-
-	void* ptr = std::realloc(m_data, width * height * sizeof(Color));
-	if (!ptr)
-		throw std::runtime_error("Failed to allocate memory");
-	m_data = reinterpret_cast<Color*>(ptr);
+	m_data.resize(size_t(width * height));
 	m_width = width;
 	m_height = height;
 }
 
 const void* ColorBuffer::GetData() const
 {
-	return &m_data[0].r;
+	return m_data.data();
 }
 
 size_t ColorBuffer::GetSizeInBytes() const
@@ -53,5 +40,6 @@ void ColorBuffer::SetPixelColor(size_t x, size_t y, const Color& color)
 
 void ColorBuffer::Clear()
 {
-	std::memset(m_data, 0, GetSizeInBytes());
+	m_data.clear();
+	m_data.resize(m_width * m_height);
 }

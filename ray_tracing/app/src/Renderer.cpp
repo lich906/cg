@@ -30,8 +30,6 @@ void Renderer::Render(const Scene& scene, const Camera& camera)
 	m_activeScene = &scene;
 	m_activeCamera = &camera;
 
-	m_colorBuffer.Clear();
-
 #define MT 1
 #if MT
 	std::for_each(std::execution::par, m_verticalIndices.begin(), m_verticalIndices.end(),
@@ -84,7 +82,7 @@ glm::vec4 Renderer::GetPixelColor(uint32_t x, uint32_t y) const
 	const Material& material = object.GetMaterial();
 
 	glm::vec4 objectColor = glm::vec4(material.Color, 1.0f);
-	glm::vec4 ambientColor = objectColor * 0.3f;
+	glm::vec4 ambientColor = objectColor * 0.2f;
 
 	return objectColor * CalcPointLight(payload) + ambientColor;
 }

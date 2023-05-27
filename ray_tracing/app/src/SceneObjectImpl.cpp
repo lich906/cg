@@ -5,6 +5,11 @@ glm::mat4 SceneObjectImpl::GetInverseTransform() const
 	return m_inverseTransform;
 }
 
+glm::mat3 SceneObjectImpl::GetNormalMatrix() const
+{
+	return glm::transpose(GetInverseTransform());
+}
+
 void SceneObjectImpl::SetMaterial(const Material& material)
 {
 	m_material = material;

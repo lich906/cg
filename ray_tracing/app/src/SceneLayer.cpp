@@ -1,3 +1,5 @@
+#include <random>
+
 #include "SceneLayer.h"
 #include "Sphere.h"
 #include "Plane.h"
@@ -67,26 +69,40 @@ void SceneLayer::InitScene()
 	auto sphere = std::make_unique<Sphere>();
 	sphere->SetMaterial(Material(glm::vec3{ 1.0f, 0.5f, 0.0f }));
 	glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	transform = glm::scale(transform, glm::vec3(2.0f, 1.0f, 1.0f));
+	transform = glm::scale(transform, glm::vec3(2.0f, 1.0f, 2.0f));
 	sphere->SetTransform(transform);
 
 	auto sphere2 = std::make_unique<Sphere>();
-	sphere2->SetMaterial(Material(glm::vec3{ 0.3f, 0.7f, 1.0f }));
+	sphere2->SetMaterial(Material(glm::vec3{ 0.1f, 0.7f, 0.2f }));
 	transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 2.0f, 1.5f));
 	transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
 	sphere2->SetTransform(transform);
 
+	auto sphere3 = std::make_unique<Sphere>();
+	sphere3->SetMaterial(Material(glm::vec3{ 0.1f, 0.7f, 1.0f }));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 1.0f, -1.0f));
+	transform = glm::scale(transform, glm::vec3(0.5f, 1.5f, 0.5f));
+	sphere3->SetTransform(transform);
+
 	auto plane = std::make_unique<Plane>(glm::vec3(0.0f, 1.0f, 0.0f));
-	plane->SetMaterial(Material(glm::vec3{ 0.3f, 0.5f, 0.0f }));
+	plane->SetMaterial(Material(glm::vec3{ 0.3f, 0.3f, 0.3f }));
 
 	m_scene.AddObject(std::move(sphere));
 	m_scene.AddObject(std::move(sphere2));
+	m_scene.AddObject(std::move(sphere3));
 	m_scene.AddObject(std::move(plane));
 
 	PointLight light;
-	light.Position = glm::vec3(3.0f, 3.0f, 3.0f);
 	light.LightColor = glm::vec3(1.0f);
-	light.Intensity = 1.0f;
 
-	m_scene.AddPointLight(light);
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<float> dist(-0.07f, 0.07f);
+	const size_t pointLightsCount = 15;
+	for (size_t i = 0; i < pointLightsCount; i++)
+	{
+		light.Intensity = 0.2f + dist(gen);
+		light.Position = glm::vec3(4.0f + dist(gen), 4.0f + dist(gen), 4.0f + dist(gen));
+		m_scene.AddPointLight(light);
+	}
 }

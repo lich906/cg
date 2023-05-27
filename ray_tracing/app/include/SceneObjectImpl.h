@@ -16,6 +16,7 @@ public:
 
 protected:
 	virtual void OnTransformUpdate(const glm::mat4& transformMat) {};
+	glm::mat3 GetNormalMatrix() const;
 
 private:
 	Material m_material;
