@@ -153,6 +153,8 @@
     <ClCompile Include="src\SceneLayer.cpp" />
     <ClCompile Include="src\SceneObjectImpl.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
+    <ClCompile Include="src\Torus.cpp" />
+    <ClCompile Include="vendor\Quartic\quartic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Color.h" />
@@ -169,6 +171,8 @@
     <ClInclude Include="include\Sphere.h" />
     <ClInclude Include="include\Plane.h" />
     <ClInclude Include="include\PointLight.h" />
+    <ClInclude Include="include\Torus.h" />
+    <ClInclude Include="vendor\Quartic\quartic.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\core\core.vcxproj">

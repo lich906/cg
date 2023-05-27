@@ -3,6 +3,7 @@
 #include "SceneLayer.h"
 #include "Sphere.h"
 #include "Plane.h"
+#include "Torus.h"
 
 #define BIND_EVENT_FN(x) std::bind(&SceneLayer::x, this, std::placeholders::_1)
 
@@ -69,7 +70,7 @@ void SceneLayer::InitScene()
 	auto sphere = std::make_unique<Sphere>();
 	sphere->SetMaterial(Material(glm::vec3{ 1.0f, 0.5f, 0.0f }));
 	glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	transform = glm::scale(transform, glm::vec3(2.0f, 1.0f, 2.0f));
+	transform = glm::scale(transform, glm::vec3(2.0f, 1.0f, 1.0f));
 	sphere->SetTransform(transform);
 
 	auto sphere2 = std::make_unique<Sphere>();
@@ -84,12 +85,18 @@ void SceneLayer::InitScene()
 	transform = glm::scale(transform, glm::vec3(0.5f, 1.5f, 0.5f));
 	sphere3->SetTransform(transform);
 
+	auto torus = std::make_unique<Torus>(1.0f, 0.4f);
+	torus->SetMaterial(Material(glm::vec3{ 1.0f, 0.3f, 0.3f }));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 3.0f));
+	torus->SetTransform(transform);
+
 	auto plane = std::make_unique<Plane>(glm::vec3(0.0f, 1.0f, 0.0f));
 	plane->SetMaterial(Material(glm::vec3{ 0.3f, 0.3f, 0.3f }));
 
 	m_scene.AddObject(std::move(sphere));
 	m_scene.AddObject(std::move(sphere2));
 	m_scene.AddObject(std::move(sphere3));
+	m_scene.AddObject(std::move(torus));
 	m_scene.AddObject(std::move(plane));
 
 	PointLight light;
@@ -98,10 +105,10 @@ void SceneLayer::InitScene()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_real_distribution<float> dist(-0.07f, 0.07f);
-	const size_t pointLightsCount = 15;
+	const size_t pointLightsCount = 10;
 	for (size_t i = 0; i < pointLightsCount; i++)
 	{
-		light.Intensity = 0.2f + dist(gen);
+		light.Intensity = 0.1f + dist(gen);
 		light.Position = glm::vec3(4.0f + dist(gen), 4.0f + dist(gen), 4.0f + dist(gen));
 		m_scene.AddPointLight(light);
 	}

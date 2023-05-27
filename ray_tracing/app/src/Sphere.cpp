@@ -19,7 +19,7 @@ bool Sphere::Hit(const Ray& actualRay, HitPayload& payload) const
 	if (time > TIME_EPSILON && time < payload.HitTime)
 	{
 		payload.HitTime = time;
-		payload.WorldNormal = GetNormalMatrix() * ray.At(time);
+		payload.WorldNormal = glm::normalize(GetNormalMatrix() * ray.At(time));
 		return true; // New closest hit found
 	}
 
