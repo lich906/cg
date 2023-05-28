@@ -77,7 +77,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)gfxlib\include;$(SolutionDir)..\core\include;$(SolutionDir)vcpkg_installed\x64-windows-static\include;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\gfxlib\include;$(SolutionDir)..\core\include;$(SolutionDir)vcpkg_installed\x64-windows-static\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -95,7 +95,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)gfxlib\include;$(SolutionDir)..\core\include;$(SolutionDir)vcpkg_installed\x64-windows-static\include;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\gfxlib\include;$(SolutionDir)..\core\include;$(SolutionDir)vcpkg_installed\x64-windows-static\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,7 +113,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)gfxlib\include;$(SolutionDir)..\core\include;$(SolutionDir)vcpkg_installed\x64-windows-static\include;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\gfxlib\include;$(SolutionDir)..\core\include;$(SolutionDir)vcpkg_installed\x64-windows-static\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,7 +131,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)gfxlib\include;$(SolutionDir)..\core\include;$(SolutionDir)vcpkg_installed\x64-windows-static\include;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\gfxlib\include;$(SolutionDir)..\core\include;$(SolutionDir)vcpkg_installed\x64-windows-static\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,13 +150,12 @@
     <ClCompile Include="src\LightSource.cpp" />
     <ClCompile Include="src\Object.cpp" />
     <ClCompile Include="src\SceneLayer.cpp" />
-    <ClCompile Include="src\TriangleMeshLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\core\core.vcxproj">
       <Project>{2d038c15-c7f0-42f5-87d9-cc70daba7149}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\gfxlib\gfxlib.vcxproj">
+    <ProjectReference Include="..\..\gfxlib\gfxlib.vcxproj">
       <Project>{4e5b6ac2-012a-4874-a28c-612761c98c95}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -174,7 +173,6 @@
     <ClInclude Include="include\LightSource.h" />
     <ClInclude Include="include\Object.h" />
     <ClInclude Include="include\SceneLayer.h" />
-    <ClInclude Include="include\TriangleMeshLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,7 +7,7 @@ MouseInputController::MouseInputController(const std::shared_ptr<Document>& doc)
 {
 }
 
-void MouseInputController::OnMouseDown(const gfx::Vector& cursorPos)
+void MouseInputController::OnMouseDown(const glm::vec2& cursorPos)
 {
 	if (!m_dragging && (m_selectedImageObject = m_document->FindObjectAtPos(cursorPos)))
 	{
@@ -16,7 +16,7 @@ void MouseInputController::OnMouseDown(const gfx::Vector& cursorPos)
 	}
 }
 
-void MouseInputController::OnMouseUp(const gfx::Vector& cursorPos)
+void MouseInputController::OnMouseUp(const glm::vec2& cursorPos)
 {
 	if (m_dragging)
 	{
@@ -24,7 +24,7 @@ void MouseInputController::OnMouseUp(const gfx::Vector& cursorPos)
 	}
 }
 
-void MouseInputController::OnMouseMove(const gfx::Vector& cursorPos, const gfx::Vector& delta)
+void MouseInputController::OnMouseMove(const glm::vec2& cursorPos, const glm::vec2& delta)
 {
 	if (m_dragging && IsSelected())
 	{
@@ -34,7 +34,7 @@ void MouseInputController::OnMouseMove(const gfx::Vector& cursorPos, const gfx::
 	RefreshSelection(cursorPos);
 }
 
-void MouseInputController::OnScrollUp(const gfx::Vector& cursorPos)
+void MouseInputController::OnScrollUp(const glm::vec2& cursorPos)
 {
 	if (IsSelected())
 	{
@@ -43,7 +43,7 @@ void MouseInputController::OnScrollUp(const gfx::Vector& cursorPos)
 	}
 }
 
-void MouseInputController::OnScrollDown(const gfx::Vector& cursorPos)
+void MouseInputController::OnScrollDown(const glm::vec2& cursorPos)
 {
 	if (IsSelected())
 	{
@@ -52,7 +52,7 @@ void MouseInputController::OnScrollDown(const gfx::Vector& cursorPos)
 	}
 }
 
-void MouseInputController::RefreshSelection(const gfx::Vector& pos)
+void MouseInputController::RefreshSelection(const glm::vec2& pos)
 {
 	m_selectedImageObject = m_document->FindObjectAtPos(pos);
 }

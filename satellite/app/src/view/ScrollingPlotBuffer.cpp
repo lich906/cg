@@ -11,11 +11,11 @@ void ScrollingPlotBuffer::AddPoint(float x, float y)
 {
 	if (m_data.size() < m_maxSize)
 	{
-		m_data.push_back(gfx::Vector(x, y));
+		m_data.push_back({ x, y });
 	}
 	else
 	{
-		m_data[m_offset] = gfx::Vector(x, y);
+		m_data[m_offset] = { x, y };
 		m_offset = (m_offset + 1) % int(m_maxSize);
 	}
 }
@@ -31,7 +31,7 @@ void ScrollingPlotBuffer::Erase()
 
 int ScrollingPlotBuffer::GetSize() const
 {
-	return m_data.size();
+	return (int)m_data.size();
 }
 
 int ScrollingPlotBuffer::GetOffset() const

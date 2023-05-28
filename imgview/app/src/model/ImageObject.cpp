@@ -9,14 +9,16 @@ ImageObject::ImageObject(int width, int height)
 	m_transform = glm::scale(glm::mat4(1.0f), glm::vec3(m_width, m_height, 1.0f));
 }
 
-bool ImageObject::ExistsAtPos(const gfx::Vector& pos)
+bool ImageObject::ExistsAtPos(const glm::vec2& pos)
 {
-	return m_anchor <= pos && pos <= m_anchor + gfx::Vector(m_width, m_height);
+	return 
+		glm::all(glm::lessThanEqual(m_anchor, pos)) && 
+		glm::all(glm::lessThanEqual(pos, m_anchor + glm::vec2(m_width, m_height)));
 }
 
-void ImageObject::Drag(const gfx::Vector& delta)
+void ImageObject::Drag(const glm::vec2& delta)
 {
-	if (delta)
+	if (delta.x != 0.0f || delta.y != 0.0f)
 	{
 		m_anchor += delta;
 		RefreshTransformMatrix();
@@ -47,7 +49,7 @@ void ImageObject::RefreshTransformMatrix()
 
 void ImageObject::Zoom(float coeff)
 {
-	m_anchor -= gfx::Vector(coeff * m_width / 2, coeff * m_height / 2);
+	m_anchor -= glm::vec2(coeff * m_width / 2, coeff * m_height / 2);
 	m_width *= 1.0f + coeff;
 	m_height *= 1.0f + coeff;
 	RefreshTransformMatrix();

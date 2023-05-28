@@ -3,7 +3,7 @@
 Cottage::Cottage()
 	: m_transform(glm::translate(glm::mat4(1.0f), consts::COTTAGE_POSITION))
 {
-	if (!m_mesh.LoadMesh("assets/model/cottage/obj/House_01.obj"))
+	if (!m_mesh.LoadMesh("assets/model/cottage/House_01/House_01.obj"))
 	{
 		throw std::runtime_error("Failed to load cottage model.");
 	}

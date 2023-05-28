@@ -1,10 +1,10 @@
 #include "model/SpaceObjectMaths.h"
 
-gfx::Vector SpaceObjectMaths::GetObjectAcceleration(const std::vector<std::unique_ptr<SpaceObject>>& objects, size_t index)
+glm::vec2 SpaceObjectMaths::GetObjectAcceleration(const std::vector<std::unique_ptr<SpaceObject>>& objects, size_t index)
 {
 	auto targetObjPos = objects.at(index)->GetCurrentPosition();
 
-	gfx::Vector aVec;
+	glm::vec2 aVec{};
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
@@ -12,9 +12,9 @@ gfx::Vector SpaceObjectMaths::GetObjectAcceleration(const std::vector<std::uniqu
 		{
 			auto objPos = objects[i]->GetCurrentPosition();
 			auto m = objects[i]->GetMass();
-			gfx::Vector r(objPos.x - targetObjPos.x, objPos.y - targetObjPos.y);
-			float aMod = m / r.SquareMod();
-			aVec += r.Unit() * aMod;
+			glm::vec2 r(objPos.x - targetObjPos.x, objPos.y - targetObjPos.y);
+			float aMod = m / std::powf(glm::length(r), 2.0f);
+			aVec += (glm::normalize(r) * aMod);
 		}
 	}
 
@@ -23,6 +23,6 @@ gfx::Vector SpaceObjectMaths::GetObjectAcceleration(const std::vector<std::uniqu
 
 float SpaceObjectMaths::GetDistance(const SpaceObject& obj1, const SpaceObject& obj2)
 {
-	gfx::Vector d = obj1.GetCurrentPosition() - obj2.GetCurrentPosition();
-	return std::max(d.Mod() - std::min(obj1.GetRadius(), obj2.GetRadius()), 0.0f);
+	glm::vec2 d = obj1.GetCurrentPosition() - obj2.GetCurrentPosition();
+	return std::max(glm::length(d) - std::min(obj1.GetRadius(), obj2.GetRadius()), 0.0f);
 }

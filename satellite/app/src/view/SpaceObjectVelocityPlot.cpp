@@ -8,6 +8,6 @@ SpaceObjectVelocityPlot::SpaceObjectVelocityPlot(SpaceObject& obj)
 
 void SpaceObjectVelocityPlot::Draw(float x)
 {
-	m_buffer.AddPoint(x, m_object.GetCurrentVelocity().Mod());
+	m_buffer.AddPoint(x, glm::length(m_object.GetCurrentVelocity()));
 	ImPlot::PlotLine(m_object.GetName().c_str(), m_buffer.GetXData(), m_buffer.GetYData(), m_buffer.GetSize(), 0, m_buffer.GetOffset(), 2 * sizeof(float));
 }

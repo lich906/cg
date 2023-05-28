@@ -15,5 +15,5 @@ public:
 		std::unique_ptr<SpaceObjectView> view;
 	};
 
-	static CreationResult CreateObjectAndView(const std::string& name, float mass, float scale, const gfx::Texture& texture, const gfx::Vector& initialPosition);
+	static CreationResult CreateObjectAndView(const std::string& name, float mass, float scale, const gfx::Texture& texture, const glm::vec2& initialPosition);
 };

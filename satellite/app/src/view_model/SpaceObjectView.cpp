@@ -1,6 +1,6 @@
 #include "view_model/SpaceObjectView.h"
 
-SpaceObjectView::SpaceObjectView(const gfx::Vector& pos, float scale, const gfx::Texture& texture)
+SpaceObjectView::SpaceObjectView(const glm::vec2& pos, float scale, const gfx::Texture& texture)
 	: m_texture(texture)
 	, m_scale(scale)
 	, m_arrow(pos)
@@ -10,7 +10,7 @@ SpaceObjectView::SpaceObjectView(const gfx::Vector& pos, float scale, const gfx:
 	Transform(glm::scale(trans, glm::vec3(m_scale, m_scale, 1.0f)));
 }
 
-std::unique_ptr<SpaceObjectView> SpaceObjectView::Create(const gfx::Vector& position, float scale, const gfx::Texture& texture)
+std::unique_ptr<SpaceObjectView> SpaceObjectView::Create(const glm::vec2& position, float scale, const gfx::Texture& texture)
 {
 	auto instance = new SpaceObjectView(position, scale, texture);
 	return std::unique_ptr<SpaceObjectView>(instance);
@@ -18,10 +18,10 @@ std::unique_ptr<SpaceObjectView> SpaceObjectView::Create(const gfx::Vector& posi
 
 void SpaceObjectView::Observe(SpaceObject& spaceObject)
 {
-	m_connections += spaceObject.RegisterPositionObs([this](const gfx::Vector& v) {
+	m_connections += spaceObject.RegisterPositionObs([this](const glm::vec2& v) {
 		OnSpaceObjectMove(v);
 	}, true);
-	m_connections += spaceObject.RegisterVelocityObs([this](const gfx::Vector& v) {
+	m_connections += spaceObject.RegisterVelocityObs([this](const glm::vec2& v) {
 		OnVelocityChange(v);
 	}, true);
 	m_connections += spaceObject.RegisterDeletionObs([this]() {
@@ -29,7 +29,7 @@ void SpaceObjectView::Observe(SpaceObject& spaceObject)
 	});
 }
 
-void SpaceObjectView::OnSpaceObjectMove(const gfx::Vector& pos)
+void SpaceObjectView::OnSpaceObjectMove(const glm::vec2& pos)
 {
 	auto trans = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, 0.0f));
 	Transform(glm::scale(trans, glm::vec3(m_scale, m_scale, 1.0f)));
@@ -60,7 +60,7 @@ void SpaceObjectView::DispatchEvent(SceneEvent event)
 	}
 }
 
-void SpaceObjectView::OnVelocityChange(const gfx::Vector& v)
+void SpaceObjectView::OnVelocityChange(const glm::vec2& v)
 {
 	m_arrow.SetDirection(v);
 }

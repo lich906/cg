@@ -16,7 +16,7 @@ Window::Window(GLFWwindow* window, UniverseModel& model, Scene& scene)
 		[this](GLFWwindow* window, int button, int action, int mods) -> void {
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
-		gfx::Vector cursorPos = GetCursorPosInWorld(x, y);
+		glm::vec2 cursorPos = GetCursorPosInWorld(x, y);
 
 		if (button == GLFW_MOUSE_BUTTON_LEFT)
 		{
@@ -44,10 +44,10 @@ Window::Window(GLFWwindow* window, UniverseModel& model, Scene& scene)
 	});
 
 	SetCursorPosCallback(
-		[this, prevCursorPos = gfx::Vector()]
+		[this, prevCursorPos = glm::vec2()]
 	(GLFWwindow* window, double xpos, double ypos) mutable -> void {
-			gfx::Vector cursorPos(static_cast<float>(xpos), static_cast<float>(ypos));
-			gfx::Vector delta = cursorPos - prevCursorPos;
+			glm::vec2 cursorPos(static_cast<float>(xpos), static_cast<float>(ypos));
+			glm::vec2 delta = cursorPos - prevCursorPos;
 			if (m_movingCamera)
 				m_camera.OnCameraMove(delta);
 			m_controller->OnMouseMove(cursorPos - Camera::GetOffset(), delta);
@@ -99,9 +99,9 @@ void Window::InitControllers()
 	m_controllers.insert({ ControllerType::NoObjectsLeft, std::make_unique<NoObjectsLeftController>(static_cast<IWindowContext*>(this)) });
 }
 
-gfx::Vector Window::GetCursorPosInWorld(double x, double y)
+glm::vec2 Window::GetCursorPosInWorld(double x, double y)
 {
-	gfx::Vector actualPos(static_cast<float>(x), static_cast<float>(y));
+	glm::vec2 actualPos(static_cast<float>(x), static_cast<float>(y));
 
 	return actualPos - Camera::GetOffset();
 }

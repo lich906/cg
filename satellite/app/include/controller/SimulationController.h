@@ -8,11 +8,11 @@ public:
 	using AbstractController::AbstractController;
 
 private:
-	// Inherited via IController
+	// Inherited via AbstractController
 	virtual void OnIdle() override;
-	virtual void OnMouseDown(const gfx::Vector& pos, int mods) override;
-	virtual void OnMouseUp(const gfx::Vector& pos) override;
-	virtual void OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta) override;
+	virtual void OnMouseDown(const glm::vec2& pos, int mods) override;
+	virtual void OnMouseUp(const glm::vec2& pos) override;
+	virtual void OnMouseMove(const glm::vec2& pos, const glm::vec2& delta) override;
 	virtual void OnKeyPress(int key) override;
 	virtual void OnSet() override;
 };

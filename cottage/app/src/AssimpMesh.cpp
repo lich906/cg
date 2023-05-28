@@ -61,6 +61,7 @@ void AssimpMesh::InitMesh(unsigned int index, const aiMesh* mesh)
 		gfx::Vertex vert{
 			glm::vec3(pos->x, pos->y, pos->z),
 			glm::vec3(normal->x, normal->y, normal->z),
+			glm::vec4(), // Color is unused
 			glm::vec2(texCoords->x, texCoords->y)
 		};
 

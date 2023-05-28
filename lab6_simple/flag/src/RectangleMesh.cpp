@@ -13,10 +13,10 @@ void RectangleMesh::OnDraw(gfx::Program& prog)
 std::vector<gfx::Vertex> RectangleMesh::GetVertices()
 {
 	return {
-		gfx::Vertex{ { -1.0f,  0.6666f, 1.0f }, {}, {} },
-		gfx::Vertex{ { -1.0f, -0.6666f, 1.0f }, {}, {} },
-		gfx::Vertex{ {  1.0f,  0.6666f, 1.0f }, {}, {} },
-		gfx::Vertex{ {  1.0f, -0.6666f, 1.0f }, {}, {} }
+		gfx::Vertex{ { -1.0f,  0.6666f, 1.0f }, {}, {}, {} },
+		gfx::Vertex{ { -1.0f, -0.6666f, 1.0f }, {}, {}, {} },
+		gfx::Vertex{ { 1.0f, 0.6666f, 1.0f }, {}, {}, {} },
+		gfx::Vertex{ { 1.0f, -0.6666f, 1.0f }, {}, {}, {} }
 	};
 }
 

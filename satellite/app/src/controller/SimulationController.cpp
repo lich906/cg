@@ -11,15 +11,15 @@ void SimulationController::OnIdle()
 	}
 }
 
-void SimulationController::OnMouseDown(const gfx::Vector& pos, int mods)
+void SimulationController::OnMouseDown(const glm::vec2& pos, int mods)
 {
 }
 
-void SimulationController::OnMouseUp(const gfx::Vector& pos)
+void SimulationController::OnMouseUp(const glm::vec2& pos)
 {
 }
 
-void SimulationController::OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta)
+void SimulationController::OnMouseMove(const glm::vec2& pos, const glm::vec2& delta)
 {
 }
 
@@ -33,7 +33,7 @@ void SimulationController::OnKeyPress(int key)
 
 void SimulationController::OnSet()
 {
-	GetContext()->GetModel().RegisterCollisionObs([this](const gfx::Vector& v) {
+	GetContext()->GetModel().RegisterCollisionObs([this](const glm::vec2& v) {
 		GetContext()->GetScene().AddNewObject(std::make_unique<Explosion>(v));
 	});
 }

@@ -1,6 +1,6 @@
 #include "BezierCurve.h"
 
-BezierCurve::BezierCurve(const gfx::Vector& p1, const gfx::Vector& p2, const gfx::Vector& p3, const gfx::Vector& p4)
+BezierCurve::BezierCurve(const glm::vec2& p1, const glm::vec2& p2, const glm::vec2& p3, const glm::vec2& p4)
 	: m_p1(p1)
 	, m_p2(p2)
 	, m_p3(p3)
@@ -31,12 +31,15 @@ std::vector<gfx::Vertex> BezierCurve::GetCurveVertices()
 
 	for (float t = 0.0f; t < 1.0f; t += alpha)
 	{
-		gfx::Vertex v = {
-			{ (1.0f - t) * (1.0f - t) * (1.0f - t) * m_p1.x + 3.0f * (1.0f - t) * (1.0f - t) * t * m_p2.x + 3.0f * (1 - t) * t * t * m_p3.x + t * t * t * m_p4.x,
-				(1.0f - t) * (1.0f - t) * (1.0f - t) * m_p1.y + 3.0f * (1.0f - t) * (1.0f - t) * t * m_p2.y + 3.0f * (1 - t) * t * t * m_p3.y + t * t * t * m_p4.y
+// clang-format off
+		gfx::Vertex v{
+			{
+				(1.0f - t) * (1.0f - t) * (1.0f - t) * m_p1.x + 3.0f * (1.0f - t) * (1.0f - t) * t * m_p2.x + 3.0f * (1 - t) * t * t * m_p3.x + t * t * t * m_p4.x,
+				(1.0f - t) * (1.0f - t) * (1.0f - t) * m_p1.y + 3.0f * (1.0f - t) * (1.0f - t) * t * m_p2.y + 3.0f * (1 - t) * t * t * m_p3.y + t * t * t * m_p4.y,
+				0
 			},
-			{ 0.0f, 0.0f }
-		};
+			{}, {}, {}};
+// clang-format on
 		vertices.emplace_back(std::move(v));
 	}
 

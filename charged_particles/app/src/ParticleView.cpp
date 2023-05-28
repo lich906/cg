@@ -6,7 +6,7 @@ void ParticleView::Observe(Particle& particle)
 	m_conns += particle.SubscribeOnRemoval(std::bind(&ParticleView::RemoveSelf, this));
 }
 
-void ParticleView::OnDraw(const gfx::Program& program) const
+void ParticleView::OnDraw(gfx::Program& program) const
 {
 	program.SetUniformMatrix4fv("m_model", m_transform);
 	OnDrawImpl(program);
@@ -18,7 +18,7 @@ ParticleView::ParticleView(const SelfRemovalFn& removeSelfFn)
 {
 }
 
-void ParticleView::OnParticleMove(const gfx::Vector& pos)
+void ParticleView::OnParticleMove(const glm::vec2& pos)
 {
 	glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, 0.0f));
 	transform = glm::scale(transform, glm::vec3(consts::PARTICLE_SCALE, consts::PARTICLE_SCALE, 1.0f));

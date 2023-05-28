@@ -3,9 +3,9 @@
 #include <memory>
 #include <vector>
 #include <array>
+#include <glm/glm.hpp>
 
 #include "graphics/Vertex.h"
-#include "graphics/Vector.h"
 #include "graphics/Texture.h"
 
 #include "view_model/SquareMesh.h"
@@ -17,15 +17,15 @@
 class SpaceObjectView : public SceneObject
 {
 public:
-	static std::unique_ptr<SpaceObjectView> Create(const gfx::Vector& position, float scale, const gfx::Texture& texture);
+	static std::unique_ptr<SpaceObjectView> Create(const glm::vec2& position, float scale, const gfx::Texture& texture);
 
 	void Observe(SpaceObject& spaceObject);
 
 private:
-	SpaceObjectView(const gfx::Vector& pos, float scale, const gfx::Texture& texture);
+	SpaceObjectView(const glm::vec2& pos, float scale, const gfx::Texture& texture);
 
-	void OnSpaceObjectMove(const gfx::Vector& pos);
-	void OnVelocityChange(const gfx::Vector& v);
+	void OnSpaceObjectMove(const glm::vec2& pos);
+	void OnVelocityChange(const glm::vec2& v);
 
 	// Inherited via SceneObject
 	virtual void DoDraw(int width, int height) override;

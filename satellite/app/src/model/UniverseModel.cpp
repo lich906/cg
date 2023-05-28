@@ -77,8 +77,3 @@ void UniverseModel::ProcessCollisions()
 		}
 	}
 }
-
-gfx::Vector UniverseModel::GetDistance(const SpaceObject& obj1, const SpaceObject& obj2)
-{
-	return gfx::Vector();
-}

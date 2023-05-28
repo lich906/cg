@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\view\BaseGlfwWindow.cpp">
@@ -182,5 +182,33 @@
     <ClInclude Include="include\view\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\vertex.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\fragment.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\earth.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\explosion.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\mars.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\moon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\sky.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

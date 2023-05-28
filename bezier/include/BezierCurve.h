@@ -5,7 +5,7 @@
 class BezierCurve
 {
 public:
-	BezierCurve(const gfx::Vector& p1, const gfx::Vector& p2, const gfx::Vector& p3, const gfx::Vector& p4);
+	BezierCurve(const glm::vec2& p1, const glm::vec2& p2, const glm::vec2& p3, const glm::vec2& p4);
 
 	void Draw();
 
@@ -15,5 +15,5 @@ private:
 	std::vector<GLuint> GetIndices(size_t size);
 
 	std::optional<gfx::Mesh> m_mesh;
-	gfx::Vector m_p1, m_p2, m_p3, m_p4;
+	glm::vec2 m_p1, m_p2, m_p3, m_p4;
 };

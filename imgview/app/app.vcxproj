@@ -77,7 +77,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include;$(SolutionDir)gfxlib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include;$(SolutionDir)..\gfxlib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include;$(SolutionDir)gfxlib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vcpkg_installed\x86-windows\include;include;$(SolutionDir)..\gfxlib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,7 +197,7 @@
     <None Include="shaders\vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\gfxlib\gfxlib.vcxproj">
+    <ProjectReference Include="..\..\gfxlib\gfxlib.vcxproj">
       <Project>{4e5b6ac2-012a-4874-a28c-612761c98c95}</Project>
     </ProjectReference>
   </ItemGroup>

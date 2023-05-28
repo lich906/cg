@@ -39,5 +39,5 @@ private:
 
 	std::shared_ptr<Scene> m_scene;
 	std::shared_ptr<IMouseInputController> m_mouseInputController;
-	gfx::Vector m_lastCursorPos;
+	glm::vec2 m_lastCursorPos;
 };

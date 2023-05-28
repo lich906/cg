@@ -18,7 +18,7 @@ std::vector<gfx::Vertex> Cannabis::GenerateVertices()
 
 	for (float x = X_MIN; x <= X_MAX; x += X_STEP)
 	{
-		vertices.push_back(gfx::Vertex{ { x, x, 1.0f }, glm::vec3{}, glm::vec4{} });
+		vertices.push_back(gfx::Vertex{ { x, x, 1.0f }, {}, {}, {} });
 	}
 
 	return vertices;

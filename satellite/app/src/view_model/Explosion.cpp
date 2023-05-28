@@ -1,7 +1,7 @@
 #include "view_model/Explosion.h"
 #include "Config.h"
 
-Explosion::Explosion(const gfx::Vector& pos)
+Explosion::Explosion(const glm::vec2& pos)
 	: m_texture("res/textures/explosion.png")
 	, m_timeElapsed(0.0f)
 	, m_transMat(glm::translate(glm::mat4(1.0f), glm::vec3(pos.x, pos.y, 0.0f)))

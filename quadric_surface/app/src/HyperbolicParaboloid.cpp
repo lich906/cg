@@ -32,7 +32,7 @@ std::vector<gfx::Vertex> HyperbolicParaboloid::GenerateVertices() const
 		{
 			float y = ((x * x) / (COEFF_A * COEFF_A) - (z * z) / (COEFF_B * COEFF_B)) / 2;
 			gfx::Vertex::Position pos(x, y, z);
-			vertices.emplace_back(gfx::Vertex{ pos, GetNormal(pos), consts::SURFACE_COLOR });
+			vertices.emplace_back(gfx::Vertex{ pos, GetNormal(pos), consts::SURFACE_COLOR, {} });
 		}
 	}
 

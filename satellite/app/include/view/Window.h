@@ -27,7 +27,7 @@ private:
 
 	void InitControllers();
 
-	static gfx::Vector GetCursorPosInWorld(double x, double y);
+	static glm::vec2 GetCursorPosInWorld(double x, double y);
 
 	AbstractController* m_controller;
 	std::unordered_map<ControllerType, std::unique_ptr<AbstractController>> m_controllers;

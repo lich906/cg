@@ -12,9 +12,9 @@ gfx::Mesh TriangleMeshLoader::LoadFromFile(std::istream& input)
 		normal = glm::normalize(normal);
 		glm::vec4 color = ReadColor(input);
 
-		vertices.push_back({ triangleVerts[0], normal, color });
-		vertices.push_back({ triangleVerts[1], normal, color });
-		vertices.push_back({ triangleVerts[2], normal, color });
+		vertices.push_back({ triangleVerts[0], normal, color, {} });
+		vertices.push_back({ triangleVerts[1], normal, color, {} });
+		vertices.push_back({ triangleVerts[2], normal, color, {} });
 		indices.push_back((GLuint)indices.size());
 		indices.push_back((GLuint)indices.size());
 		indices.push_back((GLuint)indices.size());

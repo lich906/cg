@@ -1,11 +1,11 @@
 #include "view/Camera.h"
 
-void Camera::OnCameraMove(const gfx::Vector& delta)
+void Camera::OnCameraMove(const glm::vec2& delta)
 {
 	m_offset += delta;
 }
 
-gfx::Vector Camera::GetOffset()
+glm::vec2 Camera::GetOffset()
 {
 	return m_offset;
 }

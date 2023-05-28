@@ -10,12 +10,12 @@ void ParticlesModel::RemoveAllParticles()
 	m_particles.clear();
 }
 
-bool ParticlesModel::RemoveParticleAtPosIfExists(const gfx::Vector& pos)
+bool ParticlesModel::RemoveParticleAtPosIfExists(const glm::vec2& pos)
 {
 	auto it = std::find_if(m_particles.begin(), m_particles.end(),
 		[&](const std::unique_ptr<Particle>& particle) {
 			auto particlePos = particle->GetPosition();
-			return (pos - particlePos).Mod() <= consts::PARTICLE_SCALE / 2;
+			return glm::length(pos - particlePos) <= consts::PARTICLE_SCALE / 2;
 		});
 
 	if (it != m_particles.end())
@@ -42,9 +42,9 @@ void ParticlesModel::OnUpdate(core::Timestep timestep)
 	}
 }
 
-std::vector<gfx::Vector> ParticlesModel::GetParticlesAcceleration() const
+std::vector<glm::vec2> ParticlesModel::GetParticlesAcceleration() const
 {
-	std::vector<gfx::Vector> particlesAcc(m_particles.size());
+	std::vector<glm::vec2> particlesAcc(m_particles.size());
 	
 	for (size_t targetIdx = 0; targetIdx < m_particles.size(); ++targetIdx)
 	{
@@ -52,7 +52,7 @@ std::vector<gfx::Vector> ParticlesModel::GetParticlesAcceleration() const
 
 		for (size_t otherIdx = targetIdx + 1; otherIdx < m_particles.size(); ++otherIdx)
 		{
-			gfx::Vector targetAcc, otherAcc;
+			glm::vec2 targetAcc, otherAcc;
 			std::tie(targetAcc, otherAcc) = GetDipoleAccelerationImpact(*targetParticle, *m_particles[otherIdx]);
 			particlesAcc[targetIdx] += targetAcc;
 			particlesAcc[otherIdx] += otherAcc;
@@ -62,11 +62,11 @@ std::vector<gfx::Vector> ParticlesModel::GetParticlesAcceleration() const
 	return particlesAcc;
 }
 
-std::pair<gfx::Vector, gfx::Vector> ParticlesModel::GetDipoleAccelerationImpact(const Particle& first, const Particle& second) const
+std::pair<glm::vec2, glm::vec2> ParticlesModel::GetDipoleAccelerationImpact(const Particle& first, const Particle& second) const
 {
-	gfx::Vector v = second.GetPosition() - first.GetPosition();
-	float d = v.Mod();
-	gfx::Vector r = v / d;
+	glm::vec2 v = second.GetPosition() - first.GetPosition();
+	float d = glm::length(v);
+	glm::vec2 r = v / d;
 	float forceMagnitude = consts::COLOUMB_LAW_CONSTANT / (d * d);
 
 	if (first.GetType() == second.GetType())

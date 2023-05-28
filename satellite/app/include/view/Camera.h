@@ -1,18 +1,19 @@
 #pragma once
 
-#include "graphics/Vector.h"
+#include <glm/glm.hpp>
+
 #include "graphics/CurrentProgram.h"
 
 class Camera
 {
 public:
 
-	static void OnCameraMove(const gfx::Vector& delta);
-	static gfx::Vector GetOffset();
+	static void OnCameraMove(const glm::vec2& delta);
+	static glm::vec2 GetOffset();
 	static void UpdateViewMatrix();
 	static void Reset();
 
 private:
 
-	static inline gfx::Vector m_offset;
+	static inline glm::vec2 m_offset;
 };

@@ -127,7 +127,7 @@ void Window::SetupInputCallbacks()
 		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
-		gfx::Vector cursorPos{ static_cast<float>(x), static_cast<float>(y) };
+		glm::vec2 cursorPos{ static_cast<float>(x), static_cast<float>(y) };
 
 		if ((button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_RIGHT))
 		{
@@ -144,7 +144,7 @@ void Window::SetupInputCallbacks()
 
 	glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xpos, double ypos) -> void {
 		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
-		gfx::Vector cursorPos{ static_cast<float>(xpos), static_cast<float>(ypos) };
+		glm::vec2 cursorPos{ static_cast<float>(xpos), static_cast<float>(ypos) };
 
 		thisWindow->m_mouseInputController->OnMouseMove(cursorPos, cursorPos - thisWindow->m_lastCursorPos);
 		thisWindow->m_lastCursorPos = cursorPos;
@@ -154,7 +154,7 @@ void Window::SetupInputCallbacks()
 		auto thisWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
-		gfx::Vector cursorPos{ static_cast<float>(x), static_cast<float>(y) };
+		glm::vec2 cursorPos{ static_cast<float>(x), static_cast<float>(y) };
 
 		if (yoffset > 0)
 		{

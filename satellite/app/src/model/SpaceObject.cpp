@@ -5,13 +5,13 @@ SpaceObject::~SpaceObject()
 	m_deletionSignal();
 }
 
-std::unique_ptr<SpaceObject> SpaceObject::Create(const std::string& name, float mass, float size, const gfx::Vector& initialPos, const gfx::Vector& initialVel)
+std::unique_ptr<SpaceObject> SpaceObject::Create(const std::string& name, float mass, float size, const glm::vec2& initialPos, const glm::vec2& initialVel)
 {
 	auto instance = new SpaceObject(name, mass, size, initialPos, initialVel);
 	return std::unique_ptr<SpaceObject>(instance);
 }
 
-SpaceObject::SpaceObject(const std::string& name, float mass, float size, const gfx::Vector& initialPos, const gfx::Vector& initialVel)
+SpaceObject::SpaceObject(const std::string& name, float mass, float size, const glm::vec2& initialPos, const glm::vec2& initialVel)
 	: m_name(name)
 	, m_mass(mass)
 	, m_size(size)
@@ -20,7 +20,7 @@ SpaceObject::SpaceObject(const std::string& name, float mass, float size, const 
 {
 }
 
-void SpaceObject::NextVelocity(const gfx::Vector& acceleration, float dt)
+void SpaceObject::NextVelocity(const glm::vec2& acceleration, float dt)
 {
 	m_velocity += acceleration * dt;
 	m_velocitySignal(m_velocity);
@@ -32,7 +32,7 @@ void SpaceObject::NextPosition(float dt)
 	m_positionSignal(m_position);
 }
 
-gfx::Vector SpaceObject::GetCurrentPosition() const
+glm::vec2 SpaceObject::GetCurrentPosition() const
 {
 	return m_position;
 }
@@ -47,22 +47,24 @@ float SpaceObject::GetMass() const
 	return m_mass;
 }
 
-gfx::Vector SpaceObject::GetCurrentVelocity() const
+glm::vec2 SpaceObject::GetCurrentVelocity() const
 {
 	return m_velocity;
 }
 
-void SpaceObject::SetCurrentVelocity(const gfx::Vector& v)
+void SpaceObject::SetCurrentVelocity(const glm::vec2& v)
 {
 	m_velocity = v;
 	m_velocitySignal(m_velocity);
 }
 
-bool SpaceObject::ExistsAtPos(const gfx::Vector& pos) const
+bool SpaceObject::ExistsAtPos(const glm::vec2& pos) const
 {
+	glm::vec2 topLeft = m_position - glm::vec2(m_size, m_size);
+	glm::vec2 rightBtm = m_position + glm::vec2(m_size, m_size);
 	return
-		m_position - gfx::Vector(m_size, m_size) <= pos &&
-		pos <= m_position + gfx::Vector(m_size, m_size);
+		glm::all(glm::lessThanEqual(topLeft, pos)) &&
+		glm::all(glm::lessThanEqual(pos, rightBtm));
 }
 
 Connection SpaceObject::RegisterPositionObs(const VectorSignal::slot_type& slot, bool instantNotify)
@@ -90,7 +92,7 @@ Connection SpaceObject::RegisterDeletionObs(const VoidSignal::slot_type& slot)
 	return m_deletionSignal.connect(slot);
 }
 
-void SpaceObject::SetCurrentPosition(const gfx::Vector& p)
+void SpaceObject::SetCurrentPosition(const glm::vec2& p)
 {
 	m_position = p;
 	m_positionSignal(m_position);

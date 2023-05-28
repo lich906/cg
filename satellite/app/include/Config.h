@@ -1,14 +1,14 @@
 #pragma once
 
-#include "graphics/Vector.h"
+#include <glm/glm.hpp>
 
 namespace config
 {
 
 constexpr float GravitationCoeff = 1.0f;
-const gfx::Vector MoonInitialPosition = { 100.0f, 200.0f };
-const gfx::Vector EarthInitialPosition = { 400.0f, 500.0f };
-const gfx::Vector MarsInitialPosition = { 500.0f, 200.0f };
+constexpr glm::vec2 MoonInitialPosition = { 100.0f, 200.0f };
+constexpr glm::vec2 EarthInitialPosition = { 400.0f, 500.0f };
+constexpr glm::vec2 MarsInitialPosition = { 500.0f, 200.0f };
 constexpr float MoonScale = 20.0f;
 constexpr float EarthScale = 50.0f;
 constexpr float MarsScale = 30.0f;

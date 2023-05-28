@@ -22,15 +22,15 @@ void NoObjectsLeftController::OnIdle()
 	}
 }
 
-void NoObjectsLeftController::OnMouseDown(const gfx::Vector& pos, int mods)
+void NoObjectsLeftController::OnMouseDown(const glm::vec2& pos, int mods)
 {
 }
 
-void NoObjectsLeftController::OnMouseUp(const gfx::Vector& pos)
+void NoObjectsLeftController::OnMouseUp(const glm::vec2& pos)
 {
 }
 
-void NoObjectsLeftController::OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta)
+void NoObjectsLeftController::OnMouseMove(const glm::vec2& pos, const glm::vec2& delta)
 {
 }
 

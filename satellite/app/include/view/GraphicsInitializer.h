@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Config.h"
-
+#include "common.h"
 #include <GLFW/glfw3.h>
+#include <stdexcept>
+
+#include "Config.h"
 
 class GraphicsInitializer
 {

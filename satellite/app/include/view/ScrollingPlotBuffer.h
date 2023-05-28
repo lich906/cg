@@ -1,8 +1,7 @@
 #pragma once
 
 #include <vector>
-
-#include "graphics/Vector.h"
+#include <glm/glm.hpp>
 
 class ScrollingPlotBuffer
 {
@@ -19,5 +18,5 @@ public:
 private:
 	size_t m_maxSize;
 	int m_offset;
-	std::vector<gfx::Vector> m_data;
+	std::vector<glm::vec2> m_data;
 };

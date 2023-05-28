@@ -7,11 +7,9 @@
 #include <functional>
 #include <stdexcept>
 
+#include "graphics/CurrentProgram.h"
 #include "Config.h"
 #include "controller/GlfwCallbacks.h"
-#include "graphics/CurrentProgram.h"
-
-#include <GLFW/glfw3.h>
 
 class BaseGlfwWindow
 {

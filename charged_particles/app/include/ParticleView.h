@@ -13,13 +13,13 @@ public:
 	virtual ~ParticleView() = default;
 
 	void Observe(Particle& particle);
-	void OnDraw(const gfx::Program& program) const;
+	void OnDraw(gfx::Program& program) const;
 
 protected:
 	ParticleView(const SelfRemovalFn& removeSelfFn);
 
 private:
-	void OnParticleMove(const gfx::Vector& pos);
+	void OnParticleMove(const glm::vec2& pos);
 	void RemoveSelf();
 
 	virtual void OnDrawImpl(const gfx::Program& program) const = 0;

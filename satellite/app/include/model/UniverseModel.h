@@ -26,7 +26,6 @@ public:
 private:
 
 	void ProcessCollisions();
-	gfx::Vector GetDistance(const SpaceObject& obj1, const SpaceObject& obj2);
 
 	std::vector<std::unique_ptr<SpaceObject>> m_objects;
 	VectorSignal m_collisionSignal;

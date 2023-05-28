@@ -13,17 +13,17 @@ public:
 private:
 
 // Inherited via IMouseInputController
-	virtual void OnMouseDown(const gfx::Vector& cursorPos) override;
-	virtual void OnMouseUp(const gfx::Vector& cursorPos) override;
-	virtual void OnMouseMove(const gfx::Vector& cursorPos, const gfx::Vector& delta) override;
-	virtual void OnScrollUp(const gfx::Vector& cursorPos) override;
-	virtual void OnScrollDown(const gfx::Vector& cursorPos) override;
+	virtual void OnMouseDown(const glm::vec2& cursorPos) override;
+	virtual void OnMouseUp(const glm::vec2& cursorPos) override;
+	virtual void OnMouseMove(const glm::vec2& cursorPos, const glm::vec2& delta) override;
+	virtual void OnScrollUp(const glm::vec2& cursorPos) override;
+	virtual void OnScrollDown(const glm::vec2& cursorPos) override;
 
-	void RefreshSelection(const gfx::Vector& pos);
+	void RefreshSelection(const glm::vec2& pos);
 	bool IsSelected();
 
 	std::shared_ptr<Document> m_document;
 	bool m_dragging;
-	gfx::Vector m_lastCursorPos;
+	glm::vec2 m_lastCursorPos;
 	ImageObject* m_selectedImageObject;
 };

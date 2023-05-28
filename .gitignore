@@ -413,3 +413,5 @@ _deps
 
 vcpkg_installed/
 imgui.ini
+!cottage/app/assets/model/cottage/House_01/House_01.obj
+!cottage/app/assets/model/grass/grass.obj

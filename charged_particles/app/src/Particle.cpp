@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(ParticleType type, const gfx::Vector& position)
+Particle::Particle(ParticleType type, const glm::vec2& position)
 	: m_type(type)
 	, m_position(position)
 {
@@ -24,14 +24,14 @@ boost::signals2::connection Particle::SubscribeOnRemoval(const VoidSignal::slot_
 
 void Particle::OnUpdate(core::Timestep timestep)
 {
-	if (m_velocity)
+	if (m_velocity.x != 0.0f || m_velocity.y != 0.0f)
 	{
-		m_position += m_velocity * timestep * consts::TIME_SPEED;
+		m_position += m_velocity * (float)timestep * consts::TIME_SPEED;
 		m_moveSignal(m_position);
 	}
 }
 
-void Particle::UpdateVelocity(const gfx::Vector& acc, core::Timestep timestep)
+void Particle::UpdateVelocity(const glm::vec2& acc, core::Timestep timestep)
 {
-	m_velocity += acc * timestep * consts::TIME_SPEED;
+	m_velocity += acc * (float)timestep * consts::TIME_SPEED;
 }

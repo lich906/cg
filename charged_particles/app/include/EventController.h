@@ -27,5 +27,5 @@ private:
 	ParticlesModel& m_model;
 	IParticlesLayer* m_layer;
 
-	gfx::Vector m_lastCursorPos;
+	glm::vec2 m_lastCursorPos;
 };

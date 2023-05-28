@@ -8,7 +8,7 @@ void SetupController::OnIdle()
 {
 }
 
-void SetupController::OnMouseDown(const gfx::Vector& pos, int mods)
+void SetupController::OnMouseDown(const glm::vec2& pos, int mods)
 {
 	if (!m_dragging && !m_setupInitialSpeed)
 	{
@@ -27,7 +27,7 @@ void SetupController::OnMouseDown(const gfx::Vector& pos, int mods)
 	}
 }
 
-void SetupController::OnMouseUp(const gfx::Vector& pos)
+void SetupController::OnMouseUp(const glm::vec2& pos)
 {
 	if (m_dragging || m_setupInitialSpeed)
 	{
@@ -42,11 +42,11 @@ void SetupController::OnMouseUp(const gfx::Vector& pos)
 	}
 }
 
-void SetupController::OnMouseMove(const gfx::Vector& pos, const gfx::Vector& delta)
+void SetupController::OnMouseMove(const glm::vec2& pos, const glm::vec2& delta)
 {
 	if (m_dragging || m_setupInitialSpeed)
 	{
-		gfx::Vector cursorPos(static_cast<float>(pos.x), static_cast<float>(pos.y));
+		glm::vec2 cursorPos(static_cast<float>(pos.x), static_cast<float>(pos.y));
 
 		if (m_dragging)
 		{
@@ -94,7 +94,7 @@ void SetupController::InitSpaceObjects()
 	GetContext()->GetScene().AddNewObject(std::move(mars.view));
 }
 
-SpaceObject* SetupController::FindObjectAtPos(const gfx::Vector& pos)
+SpaceObject* SetupController::FindObjectAtPos(const glm::vec2& pos)
 {
 	return GetContext()->GetModel().FindIf([&](const std::unique_ptr<SpaceObject>& obj) -> bool {
 		return obj->ExistsAtPos(pos);

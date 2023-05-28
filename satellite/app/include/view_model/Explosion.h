@@ -6,7 +6,7 @@
 class Explosion : public SceneObject
 {
 public:
-	Explosion(const gfx::Vector& position);
+	Explosion(const glm::vec2& position);
 
 private:
 	// Inherited via SceneObject

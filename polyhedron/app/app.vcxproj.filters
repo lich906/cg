@@ -72,4 +72,7 @@
     <None Include="assets\shaders\lightning.fragment.glsl" />
     <None Include="assets\shaders\lightning.vertex.glsl" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="mesh_data_colored.txt" />
+  </ItemGroup>
 </Project>
