@@ -105,11 +105,12 @@ void SceneLayer::InitScene()
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_real_distribution<float> dist(-0.07f, 0.07f);
-	const size_t pointLightsCount = 10;
+	std::uniform_real_distribution<float> dist(-0.05f, 0.05f);
+	const size_t pointLightsCount = 20;
+	float totalIntensity = 0.5f;
 	for (size_t i = 0; i < pointLightsCount; i++)
 	{
-		light.Intensity = 0.1f + dist(gen);
+		light.Intensity = (totalIntensity / pointLightsCount) + dist(gen);
 		light.Position = glm::vec3(4.0f + dist(gen), 4.0f + dist(gen), 4.0f + dist(gen));
 		m_scene.AddPointLight(light);
 	}

@@ -14,19 +14,21 @@ int Scene::AddObject(std::unique_ptr<ISceneObject>&& object)
 	return (int)index;
 }
 
-void Scene::IterateObjects(const std::function<void(const ISceneObject*, int)>& callbackFn) const
+void Scene::IterateObjects(const std::function<bool(const ISceneObject*, int)>& callbackFn) const
 {
 	for (size_t index = 0; index < m_objects.size(); index++)
 	{
-		callbackFn(m_objects[index].get(), static_cast<int>(index));
+		if (!callbackFn(m_objects[index].get(), static_cast<int>(index)))
+			break;
 	}
 }
 
-void Scene::IteratePointLights(const std::function<void(const PointLight&)>& callbackFn) const
+void Scene::IteratePointLights(const std::function<bool(const PointLight&)>& callbackFn) const
 {
 	for (auto&& pointLight : m_pointLights)
 	{
-		callbackFn(pointLight);
+		if (!callbackFn(pointLight))
+			break;
 	}
 }
 

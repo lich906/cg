@@ -3,6 +3,10 @@
 #include "Renderer.h"
 #include "Color.h"
 
+constexpr glm::vec4 SKY_COLOR = glm::vec4(0.1f, 0.3f, 0.5f, 1.0f);
+constexpr float AMBIENT_LIGHT_VALUE = 0.3f;
+constexpr float DIRECT_LIGHT_VALUE = 0.1f;
+
 static Color ConvertToColor(const glm::vec4& color)
 {
 	uint8_t r = (uint8_t)(color.r * 255.0f);
@@ -69,22 +73,16 @@ glm::vec4 Renderer::GetPixelColor(uint32_t x, uint32_t y) const
 
 	if (payload.HitTime < 0.0f)
 	{
-		glm::vec3 skyColor = glm::vec3(0.1f, 0.3f, 0.5f);
-		return glm::vec4(skyColor, 1.0f);
+		return SKY_COLOR;
 	}
-
-	/* Directional light
-	glm::vec3 lightDir = glm::normalize(glm::vec3(-1, -1, -1));
-	float lightIntensity = glm::max(glm::dot(payload.WorldNormal, -lightDir), 0.0f); // == cos(angle)
-	*/
 
 	const ISceneObject& object = m_activeScene->GetObject(payload.ObjectIndex);
 	const Material& material = object.GetMaterial();
 
 	glm::vec4 objectColor = glm::vec4(material.Color, 1.0f);
-	glm::vec4 ambientColor = objectColor * 0.2f;
+	glm::vec4 ambientColor = objectColor * AMBIENT_LIGHT_VALUE;
 
-	return objectColor * CalcPointLight(payload) + ambientColor;
+	return objectColor * (CalcPointLight(payload) + CalcAmbientLight(payload) + CalcDirectLight(payload));
 }
 
 glm::vec4 Renderer::CalcPointLight(const HitPayload& payload) const
@@ -100,21 +98,10 @@ glm::vec4 Renderer::CalcPointLight(const HitPayload& payload) const
 			/* Taking into account surface normal */
 			float attenuation = glm::max(glm::dot(payload.WorldNormal, ray.Direction), 0.0f);
 
-			HitPayload pl;
-			pl.HitTime = std::numeric_limits<float>::max();
 			/*
-				Pixel is lit by default
-				Find if pixel is overshadowed by some object
+				Pixel is lit if ray isn't collided with any object of the scene
 			*/
-			float isLit = true;
-			m_activeScene->IterateObjects(
-				[&](const ISceneObject* object, int index) {
-					if (isLit && object->Hit(ray, pl) && index != payload.ObjectIndex)
-					{
-						// Pixel is overshadowed
-						isLit = false;
-					}
-				});
+			float isLit = !IsRayCollided(ray, payload.ObjectIndex);
 
 			if (isLit)
 			{
@@ -127,9 +114,40 @@ glm::vec4 Renderer::CalcPointLight(const HitPayload& payload) const
 			}
 
 			accumulatedColor += glm::vec4(light.LightColor * attenuation, 1.0f);
+
+			return true; // Continue iterating
 		});
 
 	return glm::clamp(accumulatedColor, glm::vec4(0.0f), glm::vec4(1.0f));
+}
+
+glm::vec4 Renderer::CalcDirectLight(const HitPayload& payload) const
+{
+	glm::vec3 lightDir = glm::normalize(glm::vec3(1, 1, 1));
+	glm::vec4 directLightColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	Ray ray;
+	ray.Origin = payload.WorldPosition;
+	ray.Direction = lightDir;
+
+	/*
+		Pixel is lit if ray isn't collided with any object of the scene
+	*/
+	float isLit = !IsRayCollided(ray, payload.ObjectIndex);
+
+	float attenuation;
+	if (isLit)
+		attenuation = glm::max(glm::dot(payload.WorldNormal, lightDir), 0.0f);
+	else
+		attenuation = 0.0f;
+
+	return directLightColor * attenuation * DIRECT_LIGHT_VALUE;
+}
+
+glm::vec4 Renderer::CalcAmbientLight(const HitPayload&) const
+{
+	glm::vec4 ambientLightColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+	return ambientLightColor * AMBIENT_LIGHT_VALUE;
 }
 
 HitPayload Renderer::TraceRay(const Ray& ray) const
@@ -146,6 +164,7 @@ HitPayload Renderer::TraceRay(const Ray& ray) const
 				// New closest hit found
 				payload.ObjectIndex = index;
 			}
+			return true;
 		});
 
 	if (payload.ObjectIndex < 0)
@@ -170,4 +189,27 @@ HitPayload Renderer::Miss(const Ray&) const
 	HitPayload payload;
 	payload.HitTime = -1.0f;
 	return payload;
+}
+
+bool Renderer::IsRayCollided(const Ray& ray, std::optional<int> ignoreIndex) const
+{
+	HitPayload pl;
+	pl.HitTime = std::numeric_limits<float>::max();
+	/*
+		Pixel is lit by default
+		Find if pixel is overshadowed by some object
+	*/
+	float collided = false;
+	m_activeScene->IterateObjects(
+		[&](const ISceneObject* object, int index) {
+			if ((!ignoreIndex || index != *ignoreIndex) && object->Hit(ray, pl))
+			{
+				// Ray is collided with object
+				collided = true;
+				return false; // Stop iterating
+			}
+			return true;
+		});
+
+	return collided;
 }
