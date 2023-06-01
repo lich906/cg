@@ -26,7 +26,7 @@ private:
 	/*
 		Find if ray is collided with any object of the scene
 	*/
-	bool IsRayCollided(const Ray& ray, std::optional<int> ignoreIndex = {}) const;
+	std::optional<float> GetLowestHitTime(const Ray& ray) const;
 
 	const Scene* m_activeScene;
 	const Camera* m_activeCamera;

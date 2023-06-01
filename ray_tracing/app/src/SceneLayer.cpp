@@ -75,7 +75,7 @@ void SceneLayer::InitScene()
 
 	auto sphere2 = std::make_unique<Sphere>();
 	sphere2->SetMaterial(Material(glm::vec3{ 0.1f, 0.7f, 0.2f }));
-	transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 2.0f, 1.5f));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 2.0f, 5.0f));
 	transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
 	sphere2->SetTransform(transform);
 
@@ -85,7 +85,7 @@ void SceneLayer::InitScene()
 	transform = glm::scale(transform, glm::vec3(0.5f, 1.5f, 0.5f));
 	sphere3->SetTransform(transform);
 
-	auto torus = std::make_unique<Torus>(1.0f, 0.3f);
+	auto torus = std::make_unique<Torus>(1.0f, 0.5f);
 	torus->SetMaterial(Material(glm::vec3{ 1.0f, 0.3f, 0.3f }));
 	transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 3.0f));
 	transform = glm::rotate(transform, glm::radians(-45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -103,15 +103,17 @@ void SceneLayer::InitScene()
 	PointLight light;
 	light.LightColor = glm::vec3(1.0f);
 
+#if 1
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_real_distribution<float> dist(-0.05f, 0.05f);
 	const size_t pointLightsCount = 20;
-	float totalIntensity = 0.5f;
+	float totalIntensity = 1.0f;
 	for (size_t i = 0; i < pointLightsCount; i++)
 	{
 		light.Intensity = (totalIntensity / pointLightsCount) + dist(gen);
 		light.Position = glm::vec3(4.0f + dist(gen), 4.0f + dist(gen), 4.0f + dist(gen));
 		m_scene.AddPointLight(light);
 	}
+#endif // 0
 }

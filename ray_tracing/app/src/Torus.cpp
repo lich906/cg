@@ -11,6 +11,7 @@ Torus::Torus(float R, float r)
 bool Torus::Hit(const Ray& actualRay, HitPayload& payload) const
 {
 	Ray ray = actualRay;
+	ray.Origin += ray.Direction * 5.0f * TIME_EPSILON;
 	ray.Transform(GetInverseTransform());
 
 	float squareDir = glm::dot(ray.Direction, ray.Direction);

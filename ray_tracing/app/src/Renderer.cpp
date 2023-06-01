@@ -4,8 +4,8 @@
 #include "Color.h"
 
 constexpr glm::vec4 SKY_COLOR = glm::vec4(0.1f, 0.3f, 0.5f, 1.0f);
-constexpr float AMBIENT_LIGHT_VALUE = 0.3f;
-constexpr float DIRECT_LIGHT_VALUE = 0.1f;
+constexpr float AMBIENT_LIGHT_VALUE = 0.1f;
+constexpr float DIRECT_LIGHT_VALUE = 0.3f;
 
 static Color ConvertToColor(const glm::vec4& color)
 {
@@ -101,11 +101,12 @@ glm::vec4 Renderer::CalcPointLight(const HitPayload& payload) const
 			/*
 				Pixel is lit if ray isn't collided with any object of the scene
 			*/
-			float isLit = !IsRayCollided(ray, payload.ObjectIndex);
+			auto oLowestHitTime = GetLowestHitTime(ray);
+			float distance = glm::length(light.Position - ray.Origin);
+			bool isLit = !oLowestHitTime.has_value() || (distance < *oLowestHitTime);
 
 			if (isLit)
 			{
-				float distance = glm::length(light.Position - ray.Origin);
 				attenuation *= float(light.Intensity / (0.005 * distance * distance + 1.0));
 			}
 			else
@@ -133,7 +134,7 @@ glm::vec4 Renderer::CalcDirectLight(const HitPayload& payload) const
 	/*
 		Pixel is lit if ray isn't collided with any object of the scene
 	*/
-	float isLit = !IsRayCollided(ray, payload.ObjectIndex);
+	float isLit = !GetLowestHitTime(ray);
 
 	float attenuation;
 	if (isLit)
@@ -191,25 +192,20 @@ HitPayload Renderer::Miss(const Ray&) const
 	return payload;
 }
 
-bool Renderer::IsRayCollided(const Ray& ray, std::optional<int> ignoreIndex) const
+std::optional<float> Renderer::GetLowestHitTime(const Ray& ray) const
 {
 	HitPayload pl;
 	pl.HitTime = std::numeric_limits<float>::max();
-	/*
-		Pixel is lit by default
-		Find if pixel is overshadowed by some object
-	*/
-	float collided = false;
+
+	std::optional<float> lowestTime;
 	m_activeScene->IterateObjects(
 		[&](const ISceneObject* object, int index) {
-			if ((!ignoreIndex || index != *ignoreIndex) && object->Hit(ray, pl))
+			if (object->Hit(ray, pl))
 			{
-				// Ray is collided with object
-				collided = true;
-				return false; // Stop iterating
+				lowestTime = pl.HitTime;
 			}
 			return true;
 		});
 
-	return collided;
+	return lowestTime;
 }

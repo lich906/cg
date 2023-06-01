@@ -3,6 +3,7 @@
 bool Sphere::Hit(const Ray& actualRay, HitPayload& payload) const
 {
 	Ray ray = actualRay;
+	ray.Origin += ray.Direction * TIME_EPSILON;
 	ray.Transform(GetInverseTransform());
 
 	const float r = 1.0f;
