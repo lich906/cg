@@ -6,8 +6,7 @@
 class Camera
 {
 public:
-	Camera();
-	Camera(float verticalFOV, float nearClip, float farClip);
+	Camera(const glm::vec3& position, const glm::vec3& fwdDirection);
 
 	bool OnUpdate(float ts);
 	void OnResize(uint32_t width, uint32_t height);
@@ -27,7 +26,6 @@ private:
 	void RecalculateProjection();
 	void RecalculateView();
 	void RecalculateRayDirections();
-	void Initialize();
 
 private:
 	glm::mat4 m_Projection{ 1.0f };
@@ -39,8 +37,8 @@ private:
 	float m_NearClip = 0.1f;
 	float m_FarClip = 100.0f;
 
-	glm::vec3 m_Position{0.0f, 0.0f, 0.0f};
-	glm::vec3 m_ForwardDirection{0.0f, 0.0f, 0.0f};
+	glm::vec3 m_Position{ 0.0f, 0.0f, 6.0f };
+	glm::vec3 m_ForwardDirection{ 0.0f, 0.0f, -1.0f };
 
 	// Cached ray directions
 	std::vector<glm::vec3> m_RayDirections;

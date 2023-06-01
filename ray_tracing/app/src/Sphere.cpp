@@ -16,7 +16,11 @@ bool Sphere::Hit(const Ray& actualRay, HitPayload& payload) const
 	if (discriminant < 0.0f)
 		return false; // No intersections
 
-	float time = (-b - glm::sqrt(discriminant)) / (2.0f * a);
+	float sqrtD = glm::sqrt(discriminant);
+	float t0 = (-b - sqrtD) / (2.0f * a);
+	float t1 = (-b + sqrtD) / (2.0f * a);
+	float time = t0 < t1 ? (t0 > 0.0f ? t0 : t1) : (t1 > 0.0f ? t1 : t0);
+
 	if (time > TIME_EPSILON && time < payload.HitTime)
 	{
 		payload.HitTime = time;

@@ -6,15 +6,10 @@
 
 #include "core/Input.h"
 
-Camera::Camera()
+Camera::Camera(const glm::vec3& position, const glm::vec3& fwdDirection)
+	: m_Position(position)
+	, m_ForwardDirection(fwdDirection)
 {
-	Initialize();
-}
-
-Camera::Camera(float verticalFOV, float nearClip, float farClip)
-	: m_VerticalFOV(verticalFOV), m_NearClip(nearClip), m_FarClip(farClip)
-{
-	Initialize();
 }
 
 bool Camera::OnUpdate(float ts)
@@ -138,10 +133,4 @@ void Camera::RecalculateRayDirections()
 			m_RayDirections[x + y * m_ViewportWidth] = rayDirection;
 		}
 	}
-}
-
-void Camera::Initialize()
-{
-	m_ForwardDirection = glm::vec3(0, 0, -1);
-	m_Position = glm::vec3(0, 0, 6);
 }

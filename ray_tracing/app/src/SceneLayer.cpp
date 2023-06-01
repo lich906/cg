@@ -9,6 +9,7 @@
 
 SceneLayer::SceneLayer()
 	: m_shader("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl")
+	, m_camera({ 0.0f, 3.0f, 6.0f }, {0.0f, 0.0f, -1.0f})
 {
 }
 
@@ -75,7 +76,7 @@ void SceneLayer::InitScene()
 
 	auto sphere2 = std::make_unique<Sphere>();
 	sphere2->SetMaterial(Material(glm::vec3{ 0.1f, 0.7f, 0.2f }));
-	transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 2.0f, 5.0f));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(6.0f, 2.0f, 2.0f));
 	transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
 	sphere2->SetTransform(transform);
 
@@ -85,10 +86,16 @@ void SceneLayer::InitScene()
 	transform = glm::scale(transform, glm::vec3(0.5f, 1.5f, 0.5f));
 	sphere3->SetTransform(transform);
 
-	auto torus = std::make_unique<Torus>(1.0f, 0.5f);
+	auto sphere4 = std::make_unique<Sphere>();
+	sphere4->SetMaterial(Material(glm::vec3{ 0.7f, 0.2f, 0.6f }));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(10.0f, 5.0f, 5.0f));
+	transform = glm::scale(transform, glm::vec3(2.0f, 2.0f, 2.0f));
+	sphere4->SetTransform(transform);
+
+	auto torus = std::make_unique<Torus>(1.0f, 0.3f);
 	torus->SetMaterial(Material(glm::vec3{ 1.0f, 0.3f, 0.3f }));
-	transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 3.0f));
-	transform = glm::rotate(transform, glm::radians(-45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.5f, 3.0f));
+	transform = glm::rotate(transform, glm::radians(70.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	torus->SetTransform(transform);
 
 	auto plane = std::make_unique<Plane>(glm::vec3(0.0f, 1.0f, 0.0f));
@@ -97,23 +104,22 @@ void SceneLayer::InitScene()
 	m_scene.AddObject(std::move(sphere));
 	m_scene.AddObject(std::move(sphere2));
 	m_scene.AddObject(std::move(sphere3));
+	m_scene.AddObject(std::move(sphere4));
 	m_scene.AddObject(std::move(torus));
 	m_scene.AddObject(std::move(plane));
 
 	PointLight light;
-	light.LightColor = glm::vec3(1.0f);
+	light.LightColor = glm::vec3(1.0f, 0.7f, 0.4f);
 
-#if 1
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_real_distribution<float> dist(-0.05f, 0.05f);
-	const size_t pointLightsCount = 20;
+	std::uniform_real_distribution<float> dist(-0.2f, 0.2f);
+	const size_t pointLightsCount = 15;
 	float totalIntensity = 1.0f;
 	for (size_t i = 0; i < pointLightsCount; i++)
 	{
-		light.Intensity = (totalIntensity / pointLightsCount) + dist(gen);
+		light.Intensity = (totalIntensity / pointLightsCount);
 		light.Position = glm::vec3(4.0f + dist(gen), 4.0f + dist(gen), 4.0f + dist(gen));
 		m_scene.AddPointLight(light);
 	}
-#endif // 0
 }
