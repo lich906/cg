@@ -2,6 +2,3 @@
 	path = imgview/app/vendor/ImGuiFileDialog
 	url = https://github.com/aiekick/ImGuiFileDialog.git
 	branch = Lib_Only
-[submodule "ray_tracing/app/vendor/Quartic"]
-	path = ray_tracing/app/vendor/Quartic
-	url = https://github.com/sasamil/Quartic.git
