@@ -1,17 +1,12 @@
 #include "Ray.h"
 
+Ray::Ray(const Ray& ray, const glm::mat4& transform)
+	: Origin(transform * glm::vec4(ray.Origin, 1.0f))
+	, Direction(transform * glm::vec4(ray.Direction, 0.0f))
+{
+}
+
 glm::vec3 Ray::At(float t) const
 {
 	return Origin + Direction * t;
-}
-
-void Ray::Transform(const glm::mat4& tm)
-{
-	Origin = Project(tm * glm::vec4(Origin, 1.0f));
-	Direction = tm * glm::vec4(Direction, 0.0f);
-}
-
-glm::vec4 Ray::Project(const glm::vec4& vec) const
-{
-	return vec / vec.w;
 }

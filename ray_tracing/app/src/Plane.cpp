@@ -5,10 +5,9 @@ Plane::Plane(const glm::vec3& normal)
 {
 }
 
-bool Plane::Hit(const Ray& actualRay, HitPayload& payload) const
+bool Plane::Hit(const Ray& worldRay, HitPayload& payload) const
 {
-	Ray ray = actualRay;
-	ray.Transform(GetInverseTransform());
+	Ray ray(worldRay, GetInverseTransform());
 
 	float time = -(glm::dot(m_normal, ray.Origin) / glm::dot(m_normal, ray.Direction));
 

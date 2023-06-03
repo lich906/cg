@@ -20,7 +20,7 @@ private:
 	glm::vec4 CalcAmbientLight(const HitPayload& payload) const;
 
 	HitPayload TraceRay(const Ray& ray) const;
-	HitPayload ClosestHit(Ray ray, HitPayload payload) const;
+	HitPayload ClosestHit(const Ray& ray, HitPayload payload) const;
 	HitPayload Miss(const Ray& ray) const;
 
 	/*

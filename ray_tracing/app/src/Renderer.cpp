@@ -174,13 +174,12 @@ HitPayload Renderer::TraceRay(const Ray& ray) const
 	return ClosestHit(ray, payload);
 }
 
-HitPayload Renderer::ClosestHit(Ray ray, HitPayload payload) const
+HitPayload Renderer::ClosestHit(const Ray& ray, HitPayload payload) const
 {
 	const ISceneObject& closestObject = m_activeScene->GetObject(payload.ObjectIndex);
 
-	ray.Transform(closestObject.GetInverseTransform());
-	payload.WorldPosition = ray.At(payload.HitTime);
-	payload.WorldPosition = closestObject.GetTransform() * glm::vec4(payload.WorldPosition, 1.0f);
+	Ray localRay(ray, closestObject.GetInverseTransform());
+	payload.WorldPosition = closestObject.GetTransform() * glm::vec4(localRay.At(payload.HitTime), 1.0f);
 
 	return payload;
 }
