@@ -26,4 +26,5 @@ private:
 	Material m_material;
 	glm::mat4 m_transform{ 1.0f };
 	glm::mat4 m_inverseTransform{ 1.0f };
+	glm::mat3 m_normalMatrix{ 1.0f };
 };

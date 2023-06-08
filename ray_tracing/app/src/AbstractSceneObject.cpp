@@ -24,7 +24,7 @@ glm::mat4 AbstractSceneObject::GetInverseTransform() const
 
 glm::vec3 AbstractSceneObject::CalculateNormal(const glm::vec3& point) const
 {
-	return glm::normalize(glm::mat3(glm::transpose(GetInverseTransform())) * GetNormalInLocalSpace(point));
+	return glm::normalize(m_normalMatrix * GetNormalInLocalSpace(point));
 }
 
 void AbstractSceneObject::SetMaterial(const Material& material)
@@ -41,6 +41,7 @@ void AbstractSceneObject::SetTransform(const glm::mat4& transformMat)
 {
 	m_transform = transformMat;
 	m_inverseTransform = glm::inverse(m_transform);
+	m_normalMatrix = glm::transpose(m_inverseTransform);
 }
 
 glm::mat4 AbstractSceneObject::GetTransform() const
