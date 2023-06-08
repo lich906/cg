@@ -1,17 +1,16 @@
 #pragma once
 
-#include "SceneObjectImpl.h"
+#include "AbstractSceneObject.h"
 
-class Torus : public SceneObjectImpl
+class Torus : public AbstractSceneObject
 {
 public:
 	Torus(float R, float r);
 
 private:
-	// Inherited via ISceneObject
-	virtual bool Hit(const Ray& ray, HitPayload& payload) const override;
-
-	glm::vec3 GetNormal(const glm::vec3& p) const;
+	// Inherited via AbstractSceneObject
+	virtual std::optional<float> FindLowestHitTime(const Ray& ray) const override;
+	virtual glm::vec3 GetNormalInLocalSpace(const glm::vec3& point) const override;
 
 	float m_R, m_r;
 };

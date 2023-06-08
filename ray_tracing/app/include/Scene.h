@@ -9,7 +9,7 @@
 class Scene
 {
 public:
-	int AddPointLight(const PointLight& spotLight);
+	int AddPointLight(const PointLight& pointLight);
 	int AddObject(std::unique_ptr<ISceneObject>&& object);
 	void IterateObjects(const std::function<bool(const ISceneObject*, int)>& callbackFn) const;
 	void IteratePointLights(const std::function<bool(const PointLight&)>& callbackFn) const;

@@ -151,7 +151,7 @@
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneLayer.cpp" />
-    <ClCompile Include="src\SceneObjectImpl.cpp" />
+    <ClCompile Include="src\AbstractSceneObject.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\Torus.cpp" />
     <ClCompile Include="vendor\Quartic\quartic.cpp" />
@@ -167,7 +167,7 @@
     <ClInclude Include="include\SceneLayer.h" />
     <ClInclude Include="include\ISceneObject.h" />
     <ClInclude Include="include\Ray.h" />
-    <ClInclude Include="include\SceneObjectImpl.h" />
+    <ClInclude Include="include\AbstractSceneObject.h" />
     <ClInclude Include="include\Sphere.h" />
     <ClInclude Include="include\Plane.h" />
     <ClInclude Include="include\PointLight.h" />

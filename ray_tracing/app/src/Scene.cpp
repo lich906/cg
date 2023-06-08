@@ -1,9 +1,9 @@
 #include "Scene.h"
 
-int Scene::AddPointLight(const PointLight& spotLight)
+int Scene::AddPointLight(const PointLight& pointLight)
 {
 	size_t index = m_pointLights.size();
-	m_pointLights.push_back(spotLight);
+	m_pointLights.push_back(pointLight);
 	return (int)index;
 }
 

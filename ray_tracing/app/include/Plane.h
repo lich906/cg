@@ -1,15 +1,16 @@
 #pragma once
 
-#include "SceneObjectImpl.h"
+#include "AbstractSceneObject.h"
 
-class Plane : public SceneObjectImpl
+class Plane : public AbstractSceneObject
 {
 public:
 	Plane(const glm::vec3& normal);
 
 private:
-	// Inherited via ISceneObject
-	virtual bool Hit(const Ray& ray, HitPayload& payload) const override;
+	// Inherited via AbstractSceneObject
+	virtual std::optional<float> FindLowestHitTime(const Ray& ray) const override;
+	virtual glm::vec3 GetNormalInLocalSpace(const glm::vec3& point) const override;
 
 	glm::vec3 m_normal;
 };
