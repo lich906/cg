@@ -9,7 +9,7 @@
 class SceneLayer : public core::Layer
 {
 public:
-	SceneLayer();
+	SceneLayer(Scene& scene);
 
 private:
 	// Inherited via Layer
@@ -22,7 +22,7 @@ private:
 	void InitScene();
 
 	Camera m_camera;
-	Scene m_scene;
+	Scene& m_scene;
 	Renderer m_renderer;
 
 	gfx::Program m_shader;
