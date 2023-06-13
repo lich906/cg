@@ -14,12 +14,17 @@ SceneLayer::SceneLayer(Scene& scene)
 {
 }
 
+void SceneLayer::ForceNextRender()
+{
+	m_renderForced = true;
+}
+
 void SceneLayer::OnAttach()
 {
 	m_shader.Use();
 	m_shader.SetUniform1i("u_texture", 0);
 
-	InitScene();
+	//InitScene();
 
 	core::IWindow& window = core::Application::Get().GetWindow();
 	core::event::WindowResizeEvent resizeEvent(
@@ -34,9 +39,11 @@ void SceneLayer::OnUpdate(core::Timestep ts)
 {
 	bool viewProjectionChanged = m_camera.OnUpdate(ts);
 
-	if (viewProjectionChanged)
+	if (viewProjectionChanged || m_renderForced)
 	{
 		m_renderer.Render(m_scene, m_camera);
+		if (m_renderForced)
+			m_renderForced = false;
 	}
 
 	const ColorBuffer& colorBuffer = m_renderer.GetColorBuffer();
@@ -69,38 +76,38 @@ bool SceneLayer::OnResize(core::event::WindowResizeEvent& e)
 
 void SceneLayer::InitScene()
 {
-		auto sphere = std::make_unique<Sphere>();
-		sphere->SetMaterial(Material(glm::vec3{ 1.0f, 0.5f, 0.0f }));
+	auto sphere = std::make_unique<Sphere>();
+	sphere->SetMaterial(Material(glm::vec3{ 1.0f, 0.5f, 0.0f }));
 	glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		transform = glm::scale(transform, glm::vec3(2.0f, 1.0f, 1.0f));
-		sphere->SetTransform(transform);
+	transform = glm::scale(transform, glm::vec3(2.0f, 1.0f, 1.0f));
+	sphere->SetTransform(transform);
 
 	auto sphere2 = std::make_unique<Sphere>();
 	sphere2->SetMaterial(Material(glm::vec3{ 0.1f, 0.7f, 0.2f }));
-		transform = glm::translate(glm::mat4(1.0f), glm::vec3(6.0f, 2.0f, 2.0f));
-		transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(6.0f, 2.0f, 2.0f));
+	transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
 	sphere2->SetTransform(transform);
 
 	auto sphere3 = std::make_unique<Sphere>();
 	sphere3->SetMaterial(Material(glm::vec3{ 0.1f, 0.7f, 1.0f }));
-		transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 1.0f, -1.0f));
-		transform = glm::scale(transform, glm::vec3(0.5f, 1.5f, 0.5f));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 1.0f, -1.0f));
+	transform = glm::scale(transform, glm::vec3(0.5f, 1.5f, 0.5f));
 	sphere3->SetTransform(transform);
 
 	auto sphere4 = std::make_unique<Sphere>();
 	sphere4->SetMaterial(Material(glm::vec3{ 0.7f, 0.2f, 0.6f }));
-		transform = glm::translate(glm::mat4(1.0f), glm::vec3(10.0f, 5.0f, 5.0f));
-		transform = glm::scale(transform, glm::vec3(2.0f, 2.0f, 2.0f));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(10.0f, 5.0f, 5.0f));
+	transform = glm::scale(transform, glm::vec3(2.0f, 2.0f, 2.0f));
 	sphere4->SetTransform(transform);
 
-		auto torus = std::make_unique<Torus>(1.0f, 0.3f);
-		torus->SetMaterial(Material(glm::vec3{ 1.0f, 0.3f, 0.3f }));
-		transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.5f, 3.0f));
-		transform = glm::rotate(transform, glm::radians(70.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		torus->SetTransform(transform);
+	auto torus = std::make_unique<Torus>(1.0f, 0.3f);
+	torus->SetMaterial(Material(glm::vec3{ 1.0f, 0.3f, 0.3f }));
+	transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.5f, 3.0f));
+	transform = glm::rotate(transform, glm::radians(70.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	torus->SetTransform(transform);
 
-		auto plane = std::make_unique<Plane>(glm::vec3(0.0f, 1.0f, 0.0f));
-		plane->SetMaterial(Material(glm::vec3{ 0.3f, 0.3f, 0.3f }));
+	auto plane = std::make_unique<Plane>(glm::vec3(0.0f, 1.0f, 0.0f));
+	plane->SetMaterial(Material(glm::vec3{ 0.3f, 0.3f, 0.3f }));
 
 	m_scene.AddObject(std::move(sphere));
 	m_scene.AddObject(std::move(sphere2));

@@ -5,7 +5,7 @@
 
 constexpr glm::vec4 SKY_COLOR = glm::vec4(0.1f, 0.5f, 0.6f, 1.0f);
 constexpr float AMBIENT_LIGHT_VALUE = 0.2f;
-constexpr float DIRECT_LIGHT_VALUE = 0.2f;
+constexpr float DIRECT_LIGHT_VALUE = 0.0f;
 
 static Color ConvertToColor(const glm::vec4& color)
 {

@@ -11,6 +11,8 @@ class SceneLayer : public core::Layer
 public:
 	SceneLayer(Scene& scene);
 
+	void ForceNextRender();
+
 private:
 	// Inherited via Layer
 	virtual void OnAttach() override;
@@ -24,6 +26,7 @@ private:
 	Camera m_camera;
 	Scene& m_scene;
 	Renderer m_renderer;
+	bool m_renderForced = false;
 
 	gfx::Program m_shader;
 };

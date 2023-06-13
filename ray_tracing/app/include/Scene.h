@@ -14,6 +14,8 @@ public:
 	void IterateObjects(const std::function<bool(const ISceneObject*, int)>& callbackFn) const;
 	void IteratePointLights(const std::function<bool(const PointLight&)>& callbackFn) const;
 	const ISceneObject& GetObject(size_t index) const;
+	ISceneObject& GetObject(size_t index);
+	void RemoveObject(size_t index);
 
 private:
 	std::vector<std::unique_ptr<ISceneObject>> m_objects;

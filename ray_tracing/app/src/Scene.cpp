@@ -36,3 +36,13 @@ const ISceneObject& Scene::GetObject(size_t index) const
 {
 	return *m_objects[index];
 }
+
+ISceneObject& Scene::GetObject(size_t index)
+{
+	return *m_objects[index];
+}
+
+void Scene::RemoveObject(size_t index)
+{
+	m_objects.erase(m_objects.begin() + index);
+}

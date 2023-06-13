@@ -8,8 +8,9 @@ try
 {
 	Scene scene;
 	auto app = std::make_unique<core::Application>("Ray tracing", 320, 200);
-	app->PushLayer(std::make_shared<SceneLayer>(scene));
-	app->PushLayer(std::make_shared<ImGuiOverlay>(scene));
+	auto sceneLayer = std::make_shared<SceneLayer>(scene);
+	app->PushLayer(sceneLayer);
+	app->PushLayer(std::make_shared<ImGuiOverlay>(scene, *sceneLayer));
 
 	app->Run();
 
