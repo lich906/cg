@@ -23,11 +23,17 @@ private:
 	void AddTorusPopup();
 	void AddPointLightPopup();
 
-	void SubmitNewObject(const std::string& label, std::unique_ptr<ISceneObject>&& object);
-
 	class TransformEdit
 	{
 	public:
+		TransformEdit() = default;
+		TransformEdit(
+			const glm::vec3& translate,
+			const glm::vec3& scale,
+			const glm::vec3& rotateAxis, 
+			float rotateAngle
+		);
+
 		void operator()(const char* label, glm::mat4* resultMatrix);
 
 	private:
@@ -46,7 +52,8 @@ private:
 			const std::string& title,
 			int objectIndex,
 			glm::vec3 color,
-			glm::mat4 transform
+			glm::mat4 transform,
+			const TransformEdit& transformEdit
 		);
 
 		/*
@@ -61,11 +68,17 @@ private:
 		void HandleTransformChange(bool submit);
 
 		TransformEdit m_transformEdit;
-		glm::vec3 m_color, m_cachedColor;
-		glm::mat4 m_transform, m_cachedTransform;
+		glm::vec3 m_color;
+		glm::mat4 m_transform;
 		std::string m_title;
 		int m_objectIndex;
+		ISceneObject* m_object;
 	};
+
+	void SubmitNewObject(
+		const std::string& label,
+		std::unique_ptr<ISceneObject>&& object,
+		const TransformEdit& transformEdit);
 
 	Scene& m_scene;
 	SceneLayer& m_sceneLayer;

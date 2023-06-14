@@ -116,7 +116,7 @@ void ImGuiOverlay::AddSpherePopup()
 			auto sphere = std::make_unique<Sphere>();
 			sphere->SetMaterial(Material(color));
 			sphere->SetTransform(transform);
-			SubmitNewObject("Sphere", std::move(sphere));
+			SubmitNewObject("Sphere", std::move(sphere), transformEdit);
 		}
 
 		ImGui::EndPopup();
@@ -141,7 +141,7 @@ void ImGuiOverlay::AddPlanePopup()
 			auto plane = std::make_unique<Plane>(glm::normalize(normal));
 			plane->SetMaterial(Material(color));
 			plane->SetTransform(transform);
-			SubmitNewObject("Plane", std::move(plane));
+			SubmitNewObject("Plane", std::move(plane), transformEdit);
 		}
 
 		ImGui::EndPopup();
@@ -167,7 +167,7 @@ void ImGuiOverlay::AddTorusPopup()
 			auto torus = std::make_unique<Torus>(R, r);
 			torus->SetMaterial(Material(color));
 			torus->SetTransform(transform);
-			SubmitNewObject("Torus", std::move(torus));
+			SubmitNewObject("Torus", std::move(torus), transformEdit);
 		}
 
 		ImGui::EndPopup();
@@ -199,7 +199,7 @@ void ImGuiOverlay::AddPointLightPopup()
 	}
 }
 
-void ImGuiOverlay::SubmitNewObject(const std::string& label, std::unique_ptr<ISceneObject>&& object)
+void ImGuiOverlay::SubmitNewObject(const std::string& label, std::unique_ptr<ISceneObject>&& object, const TransformEdit& transformEdit)
 {
 	glm::mat4 transform = object->GetTransform();
 	glm::vec3 color = object->GetMaterial().Color;
@@ -207,22 +207,23 @@ void ImGuiOverlay::SubmitNewObject(const std::string& label, std::unique_ptr<ISc
 	m_sceneLayer.ForceNextRender();
 	m_sceneObjectNodes.push_back(SceneObjectNode(
 		"[" + std::to_string(index) + "]" + label,
-		index, color, transform));
+		index, color, transform, transformEdit));
 }
 
 ImGuiOverlay::SceneObjectNode::SceneObjectNode(
 	const std::string& title,
 	int objectIndex,
 	glm::vec3 color,
-	glm::mat4 transform
+	glm::mat4 transform,
+	const TransformEdit& transformEdit
 )
 	: m_title(title)
 	, m_objectIndex(objectIndex)
-	, m_cachedColor(color)
-	, m_cachedTransform(transform)
+	, m_object(&s_overlay->m_scene.GetObject(objectIndex))
+	, m_transformEdit(transformEdit)
 {
-	m_color = m_cachedColor;
-	m_transform = m_cachedTransform;
+	m_color = m_object->GetMaterial().Color;
+	m_transform = m_object->GetTransform();
 }
 
 bool ImGuiOverlay::SceneObjectNode::OnRender()
@@ -232,7 +233,7 @@ bool ImGuiOverlay::SceneObjectNode::OnRender()
 		ImGui::ColorEdit3("Color", glm::value_ptr(m_color));
 		m_transformEdit("Transform", &m_transform);
 
-		if (m_color != m_cachedColor || m_transform != m_cachedTransform)
+		if (m_color != m_object->GetMaterial().Color || m_transform != m_object->GetTransform())
 		{
 			bool submit = ImGui::Button("Submit");
 			ImGui::SameLine();
@@ -255,28 +256,28 @@ bool ImGuiOverlay::SceneObjectNode::OnRender()
 
 void ImGuiOverlay::SceneObjectNode::HandleColorChange(bool submit)
 {
-	if (m_color != m_cachedColor)
+	if ((m_color != m_object->GetMaterial().Color) && submit)
 	{
-		if (submit)
-		{
-			m_cachedColor = m_color;
-			s_overlay->m_scene.GetObject(m_objectIndex).SetMaterial(Material(m_color));
-			s_overlay->m_sceneLayer.ForceNextRender();
-		}
+		s_overlay->m_scene.GetObject(m_objectIndex).SetMaterial(Material(m_color));
+		s_overlay->m_sceneLayer.ForceNextRender();
 	}
 }
 
 void ImGuiOverlay::SceneObjectNode::HandleTransformChange(bool submit)
 {
-	if (m_transform != m_cachedTransform)
+	if ((m_transform != m_object->GetTransform()) && submit)
 	{
-		if (submit)
-		{
-			m_cachedTransform = m_transform;
-			s_overlay->m_scene.GetObject(m_objectIndex).SetTransform(m_cachedTransform);
-			s_overlay->m_sceneLayer.ForceNextRender();
-		}
+		s_overlay->m_scene.GetObject(m_objectIndex).SetTransform(m_transform);
+		s_overlay->m_sceneLayer.ForceNextRender();
 	}
+}
+
+ImGuiOverlay::TransformEdit::TransformEdit(const glm::vec3& translate, const glm::vec3& scale, const glm::vec3& rotateAxis, float rotateAngle)
+	: m_translate(translate)
+	, m_scale(scale)
+	, m_rotateAxis(rotateAxis)
+	, m_rotateAngle(rotateAngle)
+{
 }
 
 void ImGuiOverlay::TransformEdit::operator()(const char* label, glm::mat4* resultMatrix)
